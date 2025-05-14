@@ -1,0 +1,15 @@
+{
+  "accentColor": "",
+  "cssTheme": "Things",
+  "baseFontSize": 16,
+  "enabledCssSnippets": [
+    "image-center",
+    "print",
+    "table-styles",
+    "bullet_list",
+    "list_style"
+  ],
+  "theme": "obsidian",
+  "monospaceFontFamily": "Fira Code",
+  "textFontFamily": "Noto Sans KR"
+}

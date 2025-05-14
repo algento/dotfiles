@@ -1,0 +1,481 @@
+{
+  "main": {
+    "id": "6cc45122025fdbfa",
+    "type": "split",
+    "children": [
+      {
+        "id": "2bd5156221842ca2",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "e4a4431ee5f869b4",
+            "type": "leaf",
+            "pinned": true,
+            "state": {
+              "type": "obsidian-projects",
+              "state": {},
+              "pinned": true,
+              "icon": "projects-icon",
+              "title": "Projects"
+            }
+          },
+          {
+            "id": "21771e197fb67da1",
+            "type": "leaf",
+            "pinned": true,
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "2. Areas/DevTools/Vim 사용법.md",
+                "mode": "source",
+                "source": false,
+                "backlinks": true,
+                "backlinkOpts": {
+                  "collapseAll": false,
+                  "extraContext": false,
+                  "sortOrder": "alphabetical",
+                  "showSearch": false,
+                  "searchQuery": "",
+                  "backlinkCollapsed": false,
+                  "unlinkedCollapsed": true
+                }
+              },
+              "pinned": true,
+              "icon": "lucide-file",
+              "title": "Vim 사용법"
+            }
+          },
+          {
+            "id": "3e96af73a5da8a75",
+            "type": "leaf",
+            "pinned": true,
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "2. Areas/DevTools/Tmux 사용법.md",
+                "mode": "source",
+                "source": false,
+                "backlinks": true,
+                "backlinkOpts": {
+                  "collapseAll": false,
+                  "extraContext": false,
+                  "sortOrder": "alphabetical",
+                  "showSearch": false,
+                  "searchQuery": "",
+                  "backlinkCollapsed": false,
+                  "unlinkedCollapsed": true
+                }
+              },
+              "pinned": true,
+              "icon": "lucide-file",
+              "title": "Tmux 사용법"
+            }
+          },
+          {
+            "id": "ae68fb61b20b196c",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "1. Projects/Deep Learning Study/생산성 향상을 위한 AI 툴 사용법.md",
+                "mode": "source",
+                "source": false,
+                "backlinks": true,
+                "backlinkOpts": {
+                  "collapseAll": false,
+                  "extraContext": false,
+                  "sortOrder": "alphabetical",
+                  "showSearch": false,
+                  "searchQuery": "",
+                  "backlinkCollapsed": false,
+                  "unlinkedCollapsed": true
+                }
+              },
+              "icon": "lucide-file",
+              "title": "생산성 향상을 위한 AI 툴 사용법"
+            }
+          },
+          {
+            "id": "d01a7dbc787c9107",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "1. Projects/Deep Learning Study/Query, Key, Value in Attention.md",
+                "mode": "source",
+                "source": false,
+                "backlinks": true,
+                "backlinkOpts": {
+                  "collapseAll": false,
+                  "extraContext": false,
+                  "sortOrder": "alphabetical",
+                  "showSearch": false,
+                  "searchQuery": "",
+                  "backlinkCollapsed": false,
+                  "unlinkedCollapsed": true
+                }
+              },
+              "icon": "lucide-file",
+              "title": "Query, Key, Value in Attention"
+            }
+          },
+          {
+            "id": "4ab7dd9d70d88450",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "1. Projects/Deep Learning Study/Ensemble Methods.md",
+                "mode": "source",
+                "source": false,
+                "backlinks": true,
+                "backlinkOpts": {
+                  "collapseAll": false,
+                  "extraContext": false,
+                  "sortOrder": "alphabetical",
+                  "showSearch": false,
+                  "searchQuery": "",
+                  "backlinkCollapsed": false,
+                  "unlinkedCollapsed": true
+                }
+              },
+              "icon": "lucide-file",
+              "title": "Ensemble Methods"
+            }
+          },
+          {
+            "id": "94bfbc8a00947c70",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "2. Areas/DevTools/Ghostty Terminal.md",
+                "mode": "source",
+                "source": false,
+                "backlinks": true,
+                "backlinkOpts": {
+                  "collapseAll": false,
+                  "extraContext": false,
+                  "sortOrder": "alphabetical",
+                  "showSearch": false,
+                  "searchQuery": "",
+                  "backlinkCollapsed": false,
+                  "unlinkedCollapsed": true
+                }
+              },
+              "icon": "lucide-file",
+              "title": "Ghostty Terminal"
+            }
+          },
+          {
+            "id": "7163b66666ad4c78",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "0. Inbox/(NeoVim) Setup for Python.md",
+                "mode": "source",
+                "source": false,
+                "backlinks": true,
+                "backlinkOpts": {
+                  "collapseAll": false,
+                  "extraContext": false,
+                  "sortOrder": "alphabetical",
+                  "showSearch": false,
+                  "searchQuery": "",
+                  "backlinkCollapsed": false,
+                  "unlinkedCollapsed": true
+                }
+              },
+              "icon": "lucide-file",
+              "title": "(NeoVim) Setup for Python"
+            }
+          },
+          {
+            "id": "e1b16d88f7d97303",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "0. Inbox/250505_165238-Linux for Newbs.md",
+                "mode": "source",
+                "source": false,
+                "backlinks": true,
+                "backlinkOpts": {
+                  "collapseAll": false,
+                  "extraContext": false,
+                  "sortOrder": "alphabetical",
+                  "showSearch": false,
+                  "searchQuery": "",
+                  "backlinkCollapsed": false,
+                  "unlinkedCollapsed": true
+                }
+              },
+              "icon": "lucide-file",
+              "title": "250505_165238-Linux for Newbs"
+            }
+          },
+          {
+            "id": "2094460f4a0d525a",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "0. Inbox/(NeoVim) NeoVim for Newbs.md",
+                "mode": "source",
+                "source": false,
+                "backlinks": true,
+                "backlinkOpts": {
+                  "collapseAll": false,
+                  "extraContext": false,
+                  "sortOrder": "alphabetical",
+                  "showSearch": false,
+                  "searchQuery": "",
+                  "backlinkCollapsed": false,
+                  "unlinkedCollapsed": true
+                }
+              },
+              "icon": "lucide-file",
+              "title": "(NeoVim) NeoVim for Newbs"
+            }
+          }
+        ],
+        "currentTab": 7
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "33dba205360369e7",
+    "type": "split",
+    "children": [
+      {
+        "id": "be61203c4f4b7349",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "e7b635d88632cf7c",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "파일 탐색기"
+            }
+          },
+          {
+            "id": "26abe3b697b11484",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "dotfiles",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "검색"
+            }
+          },
+          {
+            "id": "1b75f5a186923921",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Bookmarks"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 249.5
+  },
+  "right": {
+    "id": "5b061fbfeaa401b2",
+    "type": "split",
+    "children": [
+      {
+        "id": "0d8c62ccb4ed2503",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "ff7e589adb1089fe",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "1. Projects/Python Study/(Python) fstring.md",
+                "collapseAll": true,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "(Python) fstring의 백링크"
+            }
+          },
+          {
+            "id": "08cc1de494ec7dc9",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "1. Projects/Python Study/(Python) fstring.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "(Python) fstring의 나가는 링크"
+            }
+          },
+          {
+            "id": "6d0e9a6fda0a5688",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
+            }
+          },
+          {
+            "id": "ecf743cb07e864bd",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "All properties"
+            }
+          },
+          {
+            "id": "8b49f51bcf5c9eb8",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "0. Inbox/(NeoVim) Setup for C & C++.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "(NeoVim) Setup for C & C++ 의 개요"
+            }
+          },
+          {
+            "id": "0aedd65bb8fb8e73",
+            "type": "leaf",
+            "state": {
+              "type": "advanced-tables-toolbar",
+              "state": {},
+              "icon": "spreadsheet",
+              "title": "Advanced Tables"
+            }
+          },
+          {
+            "id": "3227f5738a591e64",
+            "type": "leaf",
+            "state": {
+              "type": "git-view",
+              "state": {},
+              "icon": "git-pull-request",
+              "title": "Source Control"
+            }
+          }
+        ],
+        "currentTab": 5
+      }
+    ],
+    "direction": "horizontal",
+    "width": 290.5,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:빠른 전환기 열기": false,
+      "markdown-importer:마크다운 형식 불러오기 열기": false,
+      "zk-prefixer:새 고유 노트 생성": false,
+      "obsidian-projects:Open projects": false,
+      "workspaces:작업 공간 레이아웃 관리": false,
+      "graph:그래프 뷰 열기": false,
+      "table-editor-obsidian:Advanced Tables Toolbar": false,
+      "dbfolder:Create a new database table": false,
+      "command-palette:명령어 팔레트 열기": false,
+      "templater-obsidian:Templater": false,
+      "obsidian-git:Open Git source control": false,
+      "canvas:새 캔버스 만들기": false,
+      "obsidian-excalidraw-plugin:New drawing": false,
+      "obsidian-file-cleaner:Clean files": false
+    }
+  },
+  "active": "7163b66666ad4c78",
+  "lastOpenFiles": [
+    "0. Inbox/(NeoVim) Setup for C & C++.md",
+    "0. Inbox/(NeoVim) NeoVim for Newbs.md",
+    "0. Inbox/(NeoVim) Setup for Python.md",
+    "0. Inbox/250505_165238-Linux for Newbs.md",
+    "2. Areas/DevTools/Setting Mac.md",
+    "0. Inbox/(NeoVim) Plugins in NeoVim.md",
+    "0. Inbox/250228_161453-Layered Architecture.md",
+    "0. Inbox/(NeoVim) Basic Settings.md",
+    "0. Inbox/(NeoVim) Using LSP.md",
+    "0. Inbox/[[(NeoVim).md",
+    "2. Areas/DevTools/Vim 사용법.md",
+    "0. Inbox/(NeoVim) Manageing Plugins with Lua Files.md",
+    "0. Inbox/(Paper) DL archives.md",
+    "2. Areas/DevTools/Ghostty Terminal.md",
+    "1. Projects/Deep Learning Study/LLM 사용법 (like ChatGPT).md",
+    "1. Projects/Deep Learning Study/생산성 향상을 위한 AI 툴 사용법.md",
+    "3. Resources/Attachments/screen_capture 7.png",
+    "3. Resources/Attachments/screen_capture 1 1.png",
+    "2. Areas/DevTools/Setting Ubuntu 22.04.md",
+    "0. Inbox/250501_071543-.md",
+    "3. Resources/Templates/yaml-front-matter.md",
+    "1. Projects/Python Study/(Python) gRPC.md",
+    "0. Inbox/250501_071216-.md",
+    "0. Inbox/무제.md",
+    "2. Areas/DevTools/Tmux 사용법.md",
+    "2. Areas/DevTools/Kitty Terminal.md",
+    "2. Areas/DevTools/Terminal Setting.md",
+    "3. Resources/Attachments/alacritty.zip",
+    "3. Resources/Attachments/kitty.zip",
+    "2. Areas/Productivity/(Mac)앱 설정 파일 백업 및 복구.md",
+    "3. Resources/Attachments/Pasted image 20250428211731.png",
+    "3. Resources/Attachments/Pasted image 20250428203807.png",
+    "3. Resources/Attachments/Pasted image 20250428191723.png",
+    "3. Resources/Attachments/screen_capture 2 1.png",
+    "3. Resources/Attachments/screen_capture 3 1.png",
+    "2. Areas/SLAM/IMU Resources.md~",
+    "3. Resources/Attachments/tmux1.conf",
+    "3. Resources/Attachments/tmux2.conf",
+    "3. Resources/Attachments/tensor-view_permute.png",
+    "3. Resources/Attachments/variants_of_MHA-fig1.png",
+    "3. Resources/Attachments/cross-attn-comparison_between_self-attn.png",
+    "3. Resources/Attachments/cross-attention-2022vdslab_2학기_유현우.pdf",
+    "3. Resources/Attachments/Birds-eye-view Representation 변환을통한 주변 환경 인식.pdf",
+    "Excalidraw/HowIUseLLMs.excalidraw",
+    "무제.canvas",
+    "3. Resources/Attachments/2023-동계세미나_유현우.pdf",
+    "3. Resources/Attachments/Swin-Transformer_notes.pdf"
+  ]
+}

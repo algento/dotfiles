@@ -1,0 +1,421 @@
+{
+    //*----------------------------------------------------------------------*//
+    //* Workbench                                                            *//
+    //*----------------------------------------------------------------------*//
+    "workbench.colorTheme": "One Monokai",
+    "workbench.iconTheme": "material-icon-theme",
+    "workbench.editorAssociations": {
+        "*.ipynb": "jupyter-notebook"
+    },
+
+    //*----------------------------------------------------------------------*//
+    //* Window & Explorer                                                    *//
+    //*----------------------------------------------------------------------*//
+    "window.openFilesInNewWindow": "off",
+    "window.closeWhenEmpty": true,
+    "window.zoomLevel": 1,
+    "extensions.autoUpdate": true,
+    "explorer.confirmDragAndDrop": false,
+    "explorer.confirmDelete": false,
+
+    //*----------------------------------------------------------------------*//
+    //* Files                                                                *//
+    //*----------------------------------------------------------------------*//
+    "files.autoSave": "afterDelay",
+    "files.hotExit": "off",
+    "files.exclude": {
+        "**//.git": true,
+        "**//.vscode": false,
+        "**//build": false
+    },
+    "files.associations": {
+        "*.m": "matlab"
+    },
+    "search.exclude": {
+        "**//.git": true,
+        "**//build": true,
+        "**//.cache": true,
+        "**///*.xcodeproj": true,
+        "**///*.xcworkspace": true
+    },
+    "search.showLineNumbers": true,
+    // "security.workspace.trust.untrustedFiles": "open",
+    "extensions.ignoreRecommendations": true,
+    "search.quickOpen.includeHistory": false,
+
+    //*----------------------------------------------------------------------*//
+    //* Terminal & Console                                                   *//
+    //*----------------------------------------------------------------------*//
+    "terminal.integrated.inheritEnv": false,
+    "terminal.integrated.scrollback": 10000,
+    "terminal.integrated.fontSize": 12,
+    "terminal.integrated.fontFamily": "MesloLGS NF",
+    "terminal.integrated.profiles.windows": {
+        "cmd-VS": {
+            "path": "C:\\Windows\\System32\\cmd.exe",
+            "args": [
+                // "/k",
+                // "C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\Professional\\Common7\\Tools\\VsDevCmd.bat"
+            ]
+        },
+        "wsl": {
+            "path": "ubuntu-2404.exe",
+            "args": [],
+            "icon": "terminal-ubuntu"
+        },
+        "alacritty": {
+            "path": "kitty",
+            "args": []
+        }
+    },
+    "terminal.integrated.defaultProfile.windows": "PowerShell",
+    "terminal.integrated.defaultProfile.osx": "zsh",
+    "terminal.external.osxExec": "kitty",
+    "terminal.integrated.defaultProfile.linux": "zsh",
+    "terminal.external.windowsExec": "C:\\Program Files\\Alacritty\\alacritty.exe",
+    "debug.console.fontSize": 12,
+    "debug.console.fontFamily": "MesloLGS NF",
+    //*----------------------------------------------------------------------*//
+    //* Editor                                                               *//
+    //*----------------------------------------------------------------------*//
+    "editor.showFoldingControls": "always",
+    "editor.fontFamily": "Fira Code",
+    "editor.wordWrap": "on",
+    "editor.wordBasedSuggestionsMode": "currentDocument",
+    "editor.snippetSuggestions": "bottom",
+    "editor.suggest.insertMode": "replace",
+    "editor.suggestSelection": "recentlyUsedByPrefix",
+    "editor.quickSuggestions": {
+        "other": true,
+        "comments": false,
+        "strings": false
+    },
+    "editor.bracketPairColorization.enabled": true,
+    "editor.guides.bracketPairs": "active",
+    "editor.fontSize": 12,
+    "editor.fontLigatures": true,
+    "editor.lineHeight": 22,
+    "editor.minimap.enabled": false,
+    "editor.formatOnType": false,
+    "editor.formatOnPaste": false,
+    "editor.formatOnSave": true,
+    "editor.formatOnSaveMode": "file",
+    "editor.rulers": [80, 120],
+    "editor.renderWhitespace": "boundary",
+    "editor.detectIndentation": false,
+    "editor.accessibilitySupport": "off",
+    "editor.multiCursorModifier": "ctrlCmd",
+    "task.quickOpen.history": 10,
+
+    //*----------------------------------------------------------------------*//
+    //* Setting Sync                                                         *//
+    //*----------------------------------------------------------------------*//
+    "settingsSync.ignoredExtensions": [],
+    "settingsSync.ignoredSettings": [
+        "clangd.path",
+        "clangd.arguments",
+        "python.defaultInterpreterPath",
+        "python.condaPath",
+        "cmake.cmakePath",
+        "matlab.matlabpath",
+        "matlab.mlintpath",
+        "window.zoomLevel"
+    ],
+
+    ///*---------------------------------------------------------------------*//
+    ///* Git & Github                                                        *//
+    //*----------------------------------------------------------------------*//
+    "git.enableSmartCommit": true,
+    "git.autofetch": true,
+    "[git-commit]": {
+        "editor.rulers": [80]
+    },
+    "git.confirmSync": false,
+    "git.openRepositoryInParentFolders": "never",
+    "github.copilot.enable": {
+        "*": false,
+        "plaintext": false,
+        "markdown": false,
+        "scminput": false
+    },
+
+    //*----------------------------------------------------------------------*//
+    //* Markdown 설정                                                         *//
+    //*----------------------------------------------------------------------*//
+    "[markdown]": {
+        "editor.insertSpaces": true,
+        "editor.tabSize": 4,
+        "editor.defaultFormatter": "DavidAnson.vscode-markdownlint"
+    },
+
+    "markdown.preview.fontSize": 12,
+    "markdown.preview.lineHeight": 1.3,
+    
+    "markdown-preview-enhanced.mathRenderingOption": "KaTeX",
+    "markdown-preview-enhanced.previewTheme": "one-dark.css",
+    
+    "markdown.extension.orderedList.marker": "one",
+    "markdown.extension.tableFormatter.normalizeIndentation": true,
+    "markdown.extension.orderedList.autoRenumber": false,
+    "markdown.extension.list.indentationSize": "inherit",
+    
+    "markdownlint.run": "onSave",
+    "markdownlint.config": {
+        "lists": { "indent": 4 },
+        "ul-indent": { "indent": 4 }
+    },
+
+    //*----------------------------------------------------------------------*//
+    //* C/C++                                                                *//
+    //*----------------------------------------------------------------------*//
+    "[c]": {
+        // "editor.defaultFormatter": "ms-vscode.cpptools"
+        "editor.insertSpaces": true,
+        "editor.tabSize": 4,
+        "editor.defaultFormatter": "llvm-vs-code-extensions.vscode-clangd"
+    },
+    "[cpp]": {
+        // "editor.defaultFormatter": "ms-vscode.cpptools"
+        "editor.insertSpaces": true,
+        "editor.tabSize": 4,
+        "editor.defaultFormatter": "llvm-vs-code-extensions.vscode-clangd"
+    },
+
+    "C_Cpp.default.cppStandard": "c++17",
+    "C_Cpp.default.cStandard": "c11",
+    "C_Cpp.vcpkg.enabled": false,
+    "C_Cpp.suggestSnippets": false,
+    "C_Cpp.autocomplete": "disabled",
+    "C_Cpp.errorSquiggles": "disabled",
+    //* Disable formatting and intellisense engine in MS C/C++ extension(Use clangd for LSP)
+    "C_Cpp.formatting": "disabled",
+    "C_Cpp.intelliSenseEngine": "disabled", // "default"
+    "C_Cpp.clang_format_fallbackStyle": "{ BasedOnStyle: Google, IndentWidth: 4, AccessModifierOffset: -3}",
+
+
+    //*----------------------------------------------------------------------*//
+    //* Clang                                                                *//
+    //*----------------------------------------------------------------------*//
+    "lldb.verboseLogging": true,
+    "lldb.suppressUpdateNotifications": true,
+    "clangd.path": "/Users/sejongheo/Library/Application Support/Code/User/globalStorage/llvm-vs-code-extensions.vscode-clangd/install/19.1.2/clangd_19.1.2/bin/clangd",
+    "clangd.arguments": [
+        "--log=verbose",
+        "--pretty",
+        "--background-index",
+        "--query-driver=/usr/local/bin/gcc-13, /usr/local/bin/c++-13, /usr/bin/clang",
+        "--header-insertion=iwyu",
+        "--suggest-missing-includes",
+        "--clang-tidy",
+        "--compile-commands-dir=./build/"
+    ],
+    "clangd.onConfigChanged": "restart",
+    "clangd.checkUpdates": true,
+
+    //*----------------------------------------------------------------------*//
+    //* Python                                                               *//
+    //*----------------------------------------------------------------------*//
+    "[python]": {
+        "editor.insertSpaces": true,
+        "editor.tabSize": 4,
+        "editor.defaultFormatter": "ms-python.black-formatter"
+    },
+    "python.languageServer": "Jedi",
+    "python.envFile": "${workspaceFolder}/env",
+    "pylint.args": [
+        "--init-hook",
+        "import sys; sys.path.append('path to folder your module is in')"
+    ],
+    "python.analysis.typeCheckingMode": "basic",
+    "python.defaultInterpreterPath": "~/miniforge3/bin/python",
+    "python.condaPath": "~/miniforge3/bin/conda",
+    "python.analysis.supportRestructuredText": false,
+    "python.analysis.extraPaths": ["${workspaceFolder}"],
+    
+    "jupyter.askForKernelRestart": false,
+
+    "autoDocstring.startOnNewLine": true,
+    "autoDocstring.quoteStyle": "'''",
+
+    "vsintellicode.python.completionsEnabled": false,
+    "vsintellicode.features.python.deepLearning": "disabled",
+
+    //*----------------------------------------------------------------------*//
+    //* flylint with cppcheck                                                *//
+    //*----------------------------------------------------------------------*//
+    "c-cpp-flylint.clang.enable": false,
+    "c-cpp-flylint.flexelint.enable": false,
+    "c-cpp-flylint.cppcheck.enable": false, // true
+    "c-cpp-flylint.cppcheck.suppressions": ["cstyleCast"],
+    "c-cpp-flylint.cppcheck.inconclusive": false, // true
+    "c-cpp-flylint.cppcheck.verbose": false,
+       
+    //*----------------------------------------------------------------------*//
+    //* CMake                                                                *//
+    //*----------------------------------------------------------------------*//
+    "[cmake]": {
+        "editor.insertSpaces": true,
+        "editor.tabSize": 4,
+        "editor.defaultFormatter": "xaver.clang-format"
+    },
+
+    "cmake.cmakePath": "/usr/local/bin/cmake",
+    "cmake.pinnedCommands": [
+        "workbench.action.tasks.configureTaskRunner",
+        "workbench.action.tasks.runTask"
+    ],
+    "cmake.showConfigureWithDebuggerNotification": false,
+    "cmake.automaticReconfigure": false,
+    "cmake.configureOnEdit": false,
+    "cmake.configureOnOpen": false,
+
+    "cmakeFormat.args": [
+        "--hashruler-min-length 10",
+        "--tab-size 4"
+    ],
+
+    //*----------------------------------------------------------------------*//
+    //* Project Manager                                                      *//
+    //*----------------------------------------------------------------------*//
+    "projectManager.git.baseFolders": ["~/Github/Programming", "~/Github/SLAM"],
+    "projectManager.tags": ["Personal", "Work", "SLAM", "C++", "OpenGL"],
+
+    //*----------------------------------------------------------------------*//
+    //* doxygen                                                              *//
+    //*----------------------------------------------------------------------*//
+    "doxdocgen.generic.authorEmail": "tromberx@gmail.com",
+    "doxdocgen.generic.authorName": "Sejong Heo",
+    "doxdocgen.file.copyrightTag": [
+        "@copyright Copyright (c) Sejong Heo {year}"
+    ],
+    
+    //*----------------------------------------------------------------------*//
+    //* Matlab                                                               *//
+    //*----------------------------------------------------------------------*//
+    "matlab-formatter.indentwidth": 4,
+    "matlab.linterConfig": "",
+    "matlab.matlabpath": "/Applications/MATLAB_R2021b.app/bin/matlab",
+    "matlab.mlintpath": "/Applications/MATLAB_R2021b.app/bin/maci64/mlint",
+
+    //*----------------------------------------------------------------------*//
+    //* Plant UML                                                            *//
+    //*----------------------------------------------------------------------*//
+    "plantuml.exportOutDir": "docs/diagrams/out",
+    "plantuml.diagramsRoot": "docs/diagrams/src",
+    "plantuml.render": "Local",
+    "plantuml.includepaths": ["docs/", "docs/diagrams/src"],
+
+    //*----------------------------------------------------------------------*//
+    //* Etc.                                                                 *//
+    //*----------------------------------------------------------------------*//
+    
+    "redhat.telemetry.enabled": true,
+    "security.workspace.trust.untrustedFiles": "open",
+    "better-comments.multilineComments": true,
+    "diffEditor.ignoreTrimWhitespace": false,
+    "prettier.tabWidth": 4,
+    "explorer.confirmPasteNative": false,
+    
+    //*----------------------------------------------------------------------*//
+    //* OS dependency                                                        *//
+    //*----------------------------------------------------------------------*//
+    //* cmake.cmakePath ----------------*//
+    //! mac
+    // "cmake.cmakePath": "/usr/local/bin/cmake",
+    //! windows
+    // "cmake.cmakePath": "C:\\Program Files\\CMake\\bin\\cmake.exe"
+    //! linux
+    // "cmake.cmakePath": "/usr/bin/cmake",
+    //* python.condaPath ----------------*//
+    //! mac
+    // "python.condaPath": "/usr/local/anaconda3/bin/conda",
+    //! windows
+    // "python.condaPath": "~/anaconda3/conda",
+    // "python.condaPath": "C:\\tools\\miniconda\\condabin",
+    //! linux
+    // "python.condaPath": "~/anaconda3/bin/conda",
+    //* python.defaultInterpreterPath ----------------*//
+    //! mac
+    // "python.defaultInterpreterPath": "/usr/local/anaconda3/bin",
+    //! windows
+    // "python.defaultInterpreterPath": "~/anaconda3",
+    //! linux
+    // "python.defaultInterpreterPath": "~/anaconda3/bin/python",
+    //* matlab.matlabpath ----------------*//
+    //! mac
+    // "matlab.matlabpath": "/Applications/MATLAB_R2021b.app/bin/matlab",
+    //! windows
+    // "matlab.matlabpath": "/Applications/MATLAB_R2021b.app/bin/matlab",
+    //! linux
+    // "matlab.matlabpath": "/Applications/MATLAB_R2021b.app/bin/matlab",
+    //* matlab.mlintpath ----------------*//
+    // mac
+    // "matlab.mlintpath": "/Applications/MATLAB_R2021b.app/bin/maci64/mlint",
+    //! windows
+    //"matlab.mlintpath": "/Applications/MATLAB_R2021b.app/bin/maci64/mlint",
+    //! linux
+    // "matlab.mlintpath": "/Applications/MATLAB_R2021b.app/bin/maci64/mlint",
+    //* clangd.path ----------------------*//
+    //! mac
+    // "clangd.path": "/Users/sejongheo/Library/Application Support/Code/User/globalStorage/llvm-vs-code-extensions.vscode-clangd/install/14.0.3/clangd_14.0.3/bin/clangd",
+    //! windows:
+    // "clangd.path": "C:\\Program Files\\LLVM\\bin\\clangd.exe",
+    //! linux:
+    // "clangd.path": "/usr/local/bin/clangd",
+    //* clangd.arguments ----------------*//
+    //! mac
+    // "clangd.arguments": [
+    //     "--log=verbose",
+    //     "--pretty",
+    //     "--background-index",
+    //     "--query-driver=/usr/local/bin/g++-12",
+    //     ""--resource-dir=/usr/local/opt/../Cellar/gcc/12.2.0/include/c++/12",
+    //     "--header-insertion=iwyu",
+    //     "--suggest-missing-includes",
+    //     "--clang-tidy",
+    //     "--compile-commands-dir=./build/"
+    // ],
+    //! windows
+    // "clangd.arguments": [
+    //     "--log=verbose",
+    //     "--pretty",
+    //     "--background-index",
+    //     "--query-driver=C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.33.31629\bin\\Hostx64\\x64\\cl.exe",
+    //     "--header-insertion=iwyu",
+    //     "--suggest-missing-includes",
+    //     "--clang-tidy",
+    //     "--compile-commands-dir=./build/"
+    // ],
+    //! linux
+    // "clangd.arguments": [
+    //     "--log=verbose",
+    //     "--pretty",
+    //     "--background-index",
+    //     "--query-driver=/usr/bin/g++-12",
+    //     "--header-insertion=iwyu",
+    //     "--suggest-missing-includes",
+    //     "--clang-tidy",
+    //     "--compile-commands-dir=./build/"
+    // ],
+
+    //! Prefer "Ninja"
+    // "cmake.generator": "Ninja",
+    // "cmake.sourceDirectory": "${workspaceFolder}",
+    //! Set build directory to format: "./build/clang13-msvc-x86_64/debug
+    // "cmake.buildDirectory": "${workspaceFolder}/build/${buildKit}/${buildType}",
+    //! Copy compile_commands.json from the build folder to root folder, so that clangd can use it
+    //! NOTE: Alternatively, you can pass --compile-commands-dir=<string> in the "clangd.arguments" array above
+    // "cmake.copyCompileCommands": "${workspaceFolder}/compile_commands.json",
+    //! Configure the environment for VCPKG and compile_commands. Disable verbose if you want less information from builds.
+    // "cmake.environment": {
+    //   "VERBOSE": "1",
+    //   //! Assuming you have vcpkg in-tree at "<project>/vcpkg", otherwise change this or set it in your ENV system-wide
+    //   "VCPKG_ROOT": "${workspaceFolder}/vcpkg",
+    //   //! Set your default triplet here to match your host and preference
+    //   "VCPKG_DEFAULT_TRIPLET": "x64-windows-static"
+    // },
+    // "cmake.configureSettings": {
+    //   "CMAKE_EXPORT_COMPILE_COMMANDS": 1,
+    //   "CMAKE_TOOLCHAIN_FILE": "$VCPKG_ROOT/scripts/buildsystems/vcpkg.cmake"
+    // }
+}

@@ -1,0 +1,26 @@
+mjx-math[display="true"] {
+    font-size: 110%;
+}
+
+@media print {
+  h1, h2, h3, h4, h5, h6, p, ul, li, ol {
+    font-size: initial;
+    font-weight: initial;
+    font-family: initial;
+    color: initial !important;
+    background: none !important;
+    outline: none !important;
+    border: none !important;
+    text-shadow: none !important;
+  }
+
+  th, td {
+    font-size: initial;
+    font-weight: initial;
+    font-family: initial;
+    color: initial !important;
+    background: none !important;
+    outline: none !important;
+    text-shadow: none !important;
+    border: 1px solid darkgray !important;
+  }

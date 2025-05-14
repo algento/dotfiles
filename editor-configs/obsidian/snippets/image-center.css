@@ -1,0 +1,81 @@
+/* Sourced from lithou
+https://github.com/Lithou/Sandbox/blob/main/.obsidian/snippets/pub-Image%20Flags.css*/
+
+
+table{
+    width: auto;
+    display: table;
+}
+
+.grid span.image-embed[alt*="."],
+span[alt*="grid"]{
+    display: table-cell;
+    vertical-align: middle;
+    padding: 3px;
+}
+
+img[alt*="grid"],
+.grid img[alt*="."]{
+    max-height: 30vh;
+}
+
+/* Floating Images */
+img[alt*="left"] {
+    float:left;
+    clear:left;
+    margin-right: 1rem;
+    margin-bottom: 4px;
+    margin-top: 4px;
+}
+
+
+img[alt*="right"] {
+    float:right;
+    clear:right;
+    margin-left: 1rem;
+    margin-bottom: 4px;
+    margin-top: 4px;
+}
+
+img[alt*="center"],img[alt*="centre"] {
+    display:block;
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: 4px;
+    margin-top: 4px;
+}
+
+.markdown-preview-view, .markdown-source-view.mod-cm6 {
+	.callout[data-callout*=caption] {
+	    background-color: transparent;
+	    display: table;
+	    padding: 0;
+	}
+	.callout[data-callout*=caption] .callout-content {
+	    font-style: italic;
+	    border: thin rgba(192, 192, 192, 0.388) solid;
+	    background-color: rgba(var(--callout-color), 0.1);
+	    border: thin rgba(var(--callout-color), var(--callout-border-opacity)) solid;
+	    border-radius: var(--callout-radius);
+	    padding: 0 0.5em;
+	    font-size: smaller;
+	    text-align: center;
+	}
+	
+	/* align - caption (center) | caption-left | caption-right */ 
+	/* includes reading mode and edit mode */
+	.callout[data-callout=caption] {
+	    margin: 0 auto;
+	}
+	.callout[data-callout*=left] {
+	    margin: 0 auto 0 0;
+	}
+	.callout[data-callout*=right] {
+	    margin: 0 0 0 auto;
+	}
+	
+	/* hide callout icon and title */
+	.callout[data-callout*=caption] .callout-title {
+	    display: none; 
+	}
+}

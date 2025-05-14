@@ -1,0 +1,24 @@
+{
+  "readableLineLength": false,
+  "alwaysUpdateLinks": true,
+  "showUnsupportedFiles": true,
+  "attachmentFolderPath": "3. Resources/Attachments",
+  "promptDelete": false,
+  "showLineNumber": true,
+  "strictLineBreaks": true,
+  "spellcheck": false,
+  "propertiesInDocument": "visible",
+  "newFileLocation": "folder",
+  "newFileFolderPath": "0. Inbox",
+  "defaultViewMode": "source",
+  "smartIndentList": false,
+  "autoPairMarkdown": false,
+  "pdfExportSettings": {
+    "includeName": false,
+    "pageSize": "A4",
+    "landscape": false,
+    "margin": "0",
+    "downscalePercent": 70
+  },
+  "userIgnoreFilters": []
+}

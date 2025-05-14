@@ -1,0 +1,570 @@
+tap "buo/cask-upgrade"
+# JPEG image codec that aids compression and decompression
+brew "jpeg-turbo"
+# Library for manipulating PNG images
+brew "libpng"
+# General-purpose data compression with high compression ratio
+brew "xz"
+# TIFF library and utilities
+brew "libtiff"
+# High dynamic-range image file format
+brew "openexr"
+# C++ template library for linear algebra
+brew "eigen"
+# C library for multiple-precision floating-point computations
+brew "mpfr"
+# GNU compiler collection
+brew "gcc"
+# High performance message passing library
+brew "open-mpi"
+# Optimized BLAS library
+brew "openblas"
+# Cross-platform C++ Library for asynchronous programming
+brew "asio"
+# Portable library for importing many well-known 3D model formats
+brew "assimp"
+# Core application library for C
+brew "glib"
+# Automatic configure script builder
+brew "autoconf"
+# Text-based UI library
+brew "ncurses"
+# Per-project, per-directory shell environments
+brew "autoenv"
+# Shell extension to jump to frequently used directories
+brew "autojump"
+# Tool for generating GNU Standards-compliant Makefiles
+brew "automake"
+# Clone of cat(1) with syntax highlighting and Git integration
+brew "bat"
+# Software library to render fonts
+brew "freetype"
+# Vector graphics library with cross-device output support
+brew "cairo"
+# C/C++ and Java libraries for Unicode and globalization
+brew "icu4c@76"
+# Remove large files or passwords from Git history like git-filter-branch
+brew "bfg"
+# Parser generator
+brew "bison"
+# Collection of portable C++ source libraries
+brew "boost"
+# C++ library for C++/Python3 interoperability
+brew "boost-python3"
+# Resource monitor. C++ version and continuation of bashtop and bpytop
+brew "btop"
+# Physics SDK
+brew "bullet"
+# Emacs dependency management
+brew "cask"
+# Modern, C++-native, test framework
+brew "catch2"
+# Open-source formatting library for C++
+brew "fmt"
+# Object-file caching compiler wrapper
+brew "ccache"
+# Next-gen compiler infrastructure
+brew "llvm"
+# C/C++/ObjC language server
+brew "ccls"
+# Library for processing command-line flags
+brew "gflags"
+# Application-level logging library
+brew "glog"
+# Programs that partition graphs and order matrices
+brew "metis"
+# Suite of Sparse Matrix Software
+brew "suite-sparse"
+# Rich and complete approach to parallelism in C++
+brew "tbb"
+# C++ library for large-scale optimization
+brew "ceres-solver"
+# Curses-based interface to the GNU Debugger
+brew "cgdb"
+# Package compiler and linker metadata toolkit
+brew "pkgconf"
+# Implementation of the Unicode BiDi algorithm
+brew "fribidi"
+# Framework for layout and rendering of i18n text
+brew "pango"
+# Versatile and fast Unicode/ASCII/ANSI graphics renderer
+brew "chafa"
+# Formatting tools for C, C++, Obj-C, Java, JavaScript, TypeScript
+brew "clang-format"
+# Cloudflare Tunnel client (formerly Argo Tunnel)
+brew "cloudflared"
+# Cross-platform make
+brew "cmake"
+# Documentation for CMake
+brew "cmake-docs"
+# Solves nonlinear equations and nonlinear least squares problems
+brew "cminpack"
+# Distributed, open source, package manager for C/C++
+brew "conan"
+# Robot Operating System-independent package for logging
+brew "console_bridge"
+# Perl compatible regular expressions library
+brew "pcre"
+# Improved tinyxml (in memory efficiency and size)
+brew "tinyxml2"
+# Static analysis of C and C++ code
+brew "cppcheck"
+# Top-like interface for container metrics
+brew "ctop"
+# Lightweight unit testing framework for C
+brew "cunit"
+# Get a file from an HTTP, HTTPS or FTP server
+brew "curl"
+# Pack, ship and run any application as a lightweight container
+brew "docker"
+# Isolated development environments using Docker
+brew "docker-compose"
+# Create Docker hosts locally and on cloud providers
+brew "docker-machine"
+# Generate documentation for several programming languages
+brew "doxygen"
+# JBIG2 decoder and library (for monochrome documents)
+brew "jbig2dec"
+# OCR (Optical Character Recognition) engine
+brew "tesseract"
+# Interpreter for PostScript and PDF
+brew "ghostscript"
+# Image manipulation library
+brew "jpeg"
+# Edit preview images and fix bounding boxes in EPS files
+brew "epstool"
+# Perl lib for reading and writing EXIF metadata
+brew "exiftool"
+# Play, record, convert, and stream audio and video
+brew "ffmpeg"
+# Play, record, convert, and stream audio and video
+brew "ffmpeg@6"
+# Cross-platform C++ GUI toolkit
+brew "fltk"
+# Console program to recover files based on their headers and footers
+brew "foremost"
+# Command-line fuzzy finder written in Go
+brew "fzf"
+# Graphics library to dynamically manipulate images
+brew "gd"
+# GNU debugger
+brew "gdb"
+# GitHub command-line tool
+brew "gh"
+# Distributed revision control system
+brew "git"
+# Small git utilities
+brew "git-extras"
+# Extensions to follow Vincent Driessen's branching model
+brew "git-flow"
+# Git extension for versioning large files
+brew "git-lfs"
+# Prevents you from committing sensitive information to a git repo
+brew "git-secrets"
+# OpenGL to PostScript printing library
+brew "gl2ps"
+# OpenGL Extension Wrangler Library
+brew "glew"
+# Multi-platform library for OpenGL applications
+brew "glfw"
+# C++ mathematics library for graphics software
+brew "glm"
+# Maintained ctags implementation
+brew "universal-ctags"
+# Source code tag system
+brew "global"
+# Library for Linear and Mixed-Integer Programming
+brew "glpk"
+# Generate introspection data for GObject libraries
+brew "gobject-introspection"
+# Open-source build automation tool based on the Groovy and Kotlin DSL
+brew "gradle"
+# ISO/IEC 23008-12:2017 HEIF file format decoder and encoder
+brew "libheif"
+# Image processing tools collection
+brew "graphicsmagick"
+# Graph visualization software from AT&T and Bell Labs
+brew "graphviz"
+# Numerical library for C and C++
+brew "gsl"
+# GUI toolkit
+brew "gtk+"
+# Toolkit for creating graphical user interfaces
+brew "gtk+3"
+# Platform built on V8 to build network applications
+brew "node"
+# CLI for Heroku
+brew "heroku"
+# Improved top (interactive process viewer)
+brew "htop"
+# User-friendly cURL replacement (command-line HTTP client)
+brew "httpie"
+# Display an interface's bandwidth usage
+brew "iftop"
+# Tools and libraries to manipulate images in many formats
+brew "imagemagick"
+# String tool
+brew "intltool"
+# Lightweight and flexible command-line JSON processor
+brew "jq"
+# Translate LaTeX to RTF
+brew "latex2rtf"
+# Simple terminal UI for git commands
+brew "lazygit"
+# Common error values for all GnuPG components
+brew "libgpg-error"
+# X.509 and CMS library
+brew "libksba"
+# Postgres C API library
+brew "libpq"
+# Library for USB device access
+brew "libusb"
+# Cross-platform library for USB video devices
+brew "libuvc"
+# LLVM Project Linker
+brew "lld"
+# Library of C++ classes for flexible logging
+brew "log4cxx"
+# Package manager for the Lua programming language
+brew "luarocks"
+# Swiss Army Knife for macOS
+brew "m-cli"
+# Utility for directing compilation
+brew "make"
+# Mac App Store command-line interface
+brew "mas"
+# Modern Linker
+brew "mold"
+# Implementation of the Vulkan graphics and compute API on top of Metal
+brew "molten-vk"
+# Ambitious Vim-fork focused on extensibility and agility
+brew "neovim"
+# Small build system for use with gyp or CMake
+brew "ninja"
+# Package for scientific computing with Python
+brew "numpy"
+# C/C++ function library for exporting 2-D vector graphics
+brew "plotutils"
+# Cross-platform application and UI framework
+brew "qt"
+# Python bindings for v6 of Qt
+brew "pyqt"
+# Computes convex hulls in n dimensions
+brew "qhull"
+# Port to Qt of the Scintilla editing component
+brew "qscintilla2"
+# High-level interpreted language for numerical computing
+brew "octave"
+# Protocol buffers (Google's data interchange format)
+brew "protobuf"
+# Toolkit for 3D computer graphics, image processing, and visualization
+brew "vtk"
+# Open source computer vision library
+brew "opencv"
+# Swiss-army knife of markup format conversion
+brew "pandoc"
+# Library for 2D/3D image and point cloud processing
+brew "pcl"
+# Draw UML diagrams
+brew "plantuml"
+# C++ wrapper for libpng library
+brew "png++"
+# C++ class libraries for building network and internet-based applications
+brew "poco"
+# Write once, build anywhere Lua-based build system
+brew "premake"
+# Python version management
+brew "pyenv"
+# Pyenv plugin to manage virtualenv
+brew "pyenv-virtualenv"
+# GNOME Python bindings (based on GObject Introspection)
+brew "pygobject3"
+# Cross-platform application and UI framework
+brew "qt@5"
+# Python bindings for v5 of Qt
+brew "pyqt@5"
+# Ruby version manager
+brew "rbenv"
+# Search tool like grep and The Silver Searcher
+brew "ripgrep"
+# Utility that provides fast incremental file transfer
+brew "rsync"
+# Powerful, clean, object-oriented scripting language
+brew "ruby"
+# 7-Zip is a file archiver with a high compression ratio
+brew "sevenzip"
+# Tool to create Python bindings for C and C++ libraries
+brew "sip"
+# SOcket CAT: netcat on steroids
+brew "socat"
+# Super fast C++ logging library
+brew "spdlog"
+# Organize software neatly under a single directory tree (e.g. /usr/local)
+brew "stow"
+# Version control system designed to be a better CVS
+brew "subversion"
+# Generate scripting interfaces to C/C++ code
+brew "swig"
+# User interface to the TELNET protocol
+brew "telnet"
+# Text interface for Git repositories
+brew "tig"
+# Terminal multiplexer
+brew "tmux"
+# Manage complex tmux sessions easily
+brew "tmuxinator"
+# Display directories as trees (with optional color/HTML output)
+brew "tree"
+# C++ Library Manager
+brew "vcpkg"
+# Vi 'workalike' with many additional features
+brew "vim"
+# Simple terminal image viewer written in Rust
+brew "viu"
+# Internet file retriever
+brew "wget"
+# Cross-platform C++ GUI toolkit
+brew "wxwidgets"
+# PDF viewer
+brew "xpdf"
+# C++ YAML parser and emitter for YAML 1.2 spec
+brew "yaml-cpp"
+# Blazing fast terminal file manager written in Rust, based on async I/O
+brew "yazi"
+# Next-generation plugin manager for zsh
+brew "zplug"
+# UNIX shell (command interpreter)
+brew "zsh"
+# Additional completion definitions for zsh
+brew "zsh-completions"
+# Fish shell like syntax highlighting for zsh
+brew "zsh-syntax-highlighting"
+# Application launcher and productivity software
+cask "alfred", args: { appdir: "/Applications" }
+# Tool to flash OS images to SD cards & USB drives
+cask "balenaetcher"
+# Menu bar icon organiser
+cask "bartender", args: { appdir: "/Applications" }
+# Tool to customise input devices and automate computer systems
+cask "bettertouchtool", args: { appdir: "/Applications" }
+# 3D creation suite
+cask "blender"
+# Server and cloud storage browser
+cask "cyberduck", args: { appdir: "/Applications" }
+# Browser for SQLite databases
+cask "db-browser-for-sqlite"
+# Collect, organise, edit and annotate documents
+cask "devonthink", args: { appdir: "/Applications" }
+# App to build and share containerised applications and microservices
+cask "docker"
+# Client for the Dropbox cloud storage service
+cask "dropbox", args: { appdir: "/Applications" }
+# Download manager with a torrent client
+cask "folx", args: { appdir: "/Applications" }
+cask "font-d2coding"
+cask "font-fira-code", args: { appdir: "/Applications" }
+cask "font-fira-mono", args: { appdir: "/Applications" }
+cask "font-fira-mono-for-powerline", args: { appdir: "/Applications" }
+cask "font-hack-nerd-font", args: { appdir: "/Applications" }
+cask "font-inconsolata", args: { appdir: "/Applications" }
+cask "font-jetbrains-mono", args: { appdir: "/Applications" }
+cask "font-jetbrains-mono-nerd-font"
+cask "font-nanum-gothic", args: { appdir: "/Applications" }
+cask "font-nanum-gothic-coding", args: { appdir: "/Applications" }
+cask "font-nanum-myeongjo", args: { appdir: "/Applications" }
+cask "font-noto-sans-cjk-kr"
+cask "font-source-code-pro", args: { appdir: "/Applications" }
+cask "font-source-code-pro-for-powerline", args: { appdir: "/Applications" }
+cask "font-symbols-only-nerd-font"
+cask "font-ubuntu", args: { appdir: "/Applications" }
+cask "font-ubuntu-mono-derivative-powerline", args: { appdir: "/Applications" }
+# Finder replacement and FTP, SFTP, WebDAV and Amazon s3 client
+cask "forklift", args: { appdir: "/Applications" }
+# Disk space cleaner that finds and deletes duplicated and similar files
+cask "gemini", args: { appdir: "/Applications" }
+# Terminal emulator that uses platform-native UI and GPU acceleration
+cask "ghostty"
+# Git client focusing on productivity
+cask "gitkraken", args: { appdir: "/Applications" }
+# Web browser
+cask "google-chrome", args: { appdir: "/Applications" }
+# Client for the Google Drive storage service
+cask "google-drive"
+# Client for the Google Drive storage service
+cask "google-drive-file-stream", args: { appdir: "/Applications" }
+# Automated organisation
+cask "hazel", args: { appdir: "/Applications" }
+# Vector graphics editor
+cask "inkscape"
+# Terminal emulator as alternative to Apple's Terminal app
+cask "iterm2", args: { appdir: "/Applications" }
+# JetBrains tools manager
+cask "jetbrains-toolbox", args: { appdir: "/Applications" }
+# Open-source screen recorder built with web technology
+cask "kap", args: { appdir: "/Applications" }
+# Keyboard customiser
+cask "karabiner-elements", args: { appdir: "/Applications" }
+# GPU-based terminal emulator
+cask "kitty"
+# Full TeX Live distribution with GUI applications
+cask "mactex", args: { appdir: "/Applications" }
+# Knowledge base that works on top of a local folder of plain text Markdown files
+cask "obsidian"
+# Visual communication software
+cask "omnigraffle", args: { appdir: "/Applications" }
+# Finder Toolbar app to open the current directory in Terminal or Editor
+cask "openinterminal", args: { appdir: "/Applications" }
+# Web browser
+cask "opera", args: { appdir: "/Applications" }
+# Reference management software for researchers
+cask "papers"
+# Read/write support for NTFS formatted volumes
+cask "paragon-ntfs", args: { appdir: "/Applications" }
+# Desktop virtualization software
+cask "parallels"
+# PDF reader, editor and annotator
+cask "pdf-expert", args: { appdir: "/Applications" }
+# IDE for application development
+cask "qt-creator"
+# Notepad software
+cask "scapple", args: { appdir: "/Applications" }
+# Word processing software with a typewriter style
+cask "scrivener", args: { appdir: "/Applications" }
+# Text editor for code, markup and prose
+cask "sublime-text", args: { appdir: "/Applications" }
+# Application for inspecting installer packages
+cask "suspicious-package", args: { appdir: "/Applications" }
+# JDK from the Eclipse Foundation (Adoptium)
+cask "temurin", args: { appdir: "/Applications" }
+# SSH client
+cask "termius"
+# To-do & task list manager
+cask "ticktick"
+# Configurable document editor that supports Markdown
+cask "typora", args: { appdir: "/Applications" }
+# Virtualiser for x86 hardware
+cask "virtualbox"
+# Open-source code editor
+cask "visual-studio-code"
+# Network protocol analyzer
+cask "wireshark", args: { appdir: "/Applications" }
+# Open-source version of the X.Org X Window System
+cask "xquartz", args: { appdir: "/Applications" }
+mas "Bitdefender Virus Scanner", id: 500154009
+mas "BitPerfect", id: 455545700
+mas "Caffeinated", id: 1362171212
+mas "DaisyDisk", id: 411643860
+mas "Day One", id: 1055511498
+mas "Dropover", id: 1355679052
+mas "Find Any File", id: 402569179
+mas "Goodnotes", id: 1444383602
+mas "Hex Fiend", id: 1342896380
+mas "Keka", id: 470158793
+mas "Keynote", id: 409183694
+mas "Kindle Classic", id: 405399194
+mas "Magnet", id: 441258766
+mas "MindNode", id: 1289197285
+mas "Monosnap", id: 540348655
+mas "Notability", id: 360593530
+mas "Numbers", id: 409203825
+mas "Pages", id: 409201541
+mas "PopClip", id: 445189367
+mas "PopupDic", id: 765419220
+mas "RocketFuel", id: 1114196460
+mas "Spark", id: 1176895641
+mas "무비스트", id: 461788075
+vscode "13xforever.language-x86-64-assembly"
+vscode "1yib.rust-bundle"
+vscode "aaron-bond.better-comments"
+vscode "adpyke.codesnap"
+vscode "alefragnani.bookmarks"
+vscode "alefragnani.project-manager"
+vscode "azemoh.one-monokai"
+vscode "batisteo.vscode-django"
+vscode "bbenoist.doxygen"
+vscode "benjamin-simmonds.pythoncpp-debug"
+vscode "charliermarsh.ruff"
+vscode "cheshirekow.cmake-format"
+vscode "christian-kohler.path-intellisense"
+vscode "cschlosser.doxdocgen"
+vscode "davidanson.vscode-markdownlint"
+vscode "dbaeumer.vscode-eslint"
+vscode "docker.docker"
+vscode "donjayamanne.githistory"
+vscode "donjayamanne.python-environment-manager"
+vscode "donjayamanne.python-extension-pack"
+vscode "dustypomerleau.rust-syntax"
+vscode "eamodio.gitlens"
+vscode "editorconfig.editorconfig"
+vscode "esbenp.prettier-vscode"
+vscode "fill-labs.dependi"
+vscode "franneck94.c-cpp-runner"
+vscode "franneck94.vscode-c-cpp-config"
+vscode "franneck94.vscode-c-cpp-dev-extension-pack"
+vscode "franneck94.vscode-coding-tools-extension-pack"
+vscode "franneck94.vscode-cpython-extension-pack"
+vscode "franneck94.vscode-python-config"
+vscode "franneck94.vscode-python-dev-extension-pack"
+vscode "franneck94.workspace-formatter"
+vscode "github.codespaces"
+vscode "github.copilot"
+vscode "github.copilot-chat"
+vscode "guyutongxue.cpp-reference"
+vscode "james-yu.latex-workshop"
+vscode "jbenden.c-cpp-flylint"
+vscode "jebbs.plantuml"
+vscode "jeff-hykin.better-cpp-syntax"
+vscode "kevinrose.vsc-python-indent"
+vscode "llvm-vs-code-extensions.vscode-clangd"
+vscode "magicstack.magicpython"
+vscode "mathematic.vscode-latex"
+vscode "ms-azuretools.vscode-docker"
+vscode "ms-python.black-formatter"
+vscode "ms-python.debugpy"
+vscode "ms-python.isort"
+vscode "ms-python.mypy-type-checker"
+vscode "ms-python.pylint"
+vscode "ms-python.python"
+vscode "ms-python.vscode-pylance"
+vscode "ms-toolsai.datawrangler"
+vscode "ms-toolsai.jupyter"
+vscode "ms-toolsai.jupyter-keymap"
+vscode "ms-toolsai.jupyter-renderers"
+vscode "ms-toolsai.vscode-jupyter-cell-tags"
+vscode "ms-toolsai.vscode-jupyter-slideshow"
+vscode "ms-vscode-remote.remote-containers"
+vscode "ms-vscode-remote.remote-ssh"
+vscode "ms-vscode-remote.remote-ssh-edit"
+vscode "ms-vscode-remote.remote-wsl"
+vscode "ms-vscode-remote.vscode-remote-extensionpack"
+vscode "ms-vscode.cmake-tools"
+vscode "ms-vscode.cpptools"
+vscode "ms-vscode.cpptools-extension-pack"
+vscode "ms-vscode.cpptools-themes"
+vscode "ms-vscode.hexeditor"
+vscode "ms-vscode.live-server"
+vscode "ms-vscode.remote-explorer"
+vscode "ms-vscode.remote-server"
+vscode "njpwerner.autodocstring"
+vscode "njqdev.vscode-python-typehint"
+vscode "peakchen90.open-html-in-browser"
+vscode "pkief.material-icon-theme"
+vscode "plex.vscode-protolint"
+vscode "qhoekman.language-plantuml"
+vscode "redhat.vscode-yaml"
+vscode "rust-lang.rust-analyzer"
+vscode "ryu1kn.partial-diff"
+vscode "shd101wyy.markdown-preview-enhanced"
+vscode "slevesque.shader"
+vscode "tamasfe.even-better-toml"
+vscode "tcwalther.cython"
+vscode "usernamehw.errorlens"
+vscode "vadimcn.vscode-lldb"
+vscode "vintharas.learn-vim"
+vscode "visualstudioexptteam.intellicode-api-usage-examples"
+vscode "visualstudioexptteam.vscodeintellicode"
+vscode "vitaliymaz.vscode-svg-previewer"
+vscode "wholroyd.jinja"
+vscode "xaver.clang-format"
+vscode "yzhang.markdown-all-in-one"
+vscode "zxh404.vscode-proto3"

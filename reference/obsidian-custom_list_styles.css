@@ -1,0 +1,242 @@
+/* This is a Customized version of https://forum.obsidian.md/t/problems-encountered-when-modifying-unordered-lists-styles-with-css/53824/6
+
+New Author
+Forum.Obsidian: somedude
+Discord: ABrokkoliBoi
+
+I just slightly changed the Shape, Order, Color, added Italics
+I deleted level 7 and 8 at unordered Lists, 6 levels are enough */
+
+/* Bullet color */
+:root {--bullet-new-color: rgb(200,151,255);}
+/* Change color for all types of markers 
+   in source, editing & preview */
+ol > li::marker,
+ul > li::marker,
+.cm-s-obsidian .cm-formatting-list {
+  color: var(--bullet-new-color);}
+  
+/* UNORDERED LISTs (dash,circle, square...) */
+/* first line targets reading view, second targets editing view */
+/* LEVEL 1 */
+.markdown-reading-view ul > li > .list-bullet:after,
+.markdown-source-view.mod-cm6 .HyperMD-list-line-1 .list-bullet:after {
+/* Dash/ Minus */
+    height: 3px;
+    width: 7px;
+    border-radius: 0%;
+    background-color: var(--bullet-new-color);} 
+/* LEVEL 2 */
+.markdown-reading-view ul > li > ul > li > .list-bullet:after,
+.markdown-source-view.mod-cm6 .HyperMD-list-line-2 .list-bullet:after {
+/* Hollow Dash/ Hollow Minus */
+    height: 2px;
+    width: 6px;
+    background-color: Transparent;
+    border-color: var(--bullet-new-color);
+    border-style: solid;
+    border-radius: 0%;
+    border-width: 1px;}
+/* LEVEL 3 */
+.markdown-reading-view ul > li > ul > li > ul > li > .list-bullet:after,
+.markdown-source-view.mod-cm6 .HyperMD-list-line-3 .list-bullet:after {
+/* Bullet */
+    height: 7px;
+    width: 7px;
+    border-radius: 50%;
+    background-color: var(--bullet-new-color);} 
+/* LEVEL 4 */
+.markdown-reading-view ul > li > ul > li > ul > li > ul > li > .list-bullet:after,
+.markdown-source-view.mod-cm6 .HyperMD-list-line-4 .list-bullet:after {
+/* Hollow Bullet */
+    height: 6px;
+    width: 6px;
+    background-color: Transparent;
+    border-color: var(--bullet-new-color);
+    border-style: solid;
+    border-radius: 50%;
+    border-width: 1px;} 
+/* LEVEL 5 */
+.markdown-reading-view ul > li > ul > li > ul > li > ul > li > ul > li > .list-bullet:after,
+.markdown-source-view.mod-cm6 .HyperMD-list-line-5 .list-bullet:after {
+/* Solid Square */
+    height: 7px;
+    width: 7px;
+    border-radius: 0%;
+    background-color: var(--bullet-new-color);} 
+/* LEVEL 6 */
+.markdown-reading-view ul > li > ul > li > ul > li > ul > li > ul > li > ul > li > .list-bullet:after,
+.markdown-source-view.mod-cm6 .HyperMD-list-line-6 .list-bullet:after {
+/* Hollow Square */
+    height: 6px;
+    width: 6px;
+    background-color: Transparent;
+    border-color: var(--bullet-new-color);
+    border-style: solid;
+    border-radius: 0%;
+    border-width: 1px;} 
+
+/*     ORDERED LISTs (Number, Letter, Roman...)
+It was merged with "ol_style_by_level.css" from sailKite from Discord.
+The merge only affects rednering ordered lists in live preview. */
+
+/* big and probably bad ordered list styling snippet */
+/* if something breaks it's probably sailKite's fault */
+/* this version doesn't do colors-per-level but the general pattern should be clear */
+
+/* Contents:
+    L010 - Basic Properties
+    L039 - Reading View & Render
+    L101 - Live Preview
+*/
+/* --- Basic Properties --- */
+body {--list-marker-color: rgb(200, 151, 255);
+
+    --ol-01-markr: decimal;
+    --ol-01-punct: ".\A0";
+    --ol-01-style: normal;
+
+    --ol-02-markr: upper-alpha;
+    --ol-02-punct: ".\A0";
+    --ol-02-style: normal;
+
+    --ol-03-markr: upper-roman;
+    --ol-03-punct: ".\A0";
+    --ol-03-style: normal;
+
+    --ol-04-markr: decimal;
+    --ol-04-punct: ")\A0";
+    --ol-04-style: italic;
+
+    --ol-05-markr: lower-alpha;
+    --ol-05-punct: ")\A0";
+    --ol-05-style: italic;
+
+    --ol-06-markr: lower-roman;
+    --ol-06-punct: ")\A0";
+    --ol-06-style: italic;}
+
+/* --- Reading View & Render --- */
+.markdown-rendered ol {
+    /* level 1 */
+    counter-reset: decimal;
+    --list-markr: var(--ol-01-markr);
+    --list-punct: var(--ol-01-punct);
+    --list-style: var(--ol-01-style);
+    /* level 2 */
+    & > li > ol {
+        --list-markr: var(--ol-02-markr);
+        --list-punct: var(--ol-02-punct);
+        --list-style: var(--ol-02-style);
+        /* level 3 */
+        & > li > ol {
+            --list-markr: var(--ol-03-markr);
+            --list-punct: var(--ol-03-punct);
+            --list-style: var(--ol-03-style);
+            /* level 4 */
+            & > li > ol {
+                --list-markr: var(--ol-04-markr);
+                --list-punct: var(--ol-04-punct);
+                --list-style: var(--ol-04-style);
+                /* level 5 */
+                & > li > ol {
+                    --list-markr: var(--ol-05-markr);
+                    --list-punct: var(--ol-05-punct);
+                    --list-style: var(--ol-05-style);
+                    /* level 6 */
+                    & > li > ol {
+                        --list-markr: var(--ol-06-markr);
+                        --list-punct: var(--ol-06-punct);
+                        --list-style: var(--ol-06-style);
+                    }}}}}
+    & > li {
+        &::marker {color: transparent;}
+        &::before {position: absolute;
+            right: 100%;
+            counter-increment: decimal;
+            font-style: var(--list-style);
+            font-variant-numeric: tabular-nums;
+            color: var(--list-marker-color);}}
+			:is(&, &:not( li ol )) > li::before {
+        content: counter(decimal, var(--list-markr)) var(--list-punct) " ";}}
+		
+/* --- Live Preview --- */
+.is-live-preview {
+    /* ordered list edit mode counters */
+    & .HyperMD-list-line:not(.cm-active) > .cm-formatting-list-ol {
+        position: relative;
+        color: transparent;
+        &::before {
+            position: absolute;
+            display: block;
+            bottom: calc(-2 * var(--list-spacing));
+            right: 0;
+            color: var(--list-marker-color);}}
+			
+    /* level 1 */
+    & .cm-line:not(.HyperMD-list-line):has(+ .HyperMD-list-line-1) {
+        counter-reset: ol-1;}
+    & .HyperMD-list-line-1 {
+        counter-increment: ol-1;
+        counter-reset: ol-2;}
+    & .HyperMD-list-line-1:not(.cm-active) > .cm-formatting-list-ol::before {
+        font-size: var(--font-text-size);
+        content: counter(ol-1, var(--ol-01-markr)) var(--ol-01-punct);
+        font-style: var(--ol-01-style);}
+    /* level 2 */
+    & .HyperMD-list-line-2 {
+        counter-increment: ol-2;
+        counter-reset: ol-3;}
+    & .HyperMD-list-line-2:not(.cm-active) > .cm-formatting-list-ol::before {
+        content: counter(ol-2, var(--ol-02-markr)) var(--ol-02-punct);
+        font-style: var(--ol-02-style);}
+    /* level 3 */
+    & .HyperMD-list-line-3 {
+        counter-increment: ol-3;
+        counter-reset: ol-4;}
+    & .HyperMD-list-line-3:not(.cm-active) > .cm-formatting-list-ol::before {
+        content: counter(ol-3, var(--ol-03-markr)) var(--ol-03-punct);
+        font-style: var(--ol-03-style);}
+    /* level 4 */
+    & .HyperMD-list-line-4 {
+        counter-increment: ol-4;
+        counter-reset: ol-5;}
+    & .HyperMD-list-line-4:not(.cm-active) > .cm-formatting-list-ol::before {
+        content: counter(ol-4, var(--ol-04-markr)) var(--ol-04-punct);
+        font-style: var(--ol-04-style);}
+    /* level 5 */
+    & .HyperMD-list-line-5 {
+        counter-increment: ol-5;
+        counter-reset: ol-6;}
+    & .HyperMD-list-line-5:not(.cm-active) > .cm-formatting-list-ol::before {
+        content: counter(ol-5, var(--ol-05-markr)) var(--ol-05-punct);
+        font-style: var(--ol-05-style);}
+    /* level 6 */
+    & .HyperMD-list-line-6 {
+        counter-increment: ol-6;
+        counter-reset: ol-7;}
+    & .HyperMD-list-line-6:not(.cm-active) > .cm-formatting-list-ol::before {
+        content: counter(ol-6, var(--ol-06-markr)) var(--ol-06-punct);
+        font-style: var(--ol-06-style);}}
+
+/* Original Author: Formum.Obsidian: ZenMoto
+Did not manage to target editing view for ordered lists,
+ see failed attempts below
+ https://forum.obsidian.md/t/how-to-customize-ordered-list-using-css/8242/2 */
+ 
+/* LEVEL 1 */
+/* .markdown-source-view.mod-cm6 .HyperMD-list-line-1 .cm-formatting.cm-formatting-list.cm-formatting-list-ol.cm-list-1: {
+    content: counter(list-item) ".\A0";} */
+/* LEVEL 2 */
+/* .markdown-source-view.mod-cm6 .HyperMD-list-line-2 .cm-formatting.cm-formatting-list.cm-formatting-list-ol.cm-list-2 {
+    content: counter(list-item, lower-alpha) ".\A0";}
+span.cm-formatting-list-ol.cm-list-2::marker {
+    content: counter(list-item, lower-alpha) ".\A0" !important;} */
+/* LEVEL 3 */
+/* .markdown-source-view.mod-cm6 .HyperMD-list-line-3 .cm-formatting. {
+    content: counter(list-item, lower-roman) ".\A0";}
+cm-formatting-list.cm-formatting-list-ol.cm-list-3 {
+    content: counter(list-item, lower-roman) ".\A0" !important;} */
+/* LEVEL 4 */
+/* .markdown-source-view.mod-cm6 .HyperMD-list-line-4 .cm-formatting.cm-formatting-list.cm-formatting-list-ol.cm-list-4 {
+    content: counter(list-item, upper-alpha) ".\A0";} */

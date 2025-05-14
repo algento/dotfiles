@@ -1,0 +1,53 @@
+{
+    "always_show_minimap_viewport": true,
+    "bold_folder_labels": true,
+    "draw_white_space": "all",
+    "enable_tab_scrolling": false,
+    "font_face": "Fira Code",
+    "font_size": 13,
+    "highlight_line": true,
+    "ignored_packages":
+    [
+        "Clang Format",
+        "Vintage",
+    ],
+    "rulers":
+    [
+        80
+    ],
+    "translate_tabs_to_spaces": true,
+    
+    // "color_scheme": "Packages/Material Theme/schemes/Material-Theme-Darker.tmTheme",
+    // "fade_fold_buttons": false,
+    // "font_face": "Fira Code",
+    // "highlight_line": true,
+    // "highlight_modified_tabs": true,
+    // "hot_exit": false,
+    // "ignored_packages":
+    // [
+    //     "Vintage"
+    // ],
+    // "indent_guide_options":
+    // [
+    //     "draw_normal",
+    //     "draw_active"
+    // ],
+    // "line_padding_bottom": 2,
+    // "line_padding_top": 2,
+    // "material_theme_arrow_folders": true,
+    // "material_theme_big_fileicons": true,
+    // "material_theme_bold_tab": false,
+    // "material_theme_small_tab": true,
+    // "material_theme_tabs_autowidth": true,
+    // "material_theme_tree_headings": true,
+    // "overlay_scroll_bars": "enabled",
+    // "rulers":
+    // [
+    //     80
+    // ],
+    // "caret_style": "phase",
+    // "theme": "Material-Theme.sublime-theme",
+    // "translate_tabs_to_spaces": false,
+    // "word_wrap": "true",
+    // "wrap_width": 80
+}

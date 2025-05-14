@@ -1,0 +1,1038 @@
+{
+  "version": 2,
+  "projects": [
+    {
+      "fieldConfig": {
+        "kanban": {
+          "options": [
+            "to-do",
+            "in-progresss",
+            "done"
+          ]
+        }
+      },
+      "defaultName": "(Paper) ",
+      "templates": [
+        "3. Resources/Templates/(Paper Review) template.md"
+      ],
+      "excludedNotes": [],
+      "isDefault": false,
+      "dataSource": {
+        "kind": "folder",
+        "config": {
+          "path": "1. Projects/Paper Review",
+          "recursive": true
+        }
+      },
+      "newNotesFolder": "",
+      "views": [
+        {
+          "config": {
+            "fieldConfig": {
+              "cssclasses": {
+                "hide": true
+              },
+              "created": {
+                "hide": true
+              },
+              "modified": {
+                "hide": true
+              },
+              "name": {
+                "width": 384,
+                "pinned": true
+              },
+              "path": {
+                "hide": true
+              },
+              "keywords": {
+                "width": 152
+              },
+              "title": {
+                "hide": true
+              },
+              "type": {
+                "hide": true
+              },
+              "tags": {
+                "width": 111
+              },
+              "kanban": {
+                "width": 108
+              },
+              "published": {
+                "width": 133
+              },
+              "Code": {
+                "hide": true
+              }
+            },
+            "orderFields": [
+              "name",
+              "tags",
+              "keywords",
+              "kanban",
+              "published",
+              "affiliation"
+            ]
+          },
+          "filter": {
+            "conjunction": "and",
+            "conditions": []
+          },
+          "colors": {
+            "conditions": [
+              {
+                "color": "#c8143c",
+                "condition": {
+                  "field": "kanban",
+                  "operator": "is",
+                  "enabled": true,
+                  "value": "to-do"
+                }
+              },
+              {
+                "color": "#143cc8",
+                "condition": {
+                  "field": "kanban",
+                  "operator": "is",
+                  "enabled": true,
+                  "value": "in-progress"
+                }
+              },
+              {
+                "color": "#969696",
+                "condition": {
+                  "field": "kanban",
+                  "operator": "is",
+                  "enabled": true,
+                  "value": "back-log"
+                }
+              },
+              {
+                "color": "#3cc814",
+                "condition": {
+                  "field": "kanban",
+                  "operator": "is",
+                  "enabled": true,
+                  "value": "done"
+                }
+              }
+            ]
+          },
+          "sort": {
+            "criteria": [
+              {
+                "field": "kanban",
+                "order": "desc",
+                "enabled": true
+              }
+            ]
+          },
+          "id": "5a96ad3c-5c56-4248-927a-240a7714aedb",
+          "name": "Table",
+          "type": "table"
+        },
+        {
+          "config": {
+            "groupByField": "kanban"
+          },
+          "filter": {
+            "conjunction": "and",
+            "conditions": []
+          },
+          "colors": {
+            "conditions": []
+          },
+          "sort": {
+            "criteria": []
+          },
+          "id": "54c84190-fb0e-47b7-b496-69ad0d9f7076",
+          "name": "Board",
+          "type": "board"
+        }
+      ],
+      "id": "2339dcd4-da98-417b-b369-ab3793e4df11",
+      "name": "Paper Review"
+    },
+    {
+      "fieldConfig": {
+        "kanban": {
+          "options": [
+            "to-do",
+            "in-progress",
+            "done"
+          ]
+        }
+      },
+      "defaultName": "(DL) ",
+      "templates": [
+        "3. Resources/Templates/(Deep-Learning Study) template.md"
+      ],
+      "excludedNotes": [],
+      "isDefault": false,
+      "dataSource": {
+        "kind": "folder",
+        "config": {
+          "path": "1. Projects/Deep Learning Study",
+          "recursive": true
+        }
+      },
+      "newNotesFolder": "",
+      "views": [
+        {
+          "config": {
+            "fieldConfig": {
+              "path": {
+                "hide": true
+              },
+              "title": {
+                "hide": true
+              },
+              "modified": {
+                "hide": true
+              },
+              "created": {
+                "hide": true
+              },
+              "type": {
+                "hide": true
+              },
+              "keywords": {
+                "width": 260
+              },
+              "name": {
+                "width": 336
+              }
+            },
+            "orderFields": [
+              "name",
+              "kanban",
+              "tags",
+              "keywords"
+            ]
+          },
+          "filter": {
+            "conjunction": "and",
+            "conditions": []
+          },
+          "colors": {
+            "conditions": [
+              {
+                "color": "#969696",
+                "condition": {
+                  "field": "kanban",
+                  "operator": "is",
+                  "enabled": true,
+                  "value": "back-log"
+                }
+              },
+              {
+                "color": "#c8143c",
+                "condition": {
+                  "field": "kanban",
+                  "operator": "is",
+                  "enabled": true,
+                  "value": "to-do"
+                }
+              },
+              {
+                "color": "#143cc8",
+                "condition": {
+                  "field": "kanban",
+                  "operator": "is",
+                  "enabled": true,
+                  "value": "in-progress"
+                }
+              },
+              {
+                "color": "#3cc814",
+                "condition": {
+                  "field": "kanban",
+                  "operator": "is",
+                  "enabled": true,
+                  "value": "done"
+                }
+              }
+            ]
+          },
+          "sort": {
+            "criteria": [
+              {
+                "field": "kanban",
+                "order": "desc",
+                "enabled": true
+              }
+            ]
+          },
+          "id": "caf376a4-b66a-4ef6-a3c5-6d7267e5a88f",
+          "name": "Table",
+          "type": "table"
+        },
+        {
+          "config": {
+            "groupByField": "kanban"
+          },
+          "filter": {
+            "conjunction": "and",
+            "conditions": []
+          },
+          "colors": {
+            "conditions": [
+              {
+                "color": "#c8143c",
+                "condition": {
+                  "field": "kanban",
+                  "operator": "is",
+                  "enabled": true,
+                  "value": "to-do"
+                }
+              },
+              {
+                "color": "#143cc8",
+                "condition": {
+                  "field": "kanban",
+                  "operator": "is",
+                  "enabled": true,
+                  "value": "in-progress"
+                }
+              },
+              {
+                "color": "#969696",
+                "condition": {
+                  "field": "kanban",
+                  "operator": "is",
+                  "enabled": true,
+                  "value": "back-log"
+                }
+              },
+              {
+                "color": "#3cc814",
+                "condition": {
+                  "field": "kanban",
+                  "operator": "is",
+                  "enabled": true,
+                  "value": "done"
+                }
+              }
+            ]
+          },
+          "sort": {
+            "criteria": []
+          },
+          "id": "775756d7-d1a1-4538-b339-9a5cc41c1eeb",
+          "name": "Board",
+          "type": "board"
+        }
+      ],
+      "id": "dbb5aa83-2276-44ba-88c2-09f3628b4a03",
+      "name": "Deep Learning Study"
+    },
+    {
+      "fieldConfig": {
+        "kanban": {
+          "options": [
+            "to-do",
+            "in-progress",
+            "done"
+          ]
+        }
+      },
+      "defaultName": "(C++) ",
+      "templates": [
+        "3. Resources/Templates/(C++ Study) template.md"
+      ],
+      "excludedNotes": [],
+      "isDefault": false,
+      "dataSource": {
+        "kind": "folder",
+        "config": {
+          "path": "1. Projects/C++ Study",
+          "recursive": true
+        }
+      },
+      "newNotesFolder": "",
+      "views": [
+        {
+          "config": {
+            "orderFields": [
+              "name",
+              "type",
+              "tags",
+              "keywords",
+              "kanban",
+              "path",
+              "created",
+              "modified",
+              "title"
+            ],
+            "fieldConfig": {
+              "modified": {
+                "hide": true
+              },
+              "created": {
+                "hide": true
+              },
+              "path": {
+                "hide": true
+              },
+              "title": {
+                "hide": true
+              },
+              "name": {
+                "width": 252
+              }
+            }
+          },
+          "filter": {
+            "conjunction": "and",
+            "conditions": []
+          },
+          "colors": {
+            "conditions": [
+              {
+                "color": "#c8143c",
+                "condition": {
+                  "field": "kanban",
+                  "operator": "is",
+                  "enabled": true,
+                  "value": "to-do"
+                }
+              },
+              {
+                "color": "#3cc814",
+                "condition": {
+                  "field": "kanban",
+                  "operator": "is",
+                  "enabled": true,
+                  "value": "done"
+                }
+              },
+              {
+                "color": "#143cc8",
+                "condition": {
+                  "field": "kanban",
+                  "operator": "is",
+                  "enabled": true,
+                  "value": "in-progress"
+                }
+              },
+              {
+                "color": "#969696",
+                "condition": {
+                  "field": "kanban",
+                  "operator": "is",
+                  "enabled": true,
+                  "value": "back-log"
+                }
+              }
+            ]
+          },
+          "sort": {
+            "criteria": [
+              {
+                "field": "kanban",
+                "order": "desc",
+                "enabled": true
+              }
+            ]
+          },
+          "id": "a8ebc2b7-a9e1-4a5e-ac87-c5a3f10b21d2",
+          "name": "Table",
+          "type": "table"
+        }
+      ],
+      "id": "09732e0f-e166-4c0f-adc6-bf68f0ac875a",
+      "name": "C++ Study"
+    },
+    {
+      "fieldConfig": {
+        "kanban": {
+          "options": [
+            "to-do",
+            "in-progress",
+            "done"
+          ]
+        }
+      },
+      "defaultName": "",
+      "templates": [
+        "3. Resources/Templates/(AD-Perception) template.md"
+      ],
+      "excludedNotes": [],
+      "isDefault": false,
+      "dataSource": {
+        "kind": "folder",
+        "config": {
+          "path": "1. Projects/AD-Perception",
+          "recursive": true
+        }
+      },
+      "newNotesFolder": "",
+      "views": [
+        {
+          "config": {
+            "fieldConfig": {
+              "title": {
+                "hide": true
+              },
+              "path": {
+                "hide": true
+              },
+              "created": {
+                "hide": true
+              },
+              "modified": {
+                "hide": true
+              },
+              "cssclasses": {
+                "hide": true
+              },
+              "name": {
+                "width": 357
+              },
+              "tags": {
+                "hide": true
+              }
+            },
+            "orderFields": [
+              "name",
+              "path",
+              "created",
+              "modified",
+              "cssclasses",
+              "type",
+              "kanban",
+              "keywords",
+              "title",
+              "tags"
+            ]
+          },
+          "filter": {
+            "conjunction": "and",
+            "conditions": []
+          },
+          "colors": {
+            "conditions": [
+              {
+                "color": "#c8143c",
+                "condition": {
+                  "field": "kanban",
+                  "operator": "is",
+                  "enabled": true,
+                  "value": "to-do"
+                }
+              },
+              {
+                "color": "#3cc814",
+                "condition": {
+                  "field": "kanban",
+                  "operator": "is",
+                  "enabled": true,
+                  "value": "done"
+                }
+              },
+              {
+                "color": "#143cc8",
+                "condition": {
+                  "field": "kanban",
+                  "operator": "is",
+                  "enabled": true,
+                  "value": "in-progress"
+                }
+              },
+              {
+                "color": "#969696",
+                "condition": {
+                  "field": "kanban",
+                  "operator": "is",
+                  "enabled": true,
+                  "value": "back-log"
+                }
+              }
+            ]
+          },
+          "sort": {
+            "criteria": [
+              {
+                "field": "kanban",
+                "order": "desc",
+                "enabled": true
+              }
+            ]
+          },
+          "id": "b3ba2470-f1a2-4bfd-83d9-2c81e02b1759",
+          "name": "Table",
+          "type": "table"
+        }
+      ],
+      "id": "beec6348-215c-4bd6-bdcb-1836e0bbabaf",
+      "name": "AD-Perception"
+    },
+    {
+      "fieldConfig": {
+        "kanban": {
+          "options": [
+            "to-do",
+            "in-progress",
+            "done"
+          ]
+        },
+        "published": {
+          "richText": true
+        }
+      },
+      "defaultName": "(Talk) ",
+      "templates": [
+        "3. Resources/Templates/(Talk Review) template.md"
+      ],
+      "excludedNotes": [],
+      "isDefault": false,
+      "dataSource": {
+        "kind": "folder",
+        "config": {
+          "path": "1. Projects/Talk Review",
+          "recursive": true
+        }
+      },
+      "newNotesFolder": "",
+      "views": [
+        {
+          "config": {
+            "fieldConfig": {
+              "path": {
+                "hide": true
+              },
+              "title": {
+                "hide": true
+              },
+              "created": {
+                "hide": true
+              },
+              "modified": {
+                "hide": true
+              }
+            },
+            "orderFields": [
+              "name",
+              "path",
+              "tags",
+              "title",
+              "type",
+              "created",
+              "modified"
+            ]
+          },
+          "filter": {
+            "conjunction": "and",
+            "conditions": []
+          },
+          "colors": {
+            "conditions": [
+              {
+                "color": "#c8143c",
+                "condition": {
+                  "field": "kanban",
+                  "operator": "is",
+                  "enabled": true,
+                  "value": "to-do"
+                }
+              },
+              {
+                "color": "#143cc8",
+                "condition": {
+                  "field": "kanban",
+                  "operator": "is",
+                  "enabled": true,
+                  "value": "in-progress"
+                }
+              },
+              {
+                "color": "#969696",
+                "condition": {
+                  "field": "kanban",
+                  "operator": "is",
+                  "enabled": true,
+                  "value": "back-log"
+                }
+              },
+              {
+                "color": "#3cc814",
+                "condition": {
+                  "field": "kanban",
+                  "operator": "is",
+                  "enabled": true,
+                  "value": "done"
+                }
+              }
+            ]
+          },
+          "sort": {
+            "criteria": [
+              {
+                "field": "kanban",
+                "order": "desc",
+                "enabled": true
+              }
+            ]
+          },
+          "id": "45cc6310-fca3-482f-9bf4-71a2252387fb",
+          "name": "Table",
+          "type": "table"
+        },
+        {
+          "config": {
+            "includeFields": [
+              "affiliation"
+            ],
+            "groupByField": "kanban",
+            "columns": {
+              "back-log": {
+                "weight": 0
+              },
+              "to-do": {
+                "weight": 1
+              },
+              "in-progress": {
+                "weight": 2
+              },
+              "done": {
+                "weight": 3
+              }
+            }
+          },
+          "filter": {
+            "conjunction": "and",
+            "conditions": []
+          },
+          "colors": {
+            "conditions": [
+              {
+                "color": "#c8143c",
+                "condition": {
+                  "field": "kanban",
+                  "operator": "is",
+                  "enabled": true,
+                  "value": "to-do"
+                }
+              },
+              {
+                "color": "#143cc8",
+                "condition": {
+                  "field": "kanban",
+                  "operator": "is",
+                  "enabled": true,
+                  "value": "in-progress"
+                }
+              },
+              {
+                "color": "#969696",
+                "condition": {
+                  "field": "kanban",
+                  "operator": "is",
+                  "enabled": true,
+                  "value": "back-log"
+                }
+              },
+              {
+                "color": "#3cc814",
+                "condition": {
+                  "field": "kanban",
+                  "operator": "is",
+                  "enabled": true,
+                  "value": "done"
+                }
+              }
+            ]
+          },
+          "sort": {
+            "criteria": []
+          },
+          "id": "b01ffbee-69e5-4ef1-9a71-2e1f5f0c00d9",
+          "name": "Board",
+          "type": "board"
+        }
+      ],
+      "id": "b3ff84c3-4fb2-400d-928f-6d0b8a052daa",
+      "name": "Talk Review"
+    },
+    {
+      "fieldConfig": {
+        "kanban": {
+          "options": [
+            "to-do",
+            "in-progress",
+            "done"
+          ],
+          "richText": true
+        }
+      },
+      "defaultName": "(Python) ",
+      "templates": [
+        "3. Resources/Templates/(Python Study) template.md"
+      ],
+      "excludedNotes": [],
+      "isDefault": false,
+      "dataSource": {
+        "kind": "folder",
+        "config": {
+          "path": "1. Projects/Python Study",
+          "recursive": true
+        }
+      },
+      "newNotesFolder": "",
+      "views": [
+        {
+          "config": {
+            "fieldConfig": {
+              "path": {
+                "hide": true
+              },
+              "created": {
+                "hide": true
+              },
+              "modified": {
+                "hide": true
+              },
+              "title": {
+                "hide": true
+              },
+              "name": {
+                "width": 308
+              },
+              "type": {
+                "hide": true
+              }
+            },
+            "orderFields": [
+              "name",
+              "tags",
+              "keywords",
+              "kanban"
+            ]
+          },
+          "filter": {
+            "conjunction": "and",
+            "conditions": []
+          },
+          "colors": {
+            "conditions": [
+              {
+                "color": "#c8143c",
+                "condition": {
+                  "field": "kanban",
+                  "operator": "is",
+                  "enabled": true,
+                  "value": "to-do"
+                }
+              },
+              {
+                "color": "#143cc8",
+                "condition": {
+                  "field": "kanban",
+                  "operator": "is",
+                  "enabled": true,
+                  "value": "in-progress"
+                }
+              },
+              {
+                "color": "#969696",
+                "condition": {
+                  "field": "kanban",
+                  "operator": "is",
+                  "enabled": true,
+                  "value": "back-log"
+                }
+              },
+              {
+                "color": "#3cc814",
+                "condition": {
+                  "field": "kanban",
+                  "operator": "is",
+                  "enabled": true,
+                  "value": "done"
+                }
+              }
+            ]
+          },
+          "sort": {
+            "criteria": [
+              {
+                "field": "kanban",
+                "order": "desc",
+                "enabled": true
+              }
+            ]
+          },
+          "id": "d47d68cd-388a-4705-b724-72ea92e0b466",
+          "name": "Table",
+          "type": "table"
+        },
+        {
+          "config": {
+            "groupByField": "kanban",
+            "columns": {
+              "back-log": {
+                "weight": 0
+              },
+              "to-do": {
+                "weight": 1
+              },
+              "in-progress": {
+                "weight": 2
+              },
+              "done": {
+                "weight": 3
+              }
+            },
+            "includeFields": [
+              "keywords"
+            ]
+          },
+          "filter": {
+            "conjunction": "and",
+            "conditions": []
+          },
+          "colors": {
+            "conditions": [
+              {
+                "color": "#c8143c",
+                "condition": {
+                  "field": "kanban",
+                  "operator": "is",
+                  "enabled": true,
+                  "value": "to-do"
+                }
+              },
+              {
+                "color": "#143cc8",
+                "condition": {
+                  "field": "kanban",
+                  "operator": "is",
+                  "enabled": true,
+                  "value": "in-progress"
+                }
+              },
+              {
+                "color": "#969696",
+                "condition": {
+                  "field": "kanban",
+                  "operator": "is",
+                  "enabled": true,
+                  "value": "back-log"
+                }
+              },
+              {
+                "color": "#3cc814",
+                "condition": {
+                  "field": "kanban",
+                  "operator": "is",
+                  "enabled": true,
+                  "value": "done"
+                }
+              }
+            ]
+          },
+          "sort": {
+            "criteria": []
+          },
+          "id": "9c9f3244-2e44-4308-9a09-2efbbc1a4f7b",
+          "name": "Board",
+          "type": "board"
+        }
+      ],
+      "id": "17aeba0b-1eba-4877-b51e-8a23671ce0d6",
+      "name": "Python Study"
+    },
+    {
+      "fieldConfig": {},
+      "defaultName": "",
+      "templates": [
+        "3. Resources/Templates/(Book Reading) template.md"
+      ],
+      "excludedNotes": [],
+      "isDefault": false,
+      "dataSource": {
+        "kind": "folder",
+        "config": {
+          "path": "2. Areas/Book-Reading",
+          "recursive": false
+        }
+      },
+      "newNotesFolder": "",
+      "views": [
+        {
+          "config": {
+            "fieldConfig": {
+              "path": {
+                "hide": true
+              },
+              "created": {
+                "hide": true
+              },
+              "modified": {
+                "hide": true
+              },
+              "title": {
+                "hide": true
+              },
+              "type": {
+                "hide": true
+              },
+              "tags": {
+                "hide": true
+              }
+            },
+            "orderFields": [
+              "name",
+              "kanban",
+              "keywords",
+              "started",
+              "completed"
+            ]
+          },
+          "filter": {
+            "conjunction": "and",
+            "conditions": []
+          },
+          "colors": {
+            "conditions": []
+          },
+          "sort": {
+            "criteria": []
+          },
+          "id": "5027e4f6-5206-4bd6-99a3-c3f710d7b232",
+          "name": "Table",
+          "type": "table"
+        }
+      ],
+      "id": "398d6869-fccb-4c65-bcdb-4f558cefb74e",
+      "name": "Book-Reading"
+    }
+  ],
+  "archives": [],
+  "preferences": {
+    "projectSizeLimit": 1000,
+    "frontmatter": {
+      "quoteStrings": "PLAIN"
+    },
+    "locale": {
+      "firstDayOfWeek": "default"
+    },
+    "commands": [
+      {
+        "project": "2339dcd4-da98-417b-b369-ab3793e4df11"
+      },
+      {
+        "project": "17aeba0b-1eba-4877-b51e-8a23671ce0d6"
+      },
+      {
+        "project": "dbb5aa83-2276-44ba-88c2-09f3628b4a03"
+      },
+      {
+        "project": "398d6869-fccb-4c65-bcdb-4f558cefb74e"
+      }
+    ],
+    "linkBehavior": "open-editor"
+  }
+}

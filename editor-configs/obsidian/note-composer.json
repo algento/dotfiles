@@ -1,0 +1,4 @@
+{
+  "askBeforeMerging": true,
+  "template": "3. Resources/Templates/yaml-front-matter"
+}

@@ -1,0 +1,30 @@
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[user]
+	name = Sejong Heo
+	email = tromberx@gmail.com
+[pull]
+	rebase = false
+[credential "https://github.com"]
+	helper = 
+	helper = !/usr/local/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/usr/local/bin/gh auth git-credential
+[core]
+	preloadindex = true
+	fscache = true
+	quotepath = false
+	precomposeunicode = false
+[gc]
+	auto = 256
+[oh-my-zsh]
+	hide-status = 1
+	hide-dirty = 1
+[init]
+	defaultBranch = main
+[http]
+	postBuffer = 157286400
