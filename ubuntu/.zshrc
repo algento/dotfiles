@@ -78,18 +78,6 @@ plugins=(
   # dirhistory
   
 )
-
-#-------------------------------------------------------------------------------
-# Prefer zsh-completions
-# @see https://stackoverflow.com/a/26479426
-#-------------------------------------------------------------------------------
-if type brew &>/dev/null; then
-  FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
-
-  autoload -Uz compinit
-  compinit
-fi
-
 #------------------------------------------------------------------------------#
 # Activate ZSH
 #------------------------------------------------------------------------------#
@@ -123,67 +111,32 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 #------------------------------------------------------------------------------#
-# brew setting 
-#------------------------------------------------------------------------------#
-export PATH="/usr/local/sbin:$PATH"
-export PATH="/usr/local/opt/curl/bin:$PATH"
-#------------------------------------------------------------------------------#
 # Latex setting 
 #------------------------------------------------------------------------------#
-export PATH="/opt/local/bin:/opt/local/sbin:/opt/X11/bin:/usr/local/texlive/2022/bin/universal-darwin:$PATH"
+
 
 #------------------------------------------------------------------------------#
-#- MATLAB Setting 
+# MATLAB Setting 
 #------------------------------------------------------------------------------#
-# export PATH="/Applications/MATLAB_R2021b.app/bin:$PATH"
-
-#------------------------------------------------------------------------------#
-# OpenSSL Setting
-#------------------------------------------------------------------------------#
-export OPENSSL_ROOT_DIR=$(brew --prefix openssl)
-export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 
 #------------------------------------------------------------------------------#
 # Conda Setting
 #------------------------------------------------------------------------------#
-export CONDA_HOME=~/miniforge3
-export PATH="$CONDA_HOME/bin:$PATH"
-source ${CONDA_HOME}/etc/profile.d/conda.sh
-
-# commented out by conda initialize
-# >>> conda initialize >>>
-# # !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('$CONDA_HOME/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "$CONDA_HOME/etc/profile.d/conda.sh" ]; then
-# . "$CONDA_HOME/etc/profile.d/conda.sh"  # commented out by conda initialize  # commented out by conda initialize
-    else
-       export PATH="$CONDA_HOME/bin:$PATH"  # commented out by conda initialize
-    fi
-fi
-unset __conda_setup
-#<<< conda initialize <<<
 
 #------------------------------------------------------------------------------#
 # C/C++ Dev Setting
 #------------------------------------------------------------------------------#
-export PATH="/usr/local/opt/llvm/bin:$PATH"
-export LDFLAGS="-L/usr/local/opt/llvm/lib"
-export CPPFLAGS="-I/usr/local/opt/llvm/include"
-export VCPKG_ROOT="$HOME/vcpkg"
-export PATH="/usr/local/bin/mold:$PATH"
 
 #-------------------------------------------------------------------------------
-# MLOpsND protobuf error
+# Prefer zsh-completions
+# @see https://stackoverflow.com/a/26479426
 #-------------------------------------------------------------------------------
-# export PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=python
+if type brew &>/dev/null; then
+  FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
 
-#-------------------------------------------------------------------------------
-# Git
-#-------------------------------------------------------------------------------
-export PATH="/usr/local/opt/libiconv/bin:$PATH"
+  autoload -Uz compinit
+  compinit
+fi
 
 #-------------------------------------------------------------------------------
 # Rust
@@ -193,22 +146,8 @@ export PATH="$PATH:$HOME/.cargo/bin"
 #-------------------------------------------------------------------------------
 # Ruby
 #-------------------------------------------------------------------------------
-# if [ -d "/usr/local/opt/ruby/bin" ]; then
-#   export PATH=/usr/local/opt/ruby/bin:$PATH
-#   export PATH=`gem environment gemdir`/bin:$PATH
-# fi
-
-[[ -d ~/.rbenv ]] && \
-  export PATH=${HOME}/.rbenv/bin:$PATH && \
-  eval "$(rbenv init -)"
-
-export PATH="/usr/local/opt/libpq/bin:$PATH"
-export LDFLAGS="-L/usr/local/opt/libpq/lib"
-export CPPFLAGS="-I/usr/local/opt/libpq/include"
 
 #-------------------------------------------------------------------------------
 # NeoVim & Tmux
 #-------------------------------------------------------------------------------
 export PATH="$HOME/.tmux/plugins/tmuxifier/bin:$PATH"
-
-
