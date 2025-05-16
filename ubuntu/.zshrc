@@ -108,7 +108,13 @@ source $ZSH/oh-my-zsh.sh
 #
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
+# alias ohmyzsh="mate ~/.oh-My-zsh"
+
+#------------------------------------------------------------------------------#
+# Alias setting 
+#------------------------------------------------------------------------------#
+alias cd_win="cd /mnt/c/Users/tromb"
+export PATH="/snap/bin:$PATH"
 
 #------------------------------------------------------------------------------#
 # Latex setting 
