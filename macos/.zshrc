@@ -63,10 +63,8 @@ fi
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 #------------------------------------------------------------------------------#
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
 # update your ~/.zshrc file
-FZF_BASE="$HOME/.fzf"
+# [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 plugins=(
   git

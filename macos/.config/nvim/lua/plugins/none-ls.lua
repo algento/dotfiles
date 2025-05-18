@@ -11,13 +11,14 @@ return {
 		null_ls.setup({
 			sources = {
 				null_ls.builtins.formatting.stylua,
-				null_ls.builtins.formatting.prettier.with({
-					filetypes = { "json", "yaml", "markdown" },
+				null_ls.builtins.formatting.prettierd.with({
+					filetypes = { "json", "yaml", "typescript", "css", "html", "javascript" },
 				}),
+				null_ls.builtins.formatting.markdownlint,
 				null_ls.builtins.formatting.clang_format,
 				null_ls.builtins.diagnostics.mypy.with({
 					extra_args = function()
-						local virtual = os.getenv("VIRTUAL_ENV") or os.getenv("CONDA_PREFIX") or "/usr"
+						local virtual = os.getenv("VIRTUAL_ENV") or os.getenv("CONDA_HOME") or "/usr"
 						return { "--python-executable", virtual .. "/bin/python3" }
 					end,
 				}),
