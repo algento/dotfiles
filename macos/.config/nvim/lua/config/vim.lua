@@ -45,4 +45,10 @@ vim.diagnostic.config({
       [vim.diagnostic.severity.INFO] = " ",
     },
   },
+  float = {
+    show_header = true,
+    source = true,
+    focus = false,
+    width = 60,
+  },
 })

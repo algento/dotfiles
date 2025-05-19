@@ -10,6 +10,7 @@ return {
 			"bash",
 			"markdown",
 			"html",
+			"cmake",
 		},
 	},
 	config = function(_, opts)
