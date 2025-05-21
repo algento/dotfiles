@@ -3,6 +3,8 @@ vim.cmd("set tabstop=2")
 vim.cmd("set softtabstop=2")
 vim.cmd("set shiftwidth=2")
 vim.cmd("set backspace=indent,eol,start")
+vim.opt.langmenu = "en_US"
+vim.cmd("language en_US")
 
 -- setting search option
 vim.cmd("set ignorecase")
@@ -42,5 +44,11 @@ vim.diagnostic.config({
       [vim.diagnostic.severity.HINT] = " ",
       [vim.diagnostic.severity.INFO] = " ",
     },
+  },
+  float = {
+    show_header = true,
+    source = true,
+    focus = false,
+    width = 60,
   },
 })
