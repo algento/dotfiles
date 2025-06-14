@@ -208,5 +208,5 @@ export CPPFLAGS="-I/usr/local/opt/libpq/include"
 # NeoVim & Tmux
 #-------------------------------------------------------------------------------
 export PATH="$HOME/.tmux/plugins/tmuxifier/bin:$PATH"
-
-
+export LANG=ko_KR.UTF-8
+export LC_ALL=ko_KR.UTF-8
