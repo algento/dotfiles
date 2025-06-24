@@ -210,3 +210,12 @@ export CPPFLAGS="-I/usr/local/opt/libpq/include"
 export PATH="$HOME/.tmux/plugins/tmuxifier/bin:$PATH"
 export LANG=ko_KR.UTF-8
 export LC_ALL=ko_KR.UTF-8
+
+function y() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+	yazi "$@" --cwd-file="$tmp"
+	if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+		builtin cd -- "$cwd"
+	fi
+	rm -f -- "$tmp"
+}

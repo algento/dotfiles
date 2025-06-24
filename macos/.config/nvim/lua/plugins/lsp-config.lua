@@ -10,7 +10,7 @@ return {
         "mypy",
         "ruff",
         "prettierd",
-        "pyright",
+        "basedpyright",
         "cmakelang",
         "cmakelint",
         "neocmake",
@@ -32,7 +32,7 @@ return {
         ensure_installed = {
           "lua_ls",
           "clangd",
-          "pyright",
+          "basedpyright",
           "neocmake",
         },
       })
@@ -60,19 +60,23 @@ return {
         capabilities = capabilities,
       })
 
-      lspconfig.pyright.setup({
+      lspconfig.basedpyright.setup({
         capabilities = capabilities,
         settings = {
-          pyright = {
+          basedpyright = {
             -- Using Ruff's import organizer
             disableOrganizeImports = true,
+            -- disableLanguageServices = false,
+            analysis = {
+              -- ignore = { "*" }, -- Ignore all files for analysis to exclusively use Ruff for linting
+              -- typeCheckingMode = 'off',
+              -- diagnosticMode = 'openFilesOnly', -- Only analyze open files
+              -- useLibraryCodeForTypes = true,
+              -- autoImportCompletions = true,     -- whether pyright offers auto-import completions
+            },
           },
           python = {
-            analysis = {
-              --[[Ignore all files for analysis to exclusively use Ruff
-			            for linting--]]
-              ignore = { "*" },
-            },
+            analysis = {},
           },
         },
       })
@@ -168,6 +172,7 @@ return {
       vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
       vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, {})
       vim.keymap.set("n", "<leader>gr", vim.lsp.buf.references, {})
+      vim.keymap.set("n", "<leader>gi", vim.lsp.buf.implementation, {})
       vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, {})
       vim.keymap.set("n", "<leader>gf", vim.lsp.buf.format, {})
       vim.keymap.set("n", "<space>rn", vim.lsp.buf.rename, {})

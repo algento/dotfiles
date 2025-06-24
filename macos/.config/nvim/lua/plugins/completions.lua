@@ -34,6 +34,16 @@ return {
     "hrsh7th/cmp-nvim-lsp",
   },
   {
+    "ray-x/lsp_signature.nvim",
+    event = "InsertEnter",
+    opts = {
+      bind = true,
+      handler_opts = {
+        border = "rounded",
+      },
+    },
+  },
+  {
     "windwp/nvim-autopairs",
     event = "InsertEnter",
     opts = {},
