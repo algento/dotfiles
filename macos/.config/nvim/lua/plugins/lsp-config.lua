@@ -4,16 +4,20 @@ return {
     opts = {
       ensure_installed = {
         "lua_ls",
-        "clangd",
-        "codelldb",
+        "prettierd",
+        -- python
         "debugpy",
         "mypy",
         "ruff",
-        "prettierd",
-        "basedpyright",
+        -- "black",
+        "pylsp", -- "basedpyright",
+        -- c/c++
+        "clangd",
+        "codelldb",
         "cmakelang",
         "cmakelint",
         "neocmake",
+        -- markdown
         "marksman",
         "markdownlint-cli2",
       },
@@ -32,7 +36,8 @@ return {
         ensure_installed = {
           "lua_ls",
           "clangd",
-          "basedpyright",
+          "pylsp",
+          -- "basedpyright",
           "neocmake",
         },
       })
@@ -60,40 +65,62 @@ return {
         capabilities = capabilities,
       })
 
-      lspconfig.basedpyright.setup({
+      lspconfig.pylsp.setup({
+
         capabilities = capabilities,
         settings = {
-          basedpyright = {
-            -- Using Ruff's import organizer
-            disableOrganizeImports = true,
-            -- disableLanguageServices = false,
-            analysis = {
-              -- ignore = { "*" }, -- Ignore all files for analysis to exclusively use Ruff for linting
-              -- typeCheckingMode = 'off',
-              -- diagnosticMode = 'openFilesOnly', -- Only analyze open files
-              -- useLibraryCodeForTypes = true,
-              -- autoImportCompletions = true,     -- whether pyright offers auto-import completions
+          pylsp = {
+            plugins = {
+              pyflakes = { enabled = false },
+              pycodestyle = { enabled = false },
+              autopep8 = { enabled = false },
+              yapf = { enabled = false },
+              mccabe = { enabled = false },
+              pylsp_mypy = { enabled = false },
+              pylsp_black = { enabled = false },
+              pylsp_isort = { enabled = false },
             },
-          },
-          python = {
-            analysis = {},
           },
         },
       })
 
+      -- lspconfig.basedpyright.setup({
+      -- 	-- Config options: https://github.com/DetachHead/basedpyright/blob/main/docs/settings.md
+      -- 	capabilities = capabilities,
+      -- 	-- on_attach = function(client, bufnr)
+      -- 	--   vim.keymap.set("n", "<leader>co", "<CMD>PyrightOrganizeImports<CR>", {})
+      -- 	-- end,
+      -- 	settings = {
+      -- 		basedpyright = {
+      -- 			disableOrganizeImports = true, -- Using Ruff's import organizer
+      -- 			disableLanguageServices = false,
+      -- 			analysis = {
+      -- 				ignore = { "*" }, -- Ignore all files for analysis to exclusively use Ruff for linting
+      -- 				typeCheckingMode = "off",
+      -- 				diagnosticMode = "openFilesOnly", -- Only analyze open files
+      -- 				useLibraryCodeForTypes = true,
+      -- 				autoImportCompletions = true, -- whether pyright offers auto-import completions
+      -- 			},
+      -- 		},
+      -- 		python = {
+      -- 			analysis = {},
+      -- 		},
+      -- 	},
+      -- })
+
       lspconfig.ruff.setup({
         capabilities = capabilities,
-        cmd_env = { RUFF_TRACE = "messages" },
-        init_options = {
-          settings = {
-            logLevel = "error",
-            args = {
-              -- ruff args
-            },
-          },
-        },
-        -- ruff code action 추가
+        on_attach = function(client, bufnr)
+          if client.name == "ruff" then
+            -- Disable hover in favor of Pyright.
+            client.server_capabilities.hoverProvider = false
+            -- client.server_capabilities.diagnosticProvider = false
+          end
+        end,
         commands = {
+          -- ruff code action 추가
+          -- Notes on code actions: https://github.com/astral-sh/ruff-lsp/issues/119#issuecomment-1595628355
+          -- Get isort like behavior: https://github.com/astral-sh/ruff/issues/8926#issuecomment-1834048218
           RuffAutofix = {
             function()
               vim.lsp.buf.execute_command({
