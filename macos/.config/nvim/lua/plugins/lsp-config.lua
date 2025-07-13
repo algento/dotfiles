@@ -20,6 +20,7 @@ return {
         -- markdown
         "marksman",
         "markdownlint-cli2",
+        "markdown-toc",
       },
     },
     config = function(_, opts)
@@ -39,6 +40,7 @@ return {
           "pylsp",
           -- "basedpyright",
           "neocmake",
+          "marksman",
         },
       })
     end,
@@ -66,7 +68,6 @@ return {
       })
 
       lspconfig.pylsp.setup({
-
         capabilities = capabilities,
         settings = {
           pylsp = {
@@ -174,12 +175,18 @@ return {
         end,
         cmd = {
           "clangd",
+          "--log=verbose",
           "--background-index",
           "--clang-tidy",
+          --"--clang-tidy-checks=performance-*,bugprone-*"
+          "--suggest-missing-includes",
           "--header-insertion=iwyu",
           "--completion-style=detailed",
           "--function-arg-placeholders",
           "--fallback-style=llvm",
+          --"--query-driver=/usr/bin/gcc,/usr/bin/g++,/Library/Developer/CommandLineTools/usr/bin/c++",
+          --"--query-driver=/usr/local/bin/gcc-15, /usr/local/bin/c++-15, /usr/bin/clang",
+          --"--compile-commands-dir=build",
         },
         init_options = {
           usePlaceholders = true,

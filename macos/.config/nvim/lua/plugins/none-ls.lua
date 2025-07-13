@@ -12,7 +12,7 @@ return {
     require("mason-null-ls").setup({
       ensure_installed = {
         "prettierd", -- ts/js formatter
-        "stylua",    -- lua formatter
+        "stylua", -- lua formatter
         "clang-format",
         "shfmt",
         "ruff",
@@ -26,13 +26,13 @@ return {
 
     null_ls.setup({
       sources = {
-        --# for lua
+        --# for lua ----------------------------- #
         null_ls.builtins.formatting.stylua,
 
-        --# for clang
+        --# for clang ----------------------------- #
         null_ls.builtins.formatting.clang_format,
 
-        --# for Python
+        --# for Python ----------------------------- #
         null_ls.builtins.diagnostics.mypy.with({
           extra_args = function()
             local virtual = os.getenv("VIRTUAL_ENV") or os.getenv("CONDA_HOME") or "/usr"
@@ -45,11 +45,17 @@ return {
         }),
         require("none-ls.formatting.ruff_format"),
 
-        --# for support languages
+        --# for support languages (json, yaml, markdown, html, etc) ---#
         null_ls.builtins.formatting.prettierd.with({
           filetypes = { "json", "yaml", "typescript", "css", "html", "javascript", "markdown" },
         }),
         null_ls.builtins.diagnostics.markdownlint_cli2,
+        --# for cmake ----------------------------- #
+        null_ls.builtins.formatting.cmake_format,
+        null_ls.builtins.diagnostics.cmake_lint,
+        -- null_ls.builtins.diagnostics.cmake_lint.with({
+        --   extra_args = { "--spaces=4" },
+        -- }),
       },
 
       --# none-ls/formatting on save
