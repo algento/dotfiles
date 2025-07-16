@@ -1,30 +1,36 @@
 return {
   {
     "williamboman/mason.nvim",
-    opts = {
-      ensure_installed = {
-        "lua_ls",
-        "prettierd",
-        -- python
-        "debugpy",
-        "mypy",
-        "ruff",
-        -- "black",
-        "pylsp", -- "basedpyright",
-        -- c/c++
-        "clangd",
-        "codelldb",
-        "cmakelang",
-        "cmakelint",
-        "neocmake",
-        -- markdown
-        "marksman",
-        "markdownlint-cli2",
-        "markdown-toc",
-      },
-    },
+    lazy = false,
+    opts = {},
     config = function(_, opts)
       require("mason").setup({ opts = opts })
+    end,
+  },
+  {
+    "WhoIsSethDaniel/mason-tool-installer.nvim",
+    dependencies = { "williamboman/mason.nvim" },
+    config = function()
+      require("mason-tool-installer").setup({
+        ensure_installed = {
+          "prettierd",
+          -- python
+          "debugpy",
+          "mypy",
+          "ruff",
+          -- "black",
+          -- c/c++
+          "codelldb",
+          "cmakelang",
+          "cmakelint",
+          -- markdown
+          "markdownlint-cli2",
+          "markdown-toc",
+        },
+        auto_update = false,
+        run_on_start = true, -- Neovim 시작할 때 자동 설치됨
+        start_delay = 2000, -- 시작 후 약간 딜레이 두고 실행 (ms)
+      })
     end,
   },
   {
@@ -36,10 +42,12 @@ return {
       require("mason-lspconfig").setup({
         ensure_installed = {
           "lua_ls",
+          -- python
+          "pylsp", -- "basedpyright",
+          -- c/c++
           "clangd",
-          "pylsp",
-          -- "basedpyright",
           "neocmake",
+          -- markdown
           "marksman",
         },
       })
@@ -118,6 +126,11 @@ return {
             -- client.server_capabilities.diagnosticProvider = false
           end
         end,
+        -- settings = {
+        --   lint = {
+        --     enable = false,
+        --   },
+        -- },
         commands = {
           -- ruff code action 추가
           -- Notes on code actions: https://github.com/astral-sh/ruff-lsp/issues/119#issuecomment-1595628355
@@ -149,6 +162,7 @@ return {
 
       lspconfig.clangd.setup({
         capabilities = capabilities,
+        filetypes = { "c", "cpp", "objc", "objcpp", "cuda", "proto" },
         on_attach = function(client, bufnr)
           client.server_capabilities.signatureHelperProvider = false
           require("clangd_extensions").setup()
