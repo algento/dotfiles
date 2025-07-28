@@ -35,27 +35,37 @@ vim.keymap.set("v", "<leader>y", '"*y')
 vim.keymap.set("n", "<leader>cp", ':let @*+=expand("%:p")<CR>')
 vim.keymap.set("n", "<D-s>", "<Esc>:w<CR>")
 
+vim.filetype.add({
+	extension = {
+		htmldjango = "jinja", -- 또는 "htmldjango" (둘 다 가능)
+	},
+	pattern = {
+		["%.html%.jinja2?"] = "jinja",
+		["%.html%.j2"] = "jinja",
+	},
+})
+
 -- show diagnostics message on screen
 vim.diagnostic.config({
-  underline = false,
-  virtual_text = {
-    spacing = 2,
-    prefix = "●",
-  },
-  update_in_insert = false,
-  severity_sort = true,
-  signs = {
-    text = {
-      -- [vim.diagnostic.severity.ERROR] = " ",
-      -- [vim.diagnostic.severity.WARN] = " ",
-      -- [vim.diagnostic.severity.HINT] = " ",
-      -- [vim.diagnostic.severity.INFO] = " ",
-    },
-  },
-  float = {
-    show_header = true,
-    source = true,
-    focus = false,
-    width = 60,
-  },
+	underline = false,
+	virtual_text = {
+		spacing = 2,
+		prefix = "●",
+	},
+	update_in_insert = false,
+	severity_sort = true,
+	signs = {
+		text = {
+			-- [vim.diagnostic.severity.ERROR] = " ",
+			-- [vim.diagnostic.severity.WARN] = " ",
+			-- [vim.diagnostic.severity.HINT] = " ",
+			-- [vim.diagnostic.severity.INFO] = " ",
+		},
+	},
+	float = {
+		show_header = true,
+		source = true,
+		focus = false,
+		width = 60,
+	},
 })

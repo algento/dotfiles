@@ -20,21 +20,25 @@ return {
 		build = ":TSUpdate",
 		opts = {
 			ensure_installed = {
-				"c",
-				"cpp",
-				"python",
-				"ninja",
 				"bash",
+				"c",
+				"cmake",
+				"cpp",
+				"css",
+				"cuda",
+				"gitignore",
+				"html",
+				"jinja2",
+				"latex",
+				"lua",
 				"markdown",
 				"markdown_inline",
-				"latex",
-				"html",
-				"cmake",
-				"yaml",
-				"tmux",
-				"rust",
+				"ninja",
 				"proto",
-				"cuda",
+				"python",
+				"rust",
+				"tmux",
+				"yaml",
 			},
 		},
 		config = function(_, opts)
@@ -45,8 +49,38 @@ return {
 				--},
 				opts = opts,
 				auto_install = true,
-				highlight = { enable = true },
+				highlight = {
+					enable = true,
+					additional_vim_regex_highlighting = { "htmldjango" },
+				},
 				indent = { enable = true },
+			})
+		end,
+	},
+	{
+		"nvim-treesitter/nvim-treesitter-textobjects",
+		dependencies = { "nvim-treesitter/nvim-treesitter" },
+		config = function()
+			require("nvim-treesitter.configs").setup({
+				textobjects = {
+					move = {
+						enable = true,
+						set_jumps = true, -- jumplist에 기록
+
+						goto_next_start = {
+							["]f"] = "@function.outer",
+							["]c"] = "@class.outer",
+							["]l"] = "@loop.outer",
+							["]i"] = "@conditional.outer",
+						},
+						goto_previous_start = {
+							["[f"] = "@function.outer",
+							["[c"] = "@class.outer",
+							["[l"] = "@loop.outer",
+							["[i"] = "@conditional.outer",
+						},
+					},
+				},
 			})
 		end,
 	},
