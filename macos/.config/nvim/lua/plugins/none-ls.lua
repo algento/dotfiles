@@ -31,7 +31,16 @@ return {
 
 				--# for clang ----------------------------- #
 				null_ls.builtins.formatting.clang_format.with({
-					filetypes = { "c", "cpp", "objc", "objcpp", "cs", "java", "cuda", "proto" },
+					filetypes = {
+						"c",
+						"cpp",
+						"objc",
+						"objcpp",
+						"cs",
+						"java",
+						"cuda",
+						"proto",
+					},
 					-- 옵션 커스터마이징
 					-- extra_args = { "--style=Google" },
 				}),
@@ -51,7 +60,20 @@ return {
 
 				--# for support languages (json, yaml, markdown, html, etc) ---#
 				null_ls.builtins.formatting.prettierd.with({
-					filetypes = { "json", "yaml", "typescript", "css", "html", "javascript", "markdown" },
+					filetypes = {
+						"json",
+						"yaml",
+						"typescript",
+						"css",
+						"html",
+						"htmldjango",
+						"javascript",
+						"markdown",
+						"jinja",
+					},
+				}),
+				null_ls.builtins.formatting.djlint.with({
+					extra_args = { "--profile=jinja" }, -- jinja 템플릿 모드로 설정
 				}),
 				null_ls.builtins.diagnostics.markdownlint_cli2,
 				--# for cmake ----------------------------- #
