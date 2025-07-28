@@ -73,6 +73,7 @@ plugins=(
   fzf
   vscode
   zsh-syntax-highlighting
+  zsh-autocomplete
   # dirhistory
   
 )
@@ -120,6 +121,8 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+alias cat="$(which bat)"
+alias rcat="$(which cat)"
 #------------------------------------------------------------------------------#
 # brew setting 
 #------------------------------------------------------------------------------#
