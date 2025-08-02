@@ -1,308 +1,319 @@
 return {
-	{
-		"williamboman/mason.nvim",
-		lazy = false,
-		opts = {},
-		config = function(_, opts)
-			require("mason").setup({ opts = opts })
-		end,
-	},
-	{
-		"WhoIsSethDaniel/mason-tool-installer.nvim",
-		dependencies = { "williamboman/mason.nvim" },
-		config = function()
-			require("mason-tool-installer").setup({
-				ensure_installed = {
-					"prettierd",
-					-- python
-					"debugpy",
-					"mypy",
-					"ruff",
-					-- "black",
-					-- c/c++
-					"codelldb",
-					"cmakelang",
-					"cmakelint",
-					-- markdown
-					"markdownlint-cli2",
-					"markdown-toc",
-				},
-				auto_update = false,
-				run_on_start = true, -- Neovim 시작할 때 자동 설치됨
-				start_delay = 2000, -- 시작 후 약간 딜레이 두고 실행 (ms)
-			})
-		end,
-	},
-	{
-		"williamboman/mason-lspconfig.nvim",
-		opts = {
-			auto_install = true,
-		},
-		config = function()
-			require("mason-lspconfig").setup({
-				ensure_installed = {
-					"lua_ls",
-					-- python
-					"pylsp", -- "basedpyright",
-					-- c/c++
-					"clangd",
-					"neocmake",
-					-- markdown
-					"marksman",
-					-- web
-					"html",
-					"cssls",
-					"emmet_ls",
-					-- "jinja_lsp",
-				},
-			})
-		end,
-	},
-	{
-		"neovim/nvim-lspconfig",
-		config = function()
-			local cmp_nvim_lsp = require("cmp_nvim_lsp")
-			local capabilities = vim.tbl_deep_extend(
-				"force",
-				{},
-				vim.lsp.protocol.make_client_capabilities(),
-				cmp_nvim_lsp.default_capabilities()
-			)
-			local lspconfig = require("lspconfig")
-			local util = require("lspconfig.util")
+  {
+    "neovim/nvim-lspconfig",
+    dependencies = {
+      -- automatically install LSPs and related tools to stdpath for Neovim
+      -- Mason must be loaded before it's dependencies
+      -- NOTE: `opts={}`== `require('mason').setup({})`
+      { "williamboman/mason.nvim", opts = {} },
+      "williamboman/mason-lspconfig.nvim",
+      "WhoIsSethDaniel/mason-tool-installer.nvim",
+      "hrsh7th/cmp-nvim-lsp",
+    },
+    config = function()
+      -- Ensure the servers and tools are installed
+      require("mason-tool-installer").setup({
+        ensure_installed = {
+          "lua_ls",
+          "prettierd",
+          -- python
+          "pylsp", -- "basedpyright",
+          "debugpy",
+          "mypy",
+          "ruff", -- "black",
+          -- c/c++
+          "clangd",
+          "neocmake",
+          "codelldb",
+          "cmakelang",
+          "cmakelint",
+          -- markdown
+          "marksman",
+          "markdownlint-cli2",
+          "markdown-toc",
+          -- web
+          "html",
+          "cssls",
+          "emmet_ls", -- "jinja_lsp",
+        },
+      })
 
-			--vim.lsp.config["lua_ls"] = {
-			--	capabilities = capabilities,
-			--}
-			--vim.lsp.enable("lua_ls")
+      -- Setup CMP
+      local cmp_nvim_lsp = require("cmp_nvim_lsp")
+      local capabilities = vim.tbl_deep_extend(
+        "force",
+        {},
+        vim.lsp.protocol.make_client_capabilities(),
+        cmp_nvim_lsp.default_capabilities()
+      )
+      -- Setup LSP
+      local lspconfig = require("lspconfig")
+      local util = require("lspconfig.util")
 
-			lspconfig.lua_ls.setup({
-				capabilities = capabilities,
-			})
+      --vim.lsp.config["lua_ls"] = {
+      --	capabilities = capabilities,
+      --}
+      --vim.lsp.enable("lua_ls")
 
-			lspconfig.pylsp.setup({
-				capabilities = capabilities,
-				settings = {
-					pylsp = {
-						plugins = {
-							pyflakes = { enabled = false },
-							pycodestyle = { enabled = false },
-							autopep8 = { enabled = false },
-							yapf = { enabled = false },
-							mccabe = { enabled = false },
-							pylsp_mypy = { enabled = false },
-							pylsp_black = { enabled = false },
-							pylsp_isort = { enabled = false },
-						},
-					},
-				},
-			})
+      lspconfig.lua_ls.setup({
+        capabilities = capabilities,
+      })
 
-			-- lspconfig.basedpyright.setup({
-			-- 	-- Config options: https://github.com/DetachHead/basedpyright/blob/main/docs/settings.md
-			-- 	capabilities = capabilities,
-			-- 	-- on_attach = function(client, bufnr)
-			-- 	--   vim.keymap.set("n", "<leader>co", "<CMD>PyrightOrganizeImports<CR>", {})
-			-- 	-- end,
-			-- 	settings = {
-			-- 		basedpyright = {
-			-- 			disableOrganizeImports = true, -- Using Ruff's import organizer
-			-- 			disableLanguageServices = false,
-			-- 			analysis = {
-			-- 				ignore = { "*" }, -- Ignore all files for analysis to exclusively use Ruff for linting
-			-- 				typeCheckingMode = "off",
-			-- 				diagnosticMode = "openFilesOnly", -- Only analyze open files
-			-- 				useLibraryCodeForTypes = true,
-			-- 				autoImportCompletions = true, -- whether pyright offers auto-import completions
-			-- 			},
-			-- 		},
-			-- 		python = {
-			-- 			analysis = {},
-			-- 		},
-			-- 	},
-			-- })
+      lspconfig.pylsp.setup({
+        capabilities = capabilities,
+        settings = {
+          pylsp = {
+            plugins = {
+              pyflakes = { enabled = false },
+              pycodestyle = { enabled = false },
+              autopep8 = { enabled = false },
+              yapf = { enabled = false },
+              mccabe = { enabled = false },
+              pylsp_mypy = { enabled = false },
+              pylsp_black = { enabled = false },
+              pylsp_isort = { enabled = false },
+            },
+          },
+        },
+      })
 
-			lspconfig.ruff.setup({
-				capabilities = capabilities,
-				on_attach = function(client, bufnr)
-					if client.name == "ruff" then
-						-- Disable hover in favor of Pyright.
-						client.server_capabilities.hoverProvider = false
-						-- client.server_capabilities.diagnosticProvider = false
-					end
-				end,
-				-- settings = {
-				--   lint = {
-				--     enable = false,
-				--   },
-				-- },
-				commands = {
-					-- ruff code action 추가
-					-- Notes on code actions: https://github.com/astral-sh/ruff-lsp/issues/119#issuecomment-1595628355
-					-- Get isort like behavior: https://github.com/astral-sh/ruff/issues/8926#issuecomment-1834048218
-					RuffAutofix = {
-						function()
-							vim.lsp.buf.execute_command({
-								command = "ruff.applyAutofix",
-								arguments = {
-									{ uri = vim.uri_from_bufnr(0) },
-								},
-							})
-						end,
-						description = "Ruff: Fix all auto-fixable problems",
-					},
-					RuffOrganizeImports = {
-						function()
-							vim.lsp.buf.execute_command({
-								command = "ruff.applyOrganizeImports",
-								arguments = {
-									{ uri = vim.uri_from_bufnr(0) },
-								},
-							})
-						end,
-						description = "Ruff: Format imports",
-					},
-				},
-			})
+      -- lspconfig.basedpyright.setup({
+      -- 	-- Config options: https://github.com/DetachHead/basedpyright/blob/main/docs/settings.md
+      -- 	capabilities = capabilities,
+      -- 	-- on_attach = function(client, bufnr)
+      -- 	--   vim.keymap.set("n", "<leader>co", "<CMD>PyrightOrganizeImports<CR>", {})
+      -- 	-- end,
+      -- 	settings = {
+      -- 		basedpyright = {
+      -- 			disableOrganizeImports = true, -- Using Ruff's import organizer
+      -- 			disableLanguageServices = false,
+      -- 			analysis = {
+      -- 				ignore = { "*" }, -- Ignore all files for analysis to exclusively use Ruff for linting
+      -- 				typeCheckingMode = "off",
+      -- 				diagnosticMode = "openFilesOnly", -- Only analyze open files
+      -- 				useLibraryCodeForTypes = true,
+      -- 				autoImportCompletions = true, -- whether pyright offers auto-import completions
+      -- 			},
+      -- 		},
+      -- 		python = {
+      -- 			analysis = {},
+      -- 		},
+      -- 	},
+      -- })
 
-			lspconfig.clangd.setup({
-				capabilities = capabilities,
-				filetypes = { "c", "cpp", "objc", "objcpp", "cuda", "proto" },
-				on_attach = function(client, bufnr)
-					client.server_capabilities.signatureHelperProvider = false
-					require("clangd_extensions").setup()
-				end,
-				keys = {
-					{
-						"<leader>ch",
-						"<cmd>ClangdSwitchSourceHeader<cr>",
-						desc = "Switch Source/Header (C/C++)",
-					},
-				},
-				root_dir = function(fname)
-					return util.root_pattern(
-						"Makefile",
-						"configure.ac",
-						"configure.in",
-						"config.h.in",
-						"meson.build",
-						"meson_options.txt",
-						"build.ninja"
-					)(fname) or util.root_pattern("compile_commands.json", "compile_flags.txt")(fname) or util.find_git_ancestor(
-						fname
-					)
-				end,
-				cmd = {
-					"clangd",
-					"--log=verbose",
-					"--background-index",
-					"--clang-tidy",
-					--"--clang-tidy-checks=performance-*,bugprone-*"
-					"--suggest-missing-includes",
-					"--header-insertion=iwyu",
-					"--completion-style=detailed",
-					"--function-arg-placeholders",
-					"--fallback-style=llvm",
-					--"--query-driver=/usr/bin/gcc,/usr/bin/g++,/Library/Developer/CommandLineTools/usr/bin/c++",
-					--"--query-driver=/usr/local/bin/gcc-15, /usr/local/bin/c++-15, /usr/bin/clang",
-					--"--compile-commands-dir=build",
-				},
-				init_options = {
-					usePlaceholders = true,
-					completeUnimported = true,
-					clangdFileStatus = true,
-				},
-			})
+      lspconfig.ruff.setup({
+        capabilities = capabilities,
+        on_attach = function(client, bufnr)
+          if client.name == "ruff" then
+            -- Disable hover in favor of Pyright.
+            client.server_capabilities.hoverProvider = false
+            -- client.server_capabilities.diagnosticProvider = false
+          end
+        end,
+        -- settings = {
+        --   lint = {
+        --     enable = false,
+        --   },
+        -- },
+        commands = {
+          -- ruff code action 추가
+          -- Notes on code actions: https://github.com/astral-sh/ruff-lsp/issues/119#issuecomment-1595628355
+          -- Get isort like behavior: https://github.com/astral-sh/ruff/issues/8926#issuecomment-1834048218
+          RuffAutofix = {
+            function()
+              vim.lsp.buf.execute_command({
+                command = "ruff.applyAutofix",
+                arguments = {
+                  { uri = vim.uri_from_bufnr(0) },
+                },
+              })
+            end,
+            description = "Ruff: Fix all auto-fixable problems",
+          },
+          RuffOrganizeImports = {
+            function()
+              vim.lsp.buf.execute_command({
+                command = "ruff.applyOrganizeImports",
+                arguments = {
+                  { uri = vim.uri_from_bufnr(0) },
+                },
+              })
+            end,
+            description = "Ruff: Format imports",
+          },
+        },
+      })
 
-			lspconfig.neocmake.setup({
-				capabilities = capabilities,
-			})
+      lspconfig.clangd.setup({
+        capabilities = capabilities,
+        filetypes = { "c", "cpp", "objc", "objcpp", "cuda", "proto" },
+        on_attach = function(client, bufnr)
+          client.server_capabilities.signatureHelperProvider = false
+          require("clangd_extensions").setup()
+        end,
+        keys = {
+          {
+            "<leader>ch",
+            "<cmd>ClangdSwitchSourceHeader<cr>",
+            desc = "Switch Source/Header (C/C++)",
+          },
+        },
+        root_dir = function(fname)
+          return util.root_pattern(
+            "Makefile",
+            "configure.ac",
+            "configure.in",
+            "config.h.in",
+            "meson.build",
+            "meson_options.txt",
+            "build.ninja"
+          )(fname) or util.root_pattern("compile_commands.json", "compile_flags.txt")(fname) or util.find_git_ancestor(
+            fname
+          )
+        end,
+        cmd = {
+          "clangd",
+          "--log=verbose",
+          "--background-index",
+          "--clang-tidy",
+          --"--clang-tidy-checks=performance-*,bugprone-*"
+          "--suggest-missing-includes",
+          "--header-insertion=iwyu",
+          "--completion-style=detailed",
+          "--function-arg-placeholders",
+          "--fallback-style=llvm",
+          --"--query-driver=/usr/bin/gcc,/usr/bin/g++,/Library/Developer/CommandLineTools/usr/bin/c++",
+          --"--query-driver=/usr/local/bin/gcc-15, /usr/local/bin/c++-15, /usr/bin/clang",
+          --"--compile-commands-dir=build",
+        },
+        init_options = {
+          usePlaceholders = true,
+          completeUnimported = true,
+          clangdFileStatus = true,
+        },
+      })
 
-			lspconfig.marksman.setup({
-				capabilities = capabilities,
-			})
+      lspconfig.neocmake.setup({
+        capabilities = capabilities,
+      })
 
-			lspconfig.html.setup({
-				capabilities = capabilities,
-				filetypes = {
-					"html",
-					"jinja",
-					"htmldjango",
-					"javascript",
-					"javascriptreact",
-					"javascript.jsx",
-					"typescript",
-					"typescriptreact",
-					"typescript.tsx",
-				},
-			})
+      lspconfig.marksman.setup({
+        capabilities = capabilities,
+      })
 
-			lspconfig.cssls.setup({
-				capabilities = capabilities,
-				filetypes = {
-					"css",
-					"scss",
-					"sass",
-				},
-			})
+      lspconfig.html.setup({
+        capabilities = capabilities,
+        filetypes = {
+          "html",
+          "jinja",
+          "htmldjango",
+          "javascript",
+          "javascriptreact",
+          "javascript.jsx",
+          "typescript",
+          "typescriptreact",
+          "typescript.tsx",
+        },
+      })
 
-			lspconfig.emmet_ls.setup({
-				capabilities = capabilities,
-				filetypes = {
-					"html",
-					"htmldjango",
-					"css",
-					"jinja",
-				},
-			})
-			-- lspconfig.jinja_lsp.setup({
-			-- 	capabilities = capabilities,
-			-- 	filetypes = {
-			-- 		"jinja",
-			-- 		"html.jinja",
-			-- 		"htmldjango",
-			-- 	},
-			--   cmd = {
-			--     "jinja-lsp",
-			--   }
-			-- })
+      lspconfig.cssls.setup({
+        capabilities = capabilities,
+        filetypes = {
+          "css",
+          "scss",
+          "sass",
+        },
+      })
 
-			vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
-			vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, {})
-			vim.keymap.set("n", "<leader>gr", vim.lsp.buf.references, {})
-			vim.keymap.set("n", "<leader>gi", vim.lsp.buf.implementation, {})
-			vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, {})
-			vim.keymap.set("n", "<leader>gf", vim.lsp.buf.format, {})
-			vim.keymap.set("n", "<space>rn", vim.lsp.buf.rename, {})
-		end,
-	},
-	{
-		"p00f/clangd_extensions.nvim",
-		lazy = true,
-		opts = {
-			ast = {
-				role_icons = {
-					type = "",
-					declaration = "",
-					expression = "",
-					specifier = "",
-					statement = "",
-					["template argument"] = "",
-				},
+      lspconfig.emmet_ls.setup({
+        capabilities = capabilities,
+        filetypes = {
+          "html",
+          "htmldjango",
+          "css",
+          "jinja",
+        },
+      })
+      -- lspconfig.jinja_lsp.setup({
+      -- 	capabilities = capabilities,
+      -- 	filetypes = {
+      -- 		"jinja",
+      -- 		"html.jinja",
+      -- 		"htmldjango",
+      -- 	},
+      --   cmd = {
+      --     "jinja-lsp",
+      --   }
+      -- })
 
-				kind_icons = {
-					Compound = "",
-					Recovery = "",
-					TranslationUnit = "",
-					PackExpansion = "",
-					TemplateTypeParm = "",
-					TemplateTemplateParm = "",
-					TemplateParamObject = "",
-				},
-				highlights = {
-					detail = "Comment",
-				},
-			},
-		},
-	},
+      -- show diagnostics message on screen
+      -- See :help vim.diagnostic.Opts
+      vim.diagnostic.config({
+        severity_sort = true,
+        -- underline = false,
+        underline = {
+          severity = vim.diagnostic.severity.ERROR,
+        },
+        -- update_in_insert = false,
+        virtual_text = {
+          source = "if_many",
+          spacing = 2,
+          prefix = "●",
+          format = function(diagnostic)
+            local diagnostic_message = {
+              [vim.diagnostic.severity.ERROR] = diagnostic.message,
+              [vim.diagnostic.severity.WARN] = diagnostic.message,
+              [vim.diagnostic.severity.INFO] = diagnostic.message,
+              [vim.diagnostic.severity.HINT] = diagnostic.message,
+            }
+            return diagnostic_message[diagnostic.severity]
+          end,
+        },
+        signs = vim.g.have_nerd_font and {
+          text = {
+            [vim.diagnostic.severity.ERROR] = " ",
+            [vim.diagnostic.severity.WARN] = " ",
+            [vim.diagnostic.severity.HINT] = " ",
+            [vim.diagnostic.severity.INFO] = " ",
+          },
+        },
+        float = {
+          border = "rounded",
+          source = "if_many", -- true
+          -- show_header = true,
+          -- focus = false,
+          -- width = 60,
+        },
+      })
+    end,
+  },
+  {
+    "p00f/clangd_extensions.nvim",
+    lazy = true,
+    opts = {
+      ast = {
+        role_icons = {
+          type = "",
+          declaration = "",
+          expression = "",
+          specifier = "",
+          statement = "",
+          ["template argument"] = "",
+        },
+
+        kind_icons = {
+          Compound = "",
+          Recovery = "",
+          TranslationUnit = "",
+          PackExpansion = "",
+          TemplateTypeParm = "",
+          TemplateTemplateParm = "",
+          TemplateParamObject = "",
+        },
+        highlights = {
+          detail = "Comment",
+        },
+      },
+    },
+  },
 }
