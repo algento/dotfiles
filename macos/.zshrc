@@ -75,19 +75,7 @@ plugins=(
   zsh-syntax-highlighting
   zsh-autocomplete
   # dirhistory
-  
 )
-
-#-------------------------------------------------------------------------------
-# Prefer zsh-completions
-# @see https://stackoverflow.com/a/26479426
-#-------------------------------------------------------------------------------
-if type brew &>/dev/null; then
-  FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
-
-  autoload -Uz compinit
-  compinit
-fi
 
 #------------------------------------------------------------------------------#
 # Activate ZSH
@@ -222,3 +210,8 @@ function y() {
 	fi
 	rm -f -- "$tmp"
 }
+#-------------------------------------------------------------------------------
+# Python
+#-------------------------------------------------------------------------------
+export PATH="$HOME/.local/bin:$PATH" # for uv
+
