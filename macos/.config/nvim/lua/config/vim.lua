@@ -35,6 +35,17 @@ vim.keymap.set("v", "<leader>y", '"*y')
 vim.keymap.set("n", "<leader>cp", ':let @*+=expand("%:p")<CR>')
 vim.keymap.set("n", "<D-s>", "<Esc>:w<CR>")
 
+vim.keymap.set("n", "K", vim.lsp.buf.hover, { desc = "Lsp hover" })
+vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, {})
+vim.keymap.set("n", "<leader>gr", vim.lsp.buf.references, {})
+vim.keymap.set("n", "<leader>gi", vim.lsp.buf.implementation, {})
+vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, {})
+vim.keymap.set("n", "<leader>gf", vim.lsp.buf.format, {})
+vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, {})
+vim.keymap.set("n", "<leader>df", function()
+  vim.diagnostic.open_float()
+end, { desc = "Open Diagnostics in Float" })
+
 vim.filetype.add({
   extension = {
     htmldjango = "jinja", -- 또는 "htmldjango" (둘 다 가능)
