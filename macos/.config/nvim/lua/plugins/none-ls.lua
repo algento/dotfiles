@@ -1,5 +1,5 @@
 return {
-	"nvimtools/none-ls.nvim",
+  --[[ "nvimtools/none-ls.nvim",
 	dependencies = {
 		"nvimtools/none-ls-extras.nvim",
 		"jay-babu/mason-null-ls.nvim",
@@ -100,5 +100,5 @@ return {
 			end,
 		})
 		vim.keymap.set("n", "<leader>gf", vim.lsp.buf.format, {})
-	end,
+	end, ]]
 }

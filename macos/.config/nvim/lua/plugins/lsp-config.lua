@@ -8,7 +8,7 @@ return {
       { "williamboman/mason.nvim", opts = {} },
       "williamboman/mason-lspconfig.nvim",
       "WhoIsSethDaniel/mason-tool-installer.nvim",
-      "hrsh7th/cmp-nvim-lsp",
+      -- "hrsh7th/cmp-nvim-lsp",
     },
     config = function()
       -- Ensure the servers and tools are installed
@@ -42,13 +42,14 @@ return {
           "djlint",
           "emmet_ls", -- "jinja_lsp",
           "prettierd",
+          "django-template-lsp",
         },
       })
 
       -- Setup CMP
-      local cmp_nvim_lsp = require("cmp_nvim_lsp")
+      -- local cmp_nvim_lsp = require("cmp_nvim_lsp")
       local capabilities = vim.lsp.protocol.make_client_capabilities()
-      capabilities = vim.tbl_deep_extend("force", capabilities, cmp_nvim_lsp.default_capabilities())
+      -- capabilities = vim.tbl_deep_extend("force", capabilities, cmp_nvim_lsp.default_capabilities())
 
       -- Setup LSP
       local servers = {
@@ -57,7 +58,7 @@ return {
         html = {},
         cssls = {},
         emmet_ls = {},
-
+        djlsp = {},
         -- Python
         pylsp = {
           settings = {
@@ -200,7 +201,7 @@ return {
         },
         -- update_in_insert = false,
         virtual_text = {
-          source = "if_many",
+          source = "always", -- "if_many"
           spacing = 2,
           prefix = "●",
           format = function(diagnostic)

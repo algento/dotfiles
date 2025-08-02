@@ -42,9 +42,16 @@ vim.keymap.set("n", "<leader>gi", vim.lsp.buf.implementation, {})
 vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, {})
 vim.keymap.set("n", "<leader>gf", vim.lsp.buf.format, {})
 vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, {})
+
 vim.keymap.set("n", "<leader>df", function()
   vim.diagnostic.open_float()
 end, { desc = "Open Diagnostics in Float" })
+
+vim.keymap.set("n", "<leader>cf", function()
+  require("conform").format({
+    lsp_format = "fallback",
+  })
+end, { desc = "Format current file" })
 
 vim.filetype.add({
   extension = {

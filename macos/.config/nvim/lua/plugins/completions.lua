@@ -1,5 +1,5 @@
 return {
-  {
+  --[[ {
     "L3MON4D3/LuaSnip",
     version = "v2.*",
     build = "make install_jsregexp",
@@ -28,8 +28,9 @@ return {
       -- require("luasnip").filetype_extend("kotlin", { "kdoc" })
       -- require("luasnip").filetype_extend("ruby", { "rdoc" })
       -- require("luasnip").filetype_extend("sh", { "shelldoc" })
+      --
     end,
-  },
+  }, ]]
   {
     "ray-x/lsp_signature.nvim",
     event = "InsertEnter",
@@ -40,12 +41,8 @@ return {
       },
     },
   },
-  {
-    "windwp/nvim-autopairs",
-    event = "InsertEnter",
-    opts = {},
-  },
-  {
+
+  --[[ {
     "hrsh7th/nvim-cmp",
     dependecies = { "hrsh7th/cmp-nvim-lsp", "hrsh7th/cmp-buffer", "hrsh7th/cmp-path" },
     config = function()
@@ -89,5 +86,5 @@ return {
     config = true,
     -- Uncomment next line if you want to follow only stable versions
     version = "*",
-  },
+  }, ]]
 }
