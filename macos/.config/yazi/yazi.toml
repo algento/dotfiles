@@ -3,7 +3,7 @@
 show_hidden = true
 show_symlink = true
 linemode = "size_and_mtime"
-# ratio          = [ 1, 4, 3 ]
+ratio          = [ 2, 5, 3 ]
 
 [preview]
 warp = "yes"
