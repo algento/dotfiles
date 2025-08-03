@@ -59,6 +59,7 @@ return {
         cssls = {},
         emmet_ls = {},
         djlsp = {},
+
         -- Python
         pylsp = {
           settings = {
@@ -76,29 +77,6 @@ return {
             },
           },
         },
-
-        --[[ -- Pyright, basedpyright
-        pyright = {
-          -- on_attach = function(client, bufnr)
-          --   vim.keymap.set("n", "<leader>co", "<CMD>PyrightOrganizeImports<CR>", {})
-          -- end,
-          settings = {
-            basedpyright = {
-              disableOrganizeImports = true, -- Using Ruff's import organizer
-              disableLanguageServices = false,
-              analysis = {
-                ignore = { "*" },                 -- Ignore all files for analysis to exclusively use Ruff for linting
-                typeCheckingMode = "off",
-                diagnosticMode = "openFilesOnly", -- Only analyze open files
-                useLibraryCodeForTypes = true,
-                autoImportCompletions = true,     -- whether pyright offers auto-import completions
-              },
-            },
-            python = {
-              analysis = {},
-            },
-          },
-        }, ]]
 
         ruff = {
           on_attach = function(client, bufnr)
