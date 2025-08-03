@@ -5,6 +5,7 @@ return {
       -- your configuration comes her
       -- or leave it empty to use the default settings
       -- refer to the configuration section below
+      ignore_lsp = { "lua_ls" },
     })
 
     -- Absolutely minimal implementation of fzf-lua based project finder
