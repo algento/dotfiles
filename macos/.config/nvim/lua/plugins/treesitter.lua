@@ -17,6 +17,9 @@ return {
   },
   {
     "nvim-treesitter/nvim-treesitter",
+    dependencies = {
+      "nvim-treesitter/playground",
+    },
     build = ":TSUpdate",
     opts = {
       ensure_installed = {
@@ -78,6 +81,9 @@ return {
           -- additional_vim_regex_highlighting = false,
         },
         indent = { enable = true },
+        playground = {
+          enable = true,
+        },
       })
       --[[ # for code folding ]]
       -- vim.wo.foldmethod = "expr"
@@ -142,8 +148,10 @@ return {
             enable = true,
             set_jumps = true, -- whether to set jumps in the jumplist
             goto_next_start = {
-              ["]f"] = "@function.outer",
+              ["]f"] = { query = "@function.outer", desc = "Next function start" },
               ["]c"] = { query = "@class.outer", desc = "Next class start" },
+              ["]t"] = { query = "@table.outer", desc = "Next table start" },
+              ["]b"] = { query = "@block.outer", desc = "Next block start" },
               --
               -- You can use regex matching (i.e. lua pattern) and/or pass a list in a "query" key to group multiple queries.
               ["]o"] = "@loop.*",
@@ -157,14 +165,17 @@ return {
             goto_next_end = {
               ["]F"] = "@function.outer",
               ["]C"] = "@class.outer",
+              ["]T"] = "@table.outer",
             },
             goto_previous_start = {
               ["[f"] = "@function.outer",
               ["[c"] = "@class.outer",
+              ["[t"] = "@table.outer",
             },
             goto_previous_end = {
               ["[F"] = "@function.outer",
               ["[C"] = "@class.outer",
+              ["[T"] = "@table.outer",
             },
             -- Below will go to either the start or the end, whichever is closer.
             -- Use if you want more granular movements

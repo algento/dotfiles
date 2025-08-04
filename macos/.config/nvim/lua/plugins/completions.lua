@@ -15,7 +15,7 @@ return {
       dependencies = {
         "rafamadriz/friendly-snippets",
         "moyiz/blink-emoji.nvim",
-        "ray-x/cmp-sql",
+        -- "ray-x/cmp-sql",
       },
 
       -- use a release tag to download pre-built binaries
@@ -58,7 +58,13 @@ return {
         -- Default list of enabled providers defined so that you can extend it
         -- elsewhere in your config, without redefining it, due to `opts_extend`
         sources = {
-          default = { "lsp", "path", "snippets", "buffer", "emoji", "sql" },
+          default = {
+            "lsp",
+            "path",
+            "snippets",
+            "buffer",
+            "emoji", --[[ "sql"  ]]
+          },
           providers = {
             emoji = {
               module = "blink-emoji",
@@ -74,7 +80,7 @@ return {
                 )
               end,
             },
-            sql = {
+            --[[ sql = {
               -- IMPORTANT: use the same name as you would for nvim-cmp
               name = "sql",
               module = "blink.compat.source",
@@ -95,7 +101,7 @@ return {
                   vim.o.filetype
                 )
               end,
-            },
+            }, ]]
           },
         },
 
@@ -108,6 +114,12 @@ return {
       },
       opts_extend = { "sources.default" },
     },
+  },
+  {
+    "danymat/neogen",
+    config = true,
+    -- Uncomment next line if you want to follow only stable versions
+    version = "*",
   },
 
   --[[ {
@@ -193,10 +205,5 @@ return {
       })
     end,
   },
-  {
-    "danymat/neogen",
-    config = true,
-    -- Uncomment next line if you want to follow only stable versions
-    version = "*",
-  }, ]]
+  ]]
 }

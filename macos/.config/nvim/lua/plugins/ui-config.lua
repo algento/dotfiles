@@ -1,19 +1,19 @@
 return {
-  -- {
-  --   "folke/noice.nvim",
-  --   event = "VeryLazy",
-  --   opts = {
-  --     -- add any options here
-  --   },
-  --   dependencies = {
-  --     -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
-  --     "MunifTanjim/nui.nvim",
-  --     -- OPTIONAL:
-  --     --   `nvim-notify` is only needed, if you want to use the notification view.
-  --     --   If not available, we use `mini` as the fallback
-  --     "rcarriga/nvim-notify",
-  --   },
-  -- },
+  {
+    "folke/noice.nvim",
+    event = "VeryLazy",
+    opts = {
+      -- add any options here
+    },
+    dependencies = {
+      -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+      "MunifTanjim/nui.nvim",
+      -- OPTIONAL:
+      --   `nvim-notify` is only needed, if you want to use the notification view.
+      --   If not available, we use `mini` as the fallback
+      "rcarriga/nvim-notify",
+    },
+  },
   -- {
   --   "goolord/alpha-nvim",
   --   dependencies = {
@@ -38,6 +38,17 @@ return {
   --     alpha.setup(dashboard.opts)
   --   end,
   -- },
+  {
+    "stevearc/dressing.nvim",
+    opts = {},
+  },
+  {
+    "lukas-reineke/indent-blankline.nvim",
+    main = "ibl",
+    ---@module "ibl"
+    ---@type ibl.config
+    opts = {},
+  },
   {
     "folke/which-key.nvim",
     event = "VeryLazy",
@@ -69,14 +80,14 @@ return {
         enabled = true,
         preset = {
           header = [[
-            "                                                     ",
-            "  ███╗   ██╗███████╗ ██████╗ ██╗   ██╗██╗███╗   ███╗ ",
-            "  ████╗  ██║██╔════╝██╔═══██╗██║   ██║██║████╗ ████║ ",
-            "  ██╔██╗ ██║█████╗  ██║   ██║██║   ██║██║██╔████╔██║ ",
-            "  ██║╚██╗██║██╔══╝  ██║   ██║╚██╗ ██╔╝██║██║╚██╔╝██║ ",
-            "  ██║ ╚████║███████╗╚██████╔╝ ╚████╔╝ ██║██║ ╚═╝ ██║ ",
-            "  ╚═╝  ╚═══╝╚══════╝ ╚═════╝   ╚═══╝  ╚═╝╚═╝     ╚═╝ ",
-            "                                                     ",
+"                                                     ",
+"  ███╗   ██╗███████╗ ██████╗ ██╗   ██╗██╗███╗   ███╗ ",
+"  ████╗  ██║██╔════╝██╔═══██╗██║   ██║██║████╗ ████║ ",
+"  ██╔██╗ ██║█████╗  ██║   ██║██║   ██║██║██╔████╔██║ ",
+"  ██║╚██╗██║██╔══╝  ██║   ██║╚██╗ ██╔╝██║██║╚██╔╝██║ ",
+"  ██║ ╚████║███████╗╚██████╔╝ ╚████╔╝ ██║██║ ╚═╝ ██║ ",
+"  ╚═╝  ╚═══╝╚══════╝ ╚═════╝   ╚═══╝  ╚═╝╚═╝     ╚═╝ ",
+"                                                     ",
          ]],
         },
       },
@@ -119,41 +130,41 @@ return {
         end,
         desc = "Lazygit",
       },
-      -- {
-      --   "<C-p>",
-      --   function()
-      --     Snacks.picker.pick("files")
-      --   end,
-      --   desc = "Find Files",
-      -- },
-      -- {
-      --   "<leader><leader>",
-      --   function()
-      --     Snacks.picker.recent()
-      --   end,
-      --   desc = "Recent Files",
-      -- },
-      -- {
-      --   "<leader>fb",
-      --   function()
-      --     Snacks.picker.buffers()
-      --   end,
-      --   desc = "Buffers",
-      -- },
-      -- {
-      --   "<leader>fg",
-      --   function()
-      --     Snacks.picker.grep()
-      --   end,
-      --   desc = "Grep Files",
-      -- },
-      -- {
-      --   "<C-n>",
-      --   function()
-      --     Snacks.explorer()
-      --   end,
-      --   desc = "Explorer",
-      -- },
+      {
+        "<C-p>",
+        function()
+          Snacks.picker.pick("files")
+        end,
+        desc = "Find Files",
+      },
+      {
+        "<leader><leader>",
+        function()
+          Snacks.picker.recent()
+        end,
+        desc = "Recent Files",
+      },
+      {
+        "<leader>fb",
+        function()
+          Snacks.picker.buffers()
+        end,
+        desc = "Buffers",
+      },
+      {
+        "<leader>fg",
+        function()
+          Snacks.picker.grep()
+        end,
+        desc = "Grep Files",
+      },
+      {
+        "<C-n>",
+        function()
+          Snacks.explorer()
+        end,
+        desc = "Explorer",
+      },
     },
   },
 }

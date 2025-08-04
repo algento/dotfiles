@@ -1,6 +1,6 @@
 return {
   -- Neo-tree
-  {
+  --[[   {
     "nvim-neo-tree/neo-tree.nvim",
     branch = "v3.x",
     dependencies = {
@@ -18,21 +18,19 @@ return {
           -- hide_gitignored = true,
         },
       },
-      sync_root_with_cwd = true,
-      respect_buf_cwd = true,
-      update_focused_file = {
-        enable = true,
-        update_root = true,
-      },
     },
     config = function(_, opts)
       require("neo-tree").setup(opts)
       vim.keymap.set("n", "<C-n>", ":Neotree filesystem reveal left<CR>")
     end,
-  },
+  }, ]]
   -- Oil
   {
     "stevearc/oil.nvim",
+    -- Optional dependencies
+    dependencies = { { "echasnovski/mini.icons", opts = {} } },
+    -- dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if you prefer nvim-web-devicons
+    -- Lazy loading is not recommended because it is very tricky to make it work correctly in all situations.
     ---@module 'oil'
     ---@type oil.SetupOpts
     opts = {
@@ -41,16 +39,16 @@ return {
       },
       keymaps = {
         -- oil 버퍼에서 사용될 keymap 설정
-        ["c"] = { mode = "n" },
+        ["<Esc>"] = { "actions.close", mode = "n" },
       },
       float = {
         preview_split = "below",
       },
+      columns = {
+        "icon",
+        "size",
+      },
     },
-    -- Optional dependencies
-    dependencies = { { "echasnovski/mini.icons", opts = {} } },
-    -- dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if you prefer nvim-web-devicons
-    -- Lazy loading is not recommended because it is very tricky to make it work correctly in all situations.
     lazy = false,
     config = function(_, opts)
       local oil = require("oil")
@@ -63,12 +61,6 @@ return {
           -- vim.keymap.set("n", "C", function()
           --   require("oil").open_new_file()
           -- end, { desc = "Create file/directory" })
-          -- vim.keymap.set("n", "R", function()
-          --   require("oil").rename_entry()
-          -- end, { desc = "Rename file/directory" })
-          -- vim.keymap.set("n", "D", function()
-          --   require("oil").delete_entry()
-          -- end, { desc = "Delete file/directory" })
         end,
       })
     end,
