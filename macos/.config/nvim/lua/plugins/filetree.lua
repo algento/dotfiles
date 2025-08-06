@@ -39,14 +39,15 @@ return {
       },
       keymaps = {
         -- oil 버퍼에서 사용될 keymap 설정
+        ["<C-h>"] = false,
+        ["<C-l>"] = false,
+        ["<C-k>"] = false,
+        ["<C-j>"] = false,
+        ["<C-]>"] = "actions.select_split",
         ["<Esc>"] = { "actions.close", mode = "n" },
-      },
-      float = {
-        preview_split = "below",
       },
       columns = {
         "icon",
-        "size",
       },
     },
     lazy = false,
@@ -62,6 +63,14 @@ return {
           --   require("oil").open_new_file()
           -- end, { desc = "Create file/directory" })
         end,
+      })
+      vim.api.nvim_create_autocmd("User", {
+        pattern = "OilEnter",
+        callback = vim.schedule_wrap(function(args)
+          if vim.api.nvim_get_current_buf() == args.data.buf and oil.get_cursor_entry() then
+            oil.open_preview()
+          end
+        end),
       })
     end,
   },
