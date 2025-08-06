@@ -65,14 +65,3 @@ vim.api.nvim_create_autocmd("TextYankPost", {
     vim.hl.on_yank()
   end,
 })
-
---[[ 
-vim.filetype.add({
-  extension = {
-    htmldjango = "jinja", -- 또는 "htmldjango" (둘 다 가능)
-  },
-  pattern = {
-    ["%.html%.jinja2?"] = "jinja",
-    ["%.html%.j2"] = "jinja",
-  },
-}) ]]

@@ -42,13 +42,13 @@ return {
     "stevearc/dressing.nvim",
     opts = {},
   },
-  {
-    "lukas-reineke/indent-blankline.nvim",
-    main = "ibl",
-    ---@module "ibl"
-    ---@type ibl.config
-    opts = {},
-  },
+  -- {
+  --   "lukas-reineke/indent-blankline.nvim",
+  --   main = "ibl",
+  --   ---@module "ibl"
+  --   ---@type ibl.config
+  --   opts = {},
+  -- },
   {
     "folke/which-key.nvim",
     event = "VeryLazy",
@@ -91,14 +91,15 @@ return {
          ]],
         },
       },
-      -- indent = { enabled = true }, -- use treesitter indent
+      indent = { enabled = true },
       input = { enabled = true },
       git = { enabled = true },
-      picker = { enabled = true },
-      notifier = { enabled = true },
+      explorer = { enabled = false },
+      picker = { enabled = false },
+      notifier = { enabled = true, timeout = 3000 },
       quickfile = { enabled = true },
       scroll = { enabled = false },
-      statuscolumn = { enabled = true },
+      statuscolumn = { enabled = false },
       words = { enabled = true },
     },
     keys = {
