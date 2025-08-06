@@ -7,6 +7,7 @@ ratio          = [ 2, 5, 3 ]
 
 [preview]
 warp = "yes"
+wrap = "yes"
 tab_size = 2
 max_width = 1200
 max_height = 2400
