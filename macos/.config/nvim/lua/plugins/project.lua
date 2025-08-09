@@ -5,7 +5,18 @@ return {
       -- your configuration comes her
       -- or leave it empty to use the default settings
       -- refer to the configuration section below
-      ignore_lsp = { "lua_ls" },
+      -- ignore_lsp = { "lua_ls" },
+      detection_methods = { "pattern", "lsp" },
+      patterns = {
+        "my-root.txt", -- 내가 원하는 마커
+        ".git", -- git 기준
+        "package.json", -- JS/TS 기준
+        "pyproject.toml", -- Python 기준
+        "Cargo.toml", -- Rust 기준
+        "Makefile",
+        "init.lua", -- Nvim config 기준
+      },
+      show_hidden = true,
     })
 
     -- Absolutely minimal implementation of fzf-lua based project finder

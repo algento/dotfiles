@@ -196,7 +196,13 @@ return {
       --  - settings (table): Override the default settings passed when initializing the server.
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
-        lua_ls = {},
+        lua_ls = {
+          root_dir = function(fname)
+            return util.root_pattern("init.lua")(fname) -- init.lua 있는 폴더를 루트로
+              or util.find_git_ancestor(fname) -- 없으면 git root
+              or util.path.dirname(fname)
+          end,
+        },
         marksman = {},
         html = {},
         cssls = {},
@@ -225,6 +231,7 @@ return {
           on_attach = function(client, bufnr)
             if client.name == "ruff" then
               -- Disable hover in favor of Pyright.
+              client.server_capabilities.signatureHelperProvider = false
               client.server_capabilities.hoverProvider = false
               -- client.server_capabilities.diagnosticProvider = false
             end
