@@ -16,7 +16,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+    source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
@@ -65,7 +65,7 @@ fi
 #------------------------------------------------------------------------------#
 # update your ~/.zshrc file
 # [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
+# eval "$(fzf --zsh)"
 plugins=(
   git
   z
@@ -100,6 +100,7 @@ source $ZSH/oh-my-zsh.sh
 # ssh
 # export SSH_KEY_PATH="~/.ssh/dsa_id"
 
+
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
@@ -109,22 +110,12 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-alias cat="$(which bat)"
-alias rcat="$(which cat)"
+
 #------------------------------------------------------------------------------#
-# brew setting 
+# brew setting
 #------------------------------------------------------------------------------#
 export PATH="/usr/local/sbin:$PATH"
 export PATH="/usr/local/opt/curl/bin:$PATH"
-#------------------------------------------------------------------------------#
-# Latex setting 
-#------------------------------------------------------------------------------#
-export PATH="/opt/local/bin:/opt/local/sbin:/opt/X11/bin:/usr/local/texlive/2022/bin/universal-darwin:$PATH"
-
-#------------------------------------------------------------------------------#
-#- MATLAB Setting 
-#------------------------------------------------------------------------------#
-# export PATH="/Applications/MATLAB_R2021b.app/bin:$PATH"
 
 #------------------------------------------------------------------------------#
 # OpenSSL Setting
@@ -133,8 +124,9 @@ export OPENSSL_ROOT_DIR=$(brew --prefix openssl)
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 
 #------------------------------------------------------------------------------#
-# Conda Setting
+# Python
 #------------------------------------------------------------------------------#
+# Conda
 export CONDA_HOME=~/miniforge3
 export PATH="$CONDA_HOME/bin:$PATH"
 source ${CONDA_HOME}/etc/profile.d/conda.sh
@@ -155,24 +147,17 @@ fi
 unset __conda_setup
 #<<< conda initialize <<<
 
+# for UV
+export PATH="$HOME/.local/bin:$PATH" # for uv
+
 #------------------------------------------------------------------------------#
-# C/C++ Dev Setting
+# C/C++
 #------------------------------------------------------------------------------#
 export PATH="/usr/local/opt/llvm/bin:$PATH"
 export LDFLAGS="-L/usr/local/opt/llvm/lib"
 export CPPFLAGS="-I/usr/local/opt/llvm/include"
 export VCPKG_ROOT="$HOME/vcpkg"
 export PATH="/usr/local/bin/mold:$PATH"
-
-#-------------------------------------------------------------------------------
-# MLOpsND protobuf error
-#-------------------------------------------------------------------------------
-# export PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=python
-
-#-------------------------------------------------------------------------------
-# Git
-#-------------------------------------------------------------------------------
-export PATH="/usr/local/opt/libiconv/bin:$PATH"
 
 #-------------------------------------------------------------------------------
 # Rust
@@ -188,32 +173,134 @@ export PATH="$PATH:$HOME/.cargo/bin"
 # fi
 
 [[ -d ~/.rbenv ]] && \
-  export PATH=${HOME}/.rbenv/bin:$PATH && \
-  eval "$(rbenv init -)"
+    export PATH=${HOME}/.rbenv/bin:$PATH && \
+    eval "$(rbenv init -)"
 
 export PATH="/usr/local/opt/libpq/bin:$PATH"
 export LDFLAGS="-L/usr/local/opt/libpq/lib"
 export CPPFLAGS="-I/usr/local/opt/libpq/include"
 
-#-------------------------------------------------------------------------------
-# NeoVim & Tmux
-#-------------------------------------------------------------------------------
-export PATH="$HOME/.tmux/plugins/tmuxifier/bin:$PATH"
-export LANG=ko_KR.UTF-8
-export LC_ALL=ko_KR.UTF-8
+#------------------------------------------------------------------------------#
+# Latex setting
+#------------------------------------------------------------------------------#
+export PATH="/opt/local/bin:/opt/local/sbin:/opt/X11/bin:/usr/local/texlive/2022/bin/universal-darwin:$PATH"
 
+#------------------------------------------------------------------------------#
+#- MATLAB Setting
+#------------------------------------------------------------------------------#
+# export PATH="/Applications/MATLAB_R2021b.app/bin:$PATH"
+
+#------------------------------------------------------------------------------#
+# MLOpsND protobuf error
+#------------------------------------------------------------------------------#
+# export PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=python
+
+#------------------------------------------------------------------------------#
+# fzf/fd
+#------------------------------------------------------------------------------#
+eval "$(fzf --zsh)"
+
+# -- Use fd instead of fzf --
+export FZF_DEFAULT_COMMAND="fd --hidden --strip-cwd-prefix --exclude .git"
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_ALT_C_COMMAND="fd --type=d --hidden --strip-cwd-prefix --exclude .git"
+
+# Use fd (https://github.com/sharkdp/fd) for listing path candidates.
+# - The first argument to the function ($1) is the base path to start traversal
+# - See the source code (completion.{bash,zsh}) for the details.
+_fzf_compgen_path() {
+    fd --hidden --exclude .git . "$1"
+}
+
+# Use fd to generate the list for directory completion
+_fzf_compgen_dir() {
+    fd --type=d --hidden --exclude .git . "$1"
+}
+
+# --- setup fzf theme ---
+fg="#CBE0F0"
+bg="#011628"
+bg_highlight="#143652"
+purple="#B388FF"
+blue="#06BCE4"
+cyan="#2CF9ED"
+
+export FZF_DEFAULT_OPTS="--color=fg:${fg},bg:${bg},hl:${purple},fg+:${fg},bg+:${bg_highlight},hl+:${purple},info:${blue},prompt:${cyan},pointer:${cyan},marker:${cyan},spinner:${cyan},header:${cyan}"
+
+# --- setup fzf-git ---
+source ${ZSH_CUSTOM}/fzf-git/fzf-git.sh
+
+# --- setup fzf previewer ---
+show_file_or_dir_preview="if [ -d {} ]; then eza --tree --color=always {} | head -200; else bat -n --color=always --line-range :500 {}; fi"
+
+export FZF_CTRL_T_OPTS="--preview '$show_file_or_dir_preview'"
+export FZF_ALT_C_OPTS="--preview 'eza --tree --color=always {} | head -200'"
+
+# Advanced customization of fzf options via _fzf_comprun function
+# - The first argument to the function is the name of the command.
+# - You should make sure to pass the rest of the arguments to fzf.
+_fzf_comprun() {
+  local command=$1
+  shift
+
+  case "$command" in
+    cd)           fzf --preview 'eza --tree --color=always {} | head -200' "$@" ;;
+    export|unset) fzf --preview "eval 'echo ${}'"         "$@" ;;
+    ssh)          fzf --preview 'dig {}'                   "$@" ;;
+    *)            fzf --preview "$show_file_or_dir_preview" "$@" ;;
+  esac
+}
+#------------------------------------------------------------------------------#
+# bat (better cat)
+#------------------------------------------------------------------------------#
+export BAT_THEME="Catppuccin Mocha"
+alias cat="$(which bat)"
+alias rcat="$(which cat)"
+
+#------------------------------------------------------------------------------#
+# eza (better ls)
+#------------------------------------------------------------------------------#
+# alias ls="eza --color=always --long --git --no-filesize --icons=always --no-time --no-user --no-permissions"
+alias ls="eza --color=always --long --git --icons=always --no-user"
+
+#------------------------------------------------------------------------------#
+# Zoxide (better cd)
+#------------------------------------------------------------------------------#
+eval "$(zoxide init zsh)"
+alias cd="z"
+
+#------------------------------------------------------------------------------#
+# thefuck
+#------------------------------------------------------------------------------#
+eval $(thefuck --alias)
+eval $(thefuck --alias fk)
+
+#------------------------------------------------------------------------------#
+# Git
+#------------------------------------------------------------------------------#
+export PATH="/usr/local/opt/libiconv/bin:$PATH"
+
+#------------------------------------------------------------------------------#
+# NeoVim & Tmux
+#------------------------------------------------------------------------------#
+export PATH="$HOME/.tmux/plugins/tmuxifier/bin:$PATH"
+# export LANG=ko_KR.UTF-8
+# export LC_ALL=ko_KR.UTF-8
+
+#------------------------------------------------------------------------------#
+# yazi
+#------------------------------------------------------------------------------#
 function y() {
-	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
-	yazi "$@" --cwd-file="$tmp"
-	if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
-		builtin cd -- "$cwd"
-	fi
-	rm -f -- "$tmp"
+    local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+    yazi "$@" --cwd-file="$tmp"
+    if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then uiltin cd -- "$cwd"
+    fi
+    rm -f -- "$tmp"
 }
 
 export XDG_CONFIG_HOME="$HOME/.config"
-#-------------------------------------------------------------------------------
-# Python
-#-------------------------------------------------------------------------------
-export PATH="$HOME/.local/bin:$PATH" # for uv
+
+
+
+
 
