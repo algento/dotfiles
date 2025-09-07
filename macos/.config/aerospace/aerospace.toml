@@ -53,11 +53,17 @@ on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
 #                 See: https://nikitabobko.github.io/AeroSpace/guide#assign-workspaces-to-monitors
 [gaps]
 inner.horizontal = 5
-inner.vertical =   5
-outer.left =       5
-outer.bottom =     5
-outer.top =        5
-outer.right =      5
+inner.vertical = 5
+outer.left = 5
+outer.right = 5
+outer.bottom = 5
+outer.top = 5
+
+# outer.top = [
+#     {monitor."builtin"= 10},
+#     {monitor."main"= 50},
+#     50
+# ]
 
 # 'main' binding mode declaration
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
@@ -84,6 +90,12 @@ outer.right =      5
 # alt-enter = 'exec-and-forget open -n /System/Applications/Utilities/Terminal.app'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#layout
+
+# App Shortcuts
+alt-t = 'exec-and-forget open -a /Applications/Ghostty.app'
+alt-o = 'exec-and-forget open -a /Applications/Obsidian.app'
+alt-v = 'exec-and-forget open -a /Applications/Visual Studio Code.app'
+
 alt-slash = 'layout tiles horizontal vertical'
 alt-comma = 'layout accordion horizontal vertical'
 
@@ -187,7 +199,10 @@ alt-shift-semicolon = 'mode service'
 esc = ['reload-config', 'mode main']
 r = ['flatten-workspace-tree', 'mode main'] # reset layout
 #s = ['layout sticky tiling', 'mode main'] # sticky is not yet supported https://github.com/nikitabobko/AeroSpace/issues/2
-f = ['layout floating tiling', 'mode main'] # Toggle between floating and tiling layout
+f = [
+    'layout floating tiling',
+    'mode main',
+] # Toggle between floating and tiling layout
 backspace = ['close-all-windows-but-current', 'mode main']
 
 alt-shift-h = ['join-with left', 'mode main']
@@ -203,3 +218,76 @@ k = 'resize height -50'
 l = 'resize width +50'
 b = 'balance-sizes'
 
+# https://ghostty.org/docs/help/macos-tiling-wms
+# [[on-window-detected]]
+# if.app-id = "com.mitchellh.ghostty"
+# run = ["layout floating"]
+[[on-window-detected]]
+if.app-id = "md.obsidian"
+run = ['move-node-to-workspace 2']
+
+[[on-window-detected]]
+if.app-id = "com.devon-technologies.think"
+run = ['move-node-to-workspace 2']
+
+[[on-window-detected]]
+if.app-id = "com.microsoft.VSCode"
+run = ['move-node-to-workspace 3']
+
+[[on-window-detected]]
+if.app-id = "com.ridi.books"
+run = ['move-node-to-workspace 4']
+
+[[on-window-detected]]
+if.app-id = "kr.co.millie.MillieShelf"
+run = ['move-node-to-workspace 4']
+
+[[on-window-detected]]
+if.app-id = "com.TickTick.task.mac"
+run = ['move-node-to-workspace 5']
+
+[[on-window-detected]]
+if.app-id = "com.operasoftware.Opera"
+run = ['move-node-to-workspace 6']
+
+[[on-window-detected]]
+if.app-id = "com.readdle.smartemail-Mac"
+run = ['move-node-to-workspace 7']
+
+[[on-window-detected]]
+if.app-id = "com.apple.Music"
+run = ['move-node-to-workspace 9']
+
+
+[[on-window-detected]]
+if.app-id = "com.macpaw.CleanMyMac4"
+run = ["layout floating"]
+
+[[on-window-detected]]
+if.app-id = "com.sublimetext.4"
+run = ["layout floating"]
+
+[[on-window-detected]]
+if.app-id = "com.apple.Passwords"
+run = ["layout floating"]
+
+[[on-window-detected]]
+if.app-id = "com.apple.finder"
+run = ["layout floating"]
+
+[[on-window-detected]]
+if.app-id = "com.apple.ActivityMonitor"
+run = ["layout floating"]
+
+
+# force certain workspaces to certain monitors
+# [workspace-to-monitor-force-assignment]
+# 1 = 'main'                  # Monitor sequence number from left to right. 1-based indexing
+# 2 = 'main'                  # Main monitor
+# 3 = 'main'                  # Non-main monitor in case when there are only two monitors
+# 4 = 'main'                  # Non-main monitor in case when there are only two monitors
+# 5 = 'main'
+# 6 = 'main'
+# 7 = 'main'
+# 8 = 'main'
+# 9 = 'secondary'

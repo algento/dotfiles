@@ -3,7 +3,7 @@
 font-family = "JetBrainsMono Nerd Font"
 # font-style = "Regular"
 font-size = 14
-font-thicken = true
+# font-thicken = true
 # cursor-style = bar
 
 # 폰트 width 조정
@@ -21,6 +21,7 @@ window-width = 120
 
 # Window 기타 설정
 split-divider-color = 547792
+# https://fredrikaverpil.github.io/blog/2024/12/04/ghostty-on-macos
 macos-titlebar-style = tabs
 window-colorspace = display-p3
 
