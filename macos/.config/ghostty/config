@@ -53,7 +53,7 @@ clipboard-paste-protection = false
 # check theme : ghostty +list-themes
 # transparent tab case: change window-theme to ghostty
 window-theme = dark
-theme = catppuccin-mocha
+theme = Catppuccin Mocha
 
 keybind = ctrl+shift+n=new_window
 

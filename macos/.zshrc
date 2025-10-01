@@ -293,7 +293,7 @@ export PATH="$HOME/.tmux/plugins/tmuxifier/bin:$PATH"
 function y() {
     local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
     yazi "$@" --cwd-file="$tmp"
-    if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then uiltin cd -- "$cwd"
+    if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then builtin cd -- "$cwd"
     fi
     rm -f -- "$tmp"
 }

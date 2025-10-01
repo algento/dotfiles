@@ -11,9 +11,9 @@ wrap = "yes"
 tab_size = 2
 max_width = 1200
 max_height = 2400
-cache_dir       = ""
-image_filter    = "triangle"
-image_quality   = 50 
+cache_dir = ""
+image_filter = "triangle"
+image_quality = 50
 # sixel_fraction  = 15
 # ueberzug_scale  = 1
 # ueberzug_offset = [ 0, 0, 0, 0 ]
@@ -43,10 +43,13 @@ play = [
 	{ run = 'mpv "%1"', orphan = true, for = "windows" },
 	{ run = '''mediainfo "$1"; echo "Press enter to exit"; read _''', block = true, desc = "Show media info", for = "unix" },
 ]
+archive =[
+    { run = 'zip -r archive.zip "$@"', block=true, desc="Create a .zip archive of selected items", for = "macos"}
+]
 
 [open]
 rules = [
-	{ name = "*/", use = [ "edit", "open", "reveal" ] },
+	{ name = "*/", use = [ "edit", "open", "reveal", "archive" ] },
 
 	{ mime = "text/*",  use = [ "edit", "reveal" ] },
 	{ mime = "image/*", use = [ "open", "reveal" ] },
