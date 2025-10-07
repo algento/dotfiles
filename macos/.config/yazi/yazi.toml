@@ -35,8 +35,8 @@ reveal = [
 	{ run = '''exiftool "$1"; echo "Press enter to exit"; read _''', block = true, desc = "Show EXIF", for = "unix" },
 ]
 extract = [
-	{ run = 'unar "$1"', desc = "Extract here", for = "unix" },
-	{ run = 'unar "%1"', desc = "Extract here", for = "windows" },
+	{ run = '7z x "$1"', desc = "Extract here", for = "unix" },
+	{ run = '7z x "%1"', desc = "Extract here", for = "windows" },
 ]
 play = [
 	{ run = 'mpv "$@"', orphan = true, for = "unix" },
@@ -44,7 +44,7 @@ play = [
 	{ run = '''mediainfo "$1"; echo "Press enter to exit"; read _''', block = true, desc = "Show media info", for = "unix" },
 ]
 archive =[
-    { run = 'zip -r archive.zip "$@"', block=true, desc="Create a .zip archive of selected items", for = "macos"}
+    { run = '7z a -tzip archive.zip "$@"', block=true, desc="Archive here", for = "macos"}
 ]
 
 [open]
