@@ -68,12 +68,12 @@ fi
 # eval "$(fzf --zsh)"
 plugins=(
   git
-  z
-  zsh-autosuggestions
   fzf
   vscode
-  zsh-syntax-highlighting
   zsh-autocomplete
+  zsh-autosuggestions
+  zsh-syntax-highlighting
+  z
   # dirhistory
 )
 
@@ -112,39 +112,29 @@ source $ZSH/oh-my-zsh.sh
 
 
 #------------------------------------------------------------------------------#
-# brew setting
-#------------------------------------------------------------------------------#
-export PATH="/usr/local/sbin:$PATH"
-export PATH="/usr/local/opt/curl/bin:$PATH"
-
-#------------------------------------------------------------------------------#
-# OpenSSL Setting
-#------------------------------------------------------------------------------#
-export OPENSSL_ROOT_DIR=$(brew --prefix openssl)
-export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
-
-#------------------------------------------------------------------------------#
 # Python
 #------------------------------------------------------------------------------#
 # Conda
-export CONDA_HOME=~/miniforge3
+export CONDA_HOME="$HOME/miniforge3"
 export PATH="$CONDA_HOME/bin:$PATH"
 source ${CONDA_HOME}/etc/profile.d/conda.sh
 
 # commented out by conda initialize
 # >>> conda initialize >>>
-# # !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('$CONDA_HOME/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "$CONDA_HOME/etc/profile.d/conda.sh" ]; then
-# . "$CONDA_HOME/etc/profile.d/conda.sh"  # commented out by conda initialize  # commented out by conda initialize
-    else
-       export PATH="$CONDA_HOME/bin:$PATH"  # commented out by conda initialize
-    fi
-fi
-unset __conda_setup
+# !! Contents within this block are managed by 'conda init' !!
+
+# __conda_setup="$('$CONDA_HOME/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+# if [ $? -eq 0 ]; then
+#     eval "$__conda_setup"
+# else
+#     if [ -f "$CONDA_HOME/etc/profile.d/conda.sh" ]; then
+# # . "$CONDA_HOME/etc/profile.d/conda.sh"  # commented out by conda initialize  # commented out by conda initialize
+#     else
+#        export PATH="$CONDA_HOME/bin:$PATH"  # commented out by conda initialize
+#     fi
+# fi
+# unset __conda_setup
+
 #<<< conda initialize <<<
 
 # for UV
@@ -153,47 +143,23 @@ export PATH="$HOME/.local/bin:$PATH" # for uv
 #------------------------------------------------------------------------------#
 # C/C++
 #------------------------------------------------------------------------------#
-export PATH="/usr/local/opt/llvm/bin:$PATH"
-export LDFLAGS="-L/usr/local/opt/llvm/lib"
-export CPPFLAGS="-I/usr/local/opt/llvm/include"
+export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
+# To install symlinks for compilers that will automatically use ccache
+export PATH="/opt/homebrew/opt/ccache/libexec/:$PATH"
+export LDFLAGS="-L/opt/homebrew/opt/llvm/lib"
+export CPPFLAGS="-I/opt/homebrew/opt/llvm/include"
+
 export VCPKG_ROOT="$HOME/vcpkg"
-export PATH="/usr/local/bin/mold:$PATH"
 
 #-------------------------------------------------------------------------------
 # Rust
 #-------------------------------------------------------------------------------
 export PATH="$PATH:$HOME/.cargo/bin"
 
-#-------------------------------------------------------------------------------
-# Ruby
-#-------------------------------------------------------------------------------
-# if [ -d "/usr/local/opt/ruby/bin" ]; then
-#   export PATH=/usr/local/opt/ruby/bin:$PATH
-#   export PATH=`gem environment gemdir`/bin:$PATH
-# fi
-
-[[ -d ~/.rbenv ]] && \
-    export PATH=${HOME}/.rbenv/bin:$PATH && \
-    eval "$(rbenv init -)"
-
-export PATH="/usr/local/opt/libpq/bin:$PATH"
-export LDFLAGS="-L/usr/local/opt/libpq/lib"
-export CPPFLAGS="-I/usr/local/opt/libpq/include"
-
 #------------------------------------------------------------------------------#
 # Latex setting
 #------------------------------------------------------------------------------#
-export PATH="/opt/local/bin:/opt/local/sbin:/opt/X11/bin:/usr/local/texlive/2022/bin/universal-darwin:$PATH"
-
-#------------------------------------------------------------------------------#
-#- MATLAB Setting
-#------------------------------------------------------------------------------#
-# export PATH="/Applications/MATLAB_R2021b.app/bin:$PATH"
-
-#------------------------------------------------------------------------------#
-# MLOpsND protobuf error
-#------------------------------------------------------------------------------#
-# export PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=python
+export PATH="/usr/local/texlive/2025/bin/universal-darwin:$PATH"
 
 #------------------------------------------------------------------------------#
 # fzf/fd
@@ -244,7 +210,7 @@ _fzf_comprun() {
   shift
 
   case "$command" in
-    cd)           fzf --preview 'eza --tree --color=always {} | head -200' "$@" ;;
+    z)            fzf --preview 'eza --tree --color=always {} | head -200' "$@" ;;
     export|unset) fzf --preview "eval 'echo ${}'"         "$@" ;;
     ssh)          fzf --preview 'dig {}'                   "$@" ;;
     *)            fzf --preview "$show_file_or_dir_preview" "$@" ;;
@@ -267,7 +233,7 @@ alias ls="eza --color=always --long --git --icons=always --no-user"
 # Zoxide (better cd)
 #------------------------------------------------------------------------------#
 eval "$(zoxide init zsh)"
-alias cd="z"
+# alias cd="z"
 
 #------------------------------------------------------------------------------#
 # thefuck
@@ -278,7 +244,7 @@ eval $(thefuck --alias fk)
 #------------------------------------------------------------------------------#
 # Git
 #------------------------------------------------------------------------------#
-export PATH="/usr/local/opt/libiconv/bin:$PATH"
+# export PATH="/usr/local/opt/libiconv/bin:$PATH"
 
 #------------------------------------------------------------------------------#
 # NeoVim & Tmux
@@ -300,7 +266,35 @@ function y() {
 
 export XDG_CONFIG_HOME="$HOME/.config"
 
+#------------------------------------------------------------------------------#
+# brew setting
+#------------------------------------------------------------------------------#
+export PATH="/opt/homebrew/sbin:$PATH"
+export PATH="/opt/homebrew/bin:$PATH"
 
 
+#------------------------------------------------------------------------------#
+#- MATLAB Setting
+#------------------------------------------------------------------------------#
+# export PATH="/Applications/MATLAB_R2021b.app/bin:$PATH"
 
+#------------------------------------------------------------------------------#
+# MLOpsND protobuf error
+#------------------------------------------------------------------------------#
+# export PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=python
 
+#-------------------------------------------------------------------------------
+# Ruby
+#-------------------------------------------------------------------------------
+# if [ -d "/usr/local/opt/ruby/bin" ]; then
+#   export PATH=/usr/local/opt/ruby/bin:$PATH
+#   export PATH=`gem environment gemdir`/bin:$PATH
+# fi
+
+# [[ -d ~/.rbenv ]] && \
+#     export PATH=${HOME}/.rbenv/bin:$PATH && \
+#     eval "$(rbenv init -)"
+#
+# export PATH="/usr/local/opt/libpq/bin:$PATH"
+# export LDFLAGS="-L/usr/local/opt/libpq/lib"
+# export CPPFLAGS="-I/usr/local/opt/libpq/include"
