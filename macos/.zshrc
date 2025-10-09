@@ -272,6 +272,15 @@ export XDG_CONFIG_HOME="$HOME/.config"
 export PATH="/opt/homebrew/sbin:$PATH"
 export PATH="/opt/homebrew/bin:$PATH"
 
+#-------------------------------------------------------------------------------
+# Docker
+#-------------------------------------------------------------------------------
+
+# The following lines have been added by Docker Desktop to enable Docker CLI completions.
+fpath=(/Users/sejong/.docker/completions $fpath)
+autoload -Uz compinit
+compinit
+# End of Docker CLI completions
 
 #------------------------------------------------------------------------------#
 #- MATLAB Setting
@@ -298,3 +307,10 @@ export PATH="/opt/homebrew/bin:$PATH"
 # export PATH="/usr/local/opt/libpq/bin:$PATH"
 # export LDFLAGS="-L/usr/local/opt/libpq/lib"
 # export CPPFLAGS="-I/usr/local/opt/libpq/include"
+
+
+#-------------------------------------------------------------------------------
+# Swift
+#-------------------------------------------------------------------------------
+
+# source ~/.swiftly/env.sh
