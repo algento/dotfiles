@@ -282,6 +282,8 @@ autoload -Uz compinit
 compinit
 # End of Docker CLI completions
 
+export MY_VAULT="$HOME/Github/docs/obsidian-sync"
+
 #------------------------------------------------------------------------------#
 #- MATLAB Setting
 #------------------------------------------------------------------------------#

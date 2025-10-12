@@ -13,7 +13,8 @@ end_of_line = lf
 indent_size = 2
 
 [*.md]
-trim_trailing_whitespace = false
+indent_size = 4
+# trim_trailing_whitespace = false
 
 [*.{html,xml}]
 indent_size = 2
