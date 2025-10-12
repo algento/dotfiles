@@ -95,7 +95,14 @@ return {
       input = { enabled = true },
       git = { enabled = true },
       explorer = { enabled = false },
-      picker = { enabled = false },
+      picker = {
+        enabled = false,
+        -- layout = {
+        --   layout = {
+        --     width = 0.25,
+        --   },
+        -- },
+      },
       notifier = { enabled = true, timeout = 3000 },
       quickfile = { enabled = true },
       scroll = { enabled = false },
