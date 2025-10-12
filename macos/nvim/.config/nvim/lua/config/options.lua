@@ -42,7 +42,7 @@ vim.opt.splitbelow = true
 --  See `:help 'list'`
 --  and `:help 'listchars'`
 vim.opt.list = true
-vim.opt.listchars = { trail = "·", nbsp = "␣" }
+vim.opt.listchars = { lead = "·", trail = "·", nbsp = "␣" }
 
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 5
