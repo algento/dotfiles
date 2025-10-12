@@ -218,51 +218,78 @@ k = 'resize height -50'
 l = 'resize width +50'
 b = 'balance-sizes'
 
+# ------------------------------------------------ #
+# workspace
 # https://ghostty.org/docs/help/macos-tiling-wms
-# [[on-window-detected]]
-# if.app-id = "com.mitchellh.ghostty"
+# ------------------------------------------------ #
+
+# Workspace 1  ------------------------------------ #
+[[on-window-detected]]
+if.app-id = "com.mitchellh.ghostty"
+run = ['move-node-to-workspace 1']
 # run = ["layout floating"]
+
+# Workspace 2  ------------------------------------ #
 [[on-window-detected]]
 if.app-id = "md.obsidian"
 run = ['move-node-to-workspace 2']
 
 [[on-window-detected]]
-if.app-id = "com.devon-technologies.think"
+if.app-id = "com.ReadCube.Papers"
 run = ['move-node-to-workspace 2']
 
+# Workspace 3  ------------------------------------ #
 [[on-window-detected]]
 if.app-id = "com.microsoft.VSCode"
 run = ['move-node-to-workspace 3']
 
+# Workspace 4  ------------------------------------ #
 [[on-window-detected]]
-if.app-id = "com.ridi.books"
+if.app-id = "com.google.Chrome"
 run = ['move-node-to-workspace 4']
 
 [[on-window-detected]]
-if.app-id = "kr.co.millie.MillieShelf"
+if.app-id = "com.brave.Browser"
 run = ['move-node-to-workspace 4']
 
+# Workspace 5  ------------------------------------ #
 [[on-window-detected]]
 if.app-id = "com.TickTick.task.mac"
 run = ['move-node-to-workspace 5']
 
+# Workspace 6  ------------------------------------ #
 [[on-window-detected]]
-if.app-id = "com.operasoftware.Opera"
+if.app-id = "com.ridi.books"
 run = ['move-node-to-workspace 6']
 
 [[on-window-detected]]
-if.app-id = "com.readdle.smartemail-Mac"
-run = ['move-node-to-workspace 7']
+if.app-id = "kr.co.millie.MillieShelf"
+run = ['move-node-to-workspace 6']
 
+# Workspace 7  ------------------------------------ #
+[[on-window-detected]]
+if.app-id = "com.devon-technologies.think"
+run = ['move-node-to-workspace 2']
+
+# Workspace 8  ------------------------------------ #
+[[on-window-detected]]
+if.app-id = "com.vmware.fusion"
+run = ['move-node-to-workspace 8']
+
+# Workspace 9  ------------------------------------ #
 [[on-window-detected]]
 if.app-id = "com.apple.Music"
 run = ['move-node-to-workspace 9']
 
+[[on-window-detected]]
+if.app-id = "com.apple.mail"
+run = ['move-node-to-workspace 9']
 
 [[on-window-detected]]
-if.app-id = "com.macpaw.CleanMyMac4"
-run = ["layout floating"]
+if.app-id = "com.apple.Notes"
+run = ['move-node-to-workspace 5']
 
+# Flatting window --------------------------------- #
 [[on-window-detected]]
 if.app-id = "com.sublimetext.4"
 run = ["layout floating"]
@@ -279,7 +306,21 @@ run = ["layout floating"]
 if.app-id = "com.apple.ActivityMonitor"
 run = ["layout floating"]
 
+[[on-window-detected]]
+if.app-id = "com.apple.ActivityMonitor"
+run = ["layout floating"]
 
+[[on-window-detected]]
+if.app-id = "com.operasoftware.Opera"
+run = ['layout floating']
+
+[[on-window-detected]]
+if.app-id = "com.tencent.lemon"
+run = ["layout floating"]
+
+[[on-window-detected]]
+if.app-id = "com.apple.Safari"
+run = ["layout floating"]
 # force certain workspaces to certain monitors
 # [workspace-to-monitor-force-assignment]
 # 1 = 'main'                  # Monitor sequence number from left to right. 1-based indexing
