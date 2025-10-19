@@ -14,7 +14,7 @@ return {
       -- optional: provides snippets for the snippet source
       dependencies = {
         "rafamadriz/friendly-snippets",
-        "moyiz/blink-emoji.nvim",
+        -- "moyiz/blink-emoji.nvim",
         -- "ray-x/cmp-sql",
       },
 
@@ -76,10 +76,10 @@ return {
             "path",
             "snippets",
             "buffer",
-            "emoji", --[[ "sql"  ]]
+            -- "emoji", --[[ "sql"  ]]
           },
           providers = {
-            emoji = {
+            --[[ emoji = {
               module = "blink-emoji",
               name = "Emoji",
               score_offset = 15, -- Tune by preference
@@ -92,7 +92,7 @@ return {
                   vim.o.filetype
                 )
               end,
-            },
+            }, ]]
             --[[ sql = {
               -- IMPORTANT: use the same name as you would for nvim-cmp
               name = "sql",

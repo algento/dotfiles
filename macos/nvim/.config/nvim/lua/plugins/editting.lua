@@ -1,5 +1,5 @@
 return {
-
+  -- auto pairs
   {
     "windwp/nvim-autopairs",
     event = "InsertEnter",
@@ -10,10 +10,12 @@ return {
       -- },
     },
   },
+  -- auto tags
   {
     "windwp/nvim-ts-autotag",
     opts = {},
   },
+  -- Code Folding
   {
     "kevinhwang91/nvim-ufo",
     dependencies = "kevinhwang91/promise-async",
@@ -33,11 +35,21 @@ return {
       })
     end,
   },
+  -- editorconfig support?
   {
     "tpope/vim-sleuth",
     -- No further initialization needed, as this is a real "vim" not a lua
     -- plugin.
   },
+  -- Show buffers as a vs-code like taps
+  {
+    "akinsho/bufferline.nvim",
+    version = "*",
+    -- dependencies = "nvim-tree/nvim-web-devicons"
+    dependencies = "nvim-mini/mini.icons",
+    opts = {},
+  },
+  -- High-speed movement between buffers
   {
     "ThePrimeagen/harpoon",
     branch = "harpoon2",
@@ -48,114 +60,27 @@ return {
       -- require("telescope").load_extension("harpoon")
       harpoon:setup()
       -- 파일 추가
-      vim.keymap.set("n", "<leader>a", function()
+      vim.keymap.set("n", "<leader>ha", function()
         harpoon:list():add()
-      end)
+      end, { desc = "[H]arpoon [A]dd" })
       -- 빠른 메뉴 (Harpoon UI)
-      vim.keymap.set("n", "<leader>m", function()
+      vim.keymap.set("n", "<leader>hm", function()
         harpoon.ui:toggle_quick_menu(harpoon:list())
-      end)
+      end, { desc = "[H]arpoon [M]enu" })
 
       -- 파일 간 빠른 이동
-      vim.keymap.set("n", "<leader>1", function()
+      vim.keymap.set("n", "<leader>h1", function()
         harpoon:list():select(1)
-      end)
-      vim.keymap.set("n", "<leader>2", function()
+      end, { desc = "[H]arpoon [1]" })
+      vim.keymap.set("n", "<leader>h2", function()
         harpoon:list():select(2)
-      end)
-      vim.keymap.set("n", "<leader>3", function()
+      end, { desc = "[H]arpoon [2]" })
+      vim.keymap.set("n", "<leader>h3", function()
         harpoon:list():select(3)
-      end)
-      vim.keymap.set("n", "<leader>4", function()
+      end, { desc = "[H]arpoon [3]" })
+      vim.keymap.set("n", "<leader>h4", function()
         harpoon:list():select(4)
-      end)
+      end, { desc = "[H]arpoon [4]" })
     end,
-  },
-  {
-    "obsidian-nvim/obsidian.nvim",
-    version = "*", -- 최신 안정 버전
-    -- ft = "markdown",
-    -- Replace the above line with this if you only want to load obsidian.nvim for markdown files in your vault:
-    event = {
-      -- If you want to use the home shortcut '~' here you need to call 'vim.fn.expand'.
-      -- E.g. "BufReadPre " .. vim.fn.expand "~" .. "/my-vault/*.md"
-      -- refer to `:h file-pattern` for more examples
-      --   "BufReadPre path/to/my-vault/*.md",
-      --   "BufNewFile path/to/my-vault/*.md",
-      "BufReadPre "
-        .. vim.fn.expand("~")
-        .. "/Github/docs/obsidian-sync/*.md",
-      "BufNewFile " .. vim.fn.expand("~") .. "/Github/docs/obsidian-sync/**.md",
-    },
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "ibhagwan/fzf-lua",
-    },
-    ---@module 'obsidian'
-    ---@type obsidian.config
-    opts = {
-      workspaces = {
-        {
-          name = "2ndbrain",
-          path = "~/Github/docs/obsidian-sync/", -- Obsidian vault 경로
-        },
-      },
-      notes_subdir = "0. Inbox",
-      note_id_func = function(title)
-        -- 제목을 안 넣고 만들면 백업 규칙(날짜-난수)
-        if not title or title == "" then
-          return os.date("%Y%m%d") .. "-" .. tostring(math.random(1000, 9999))
-        end
-        -- 파일명에 안전하지 않은 문자만 치환
-        local safe = title:gsub('[/\\:*?"<>|]', "-"):gsub("%s+$", ""):gsub("^%s+", "")
-        return safe
-      end,
-      templates = {
-        folder = "3. Resources/Templates",
-      },
-      -- 새 노트의 frontmatter를 통제하고 싶을 때(원치 않는 기본 템플릿 느낌 제거)
-      -- note_frontmatter_func = function(note)
-      --   -- note: { id, title, aliases, tags }
-      --   local out = {
-      --     title = note.title,
-      --     tags = note.tags,
-      --     created = os.date("%Y-%m-%d %H:%M"),
-      --     modified = os.date("%Y-%m-%d %H:%M"),
-      --     type = "literature-note",
-      --     kanban = "to-do",
-      --     links = note.links,
-      --   }
-      --   return out
-      -- end,
-      frontmatter = {
-        enabled = false,
-      },
-      finder = "fzf-lua", -- finder로 fzf-lua 사용
-      completion = {
-        blink = true,
-      },
-      -- (선택) 레거시 커맨드 숨기기
-      legacy_commands = false,
-    },
-    keys = {
-      {
-        "<leader>on",
-        function()
-          local DEFAULT_TEMPLATE = "yaml-front-matter" -- templates/ 아래 실제 파일명
-          local title = vim.fn.input("Title: ")
-          if title == nil or title == "" then
-            return
-          end
-          vim.cmd(("Obsidian new_from_template %s %s"):format(title, DEFAULT_TEMPLATE))
-        end,
-        desc = "New Obsidian note from default template",
-        mode = "n",
-        silent = true,
-      },
-      -- { "<leader>oo", "<cmd>ObsidianSearch<cr>", desc = "Search Obsidian notes", mode = "n" },
-      -- { "<leader>os", "<cmd>ObsidianQuickSwitch<cr>", desc = "Quick Switch", mode = "n" },
-      -- { "<leader>ob", "<cmd>ObsidianBacklinks<cr>", desc = "Show location list of backlinks", mode = "n" },
-      -- { "<leader>ot", "<cmd>ObsidianTemplate<cr>", desc = "Follow link under cursor", mode = "n" },
-    },
   },
 }

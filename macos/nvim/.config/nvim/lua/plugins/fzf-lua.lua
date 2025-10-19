@@ -1,13 +1,22 @@
 return {
   "ibhagwan/fzf-lua",
-  -- optional for icon support
   -- dependencies = { "nvim-tree/nvim-web-devicons" },
-  -- or if using mini.icons/mini.nvim
-  dependencies = { "echasnovski/mini.icons" },
+  dependencies = { "nvim-mini/mini.icons" },
   opts = {
     winopts = {
       preview = {
         layout = "vertical",
+      },
+    },
+    files = {
+      fd_opts = [[--color=never --hidden --follow --type f --exclude .git --exclude .obsidian --exclude Attachments]],
+    },
+    grep = {
+      rg_opts = [[--color=never --hidden --follow --line-number --column --smart-case -g '!.git' -g '!.obsidian/**' -g '!**/Attachments/**']],
+    },
+    keymap = {
+      fzf = {
+        ["ctrl-q"] = "select-all+accept",
       },
     },
   },
@@ -84,6 +93,21 @@ return {
         require("fzf-lua").resume()
       end,
       desc = "[F]ind [R]esume",
+    },
+    {
+      "<leader>fl",
+      function()
+        require("fzf-lua").grep({
+          prompt = "Find+Replace > ",
+          actions = {
+            ["ctrl-q"] = function(selected)
+              vim.cmd("copen")
+              print("→ Send to Quickfix. do `:cfdo %s/old/new/ge | update`")
+            end,
+          },
+        })
+      end,
+      desc = "[F]ind replace [L]ist",
     },
     {
       "<leader>fo",
