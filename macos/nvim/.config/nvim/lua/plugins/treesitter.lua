@@ -1,21 +1,5 @@
 return {
   {
-    "OXY2DEV/markview.nvim",
-    lazy = false,
-    opts = {},
-    dependencies = {
-      "nvim-treesitter/nvim-treesitter",
-    },
-    -- For `nvim-treesitter` users.
-    priority = 49,
-
-    -- For blink.cmp's completion
-    -- source
-    -- dependencies = {
-    --     "saghen/blink.cmp"
-    -- },
-  },
-  {
     "nvim-treesitter/nvim-treesitter",
     dependencies = {
       -- "nvim-treesitter/playground",
@@ -43,10 +27,12 @@ return {
         "go",
         "html",
         "htmldjango",
+        "java",
         "javascript",
         "jinja",
         "jinja_inline",
         "json",
+        "jsonc",
         "latex",
         "lua",
         "markdown",

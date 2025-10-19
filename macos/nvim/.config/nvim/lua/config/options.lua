@@ -4,6 +4,7 @@ vim.opt.shiftwidth = 2 -- amount to indent width
 vim.opt.tabstop = 2 -- how many spaces are shown per Tab
 vim.opt.softtabstop = 2 -- hhow many spaces are applied when pressing tab
 vim.opt.smarttab = true
+vim.opt.termguicolors = true
 
 -- # setting indent ----------------------------------------------------#
 vim.opt.smartindent = true

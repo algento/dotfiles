@@ -27,7 +27,8 @@ return {
         json = { "prettierd" },
 
         -- Markdown
-        markdown = { "prettierd", "markdownlint-cli2", "markdown-toc" },
+        -- markdown = { "prettierd", "markdownlint-cli2", "markdown-toc" },
+        markdown = { "prettierd" },
 
         -- C/C++
         c = { "clang-format" },
