@@ -76,23 +76,12 @@ return {
             "path",
             "snippets",
             "buffer",
-            -- "emoji", --[[ "sql"  ]]
           },
+          per_filetype = {
+            markdown = { "path" },
+          },
+
           providers = {
-            --[[ emoji = {
-              module = "blink-emoji",
-              name = "Emoji",
-              score_offset = 15, -- Tune by preference
-              opts = { insert = true }, -- Insert emoji (default) or complete its name
-              should_show_items = function()
-                return vim.tbl_contains(
-                  -- Enable emoji completion only for git commits and markdown.
-                  -- By default, enabled for all file-types.
-                  { "gitcommit", "markdown" },
-                  vim.o.filetype
-                )
-              end,
-            }, ]]
             --[[ sql = {
               -- IMPORTANT: use the same name as you would for nvim-cmp
               name = "sql",

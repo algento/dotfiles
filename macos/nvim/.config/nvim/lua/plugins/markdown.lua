@@ -7,8 +7,10 @@ return {
 
     opts = {
       completions = {
-        lsp = { enabled = true },
+        -- lsp = { enabled = true },
       },
+      update_in_insert = false,
+      debounce = 150,
       file_types = { "markdown", "quarto", "rmd" }, -- 렌더링할 파일 타입 지정
       heading = {
         enabled = true,
@@ -133,6 +135,34 @@ return {
   --     "folke/snacks.nvim",
   --   },
   -- },
+  {
+    "hakonharnes/img-clip.nvim",
+    opts = {
+      default = {
+        prompt_for_file_name = false,
+        dir_path = "../Attachments", -- obsidian inbox 기준의 상대 경로
+        relative_to_current_file = true, -- 현재 노트 기준 상대경로로 삽입
+        insert_mode_after_paste = true,
+        use_absolute_path = false,
+        template = "![$FILE_NAME]($FILE_PATH)$CURSOR",
+        file_name = function()
+          return os.date("%Y%m%d-%H%M%S")
+        end,
+      },
+    },
+    keys = {
+      -- 클립보드 이미지 → 파일 저장 → `![]()` 자동 삽입
+      {
+        "<leader>ip",
+        function()
+          require("img-clip").paste_image()
+        end,
+        mode = { "n", "i" },
+        desc = "Paste image from clipboard",
+      },
+      -- 파일 드래그&드롭도 지원 (터미널이 텍스트로 경로를 보낼 때)
+    },
+  },
 
   {
     "obsidian-nvim/obsidian.nvim",
@@ -228,22 +258,11 @@ return {
         mode = "n",
         silent = true,
       },
-      {
-        "<leader>oN",
-        function()
-          local title = vim.fn.input("New note title: ")
-          if title and title ~= "" then
-            vim.cmd(("Obsidian new %s"):format(title))
-          else
-            vim.cmd("Obsidian new")
-          end
-        end,
-        desc = "Obsidian: inbox에 새 노트",
-      },
       { "<leader>oo", "<cmd>Obsidian search<cr>", desc = "Search Obsidian notes", mode = "n" },
       { "<leader>os", "<cmd>Obsidian quick_switch<cr>", desc = "Quick Switch", mode = "n" },
       { "<leader>ob", "<cmd>Obsidian backlinks<cr>", desc = "Show location list of backlinks", mode = "n" },
       { "<leader>ot", "<cmd>Obsidian template<cr>", desc = "Follow link under cursor", mode = "n" },
+      -- { "<leader>op", "<cmd>Obsidian paste_img<cr>", mode = { "n", "i" }, desc = "Paste image from clipboard" },
     },
   },
 }

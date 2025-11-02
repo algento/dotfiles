@@ -8,6 +8,7 @@ return {
       -- ts_config = {
       --   lua = { "string" }, --don't add pairs in lua string treesitter nodes
       -- },
+      map_space = false,
     },
   },
   -- auto tags
