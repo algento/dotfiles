@@ -4,7 +4,37 @@
 local aug = vim.api.nvim_create_augroup
 
 -- ==========================
--- 1) Obsidian 'modified' 자동 갱신 + diff 체크
+-- Highlight when yanking (copying) text
+-- ==========================
+--  Try it with `yap` in normal mode
+--  See `:help vim.hl.on_yank()`
+local grp_yank = aug("YankHighlight", { clear = true })
+vim.api.nvim_create_autocmd("TextYankPost", {
+  group = grp_yank,
+  desc = "Highlight on yank",
+  callback = function()
+    vim.hl.on_yank()
+    -- pcall(vim.highlight.on_yank, { higroup = "IncSearch", timeout = 120 })
+  end,
+})
+
+-- ==========================
+-- Remove trailing whitespace
+-- ==========================
+local grp_trim = aug("TrimWhitespaceOnSave", { clear = true })
+vim.api.nvim_create_autocmd("BufWritePre", {
+  group = grp_trim,
+  pattern = "*",
+  callback = function(args)
+    local view = vim.fn.winsaveview()
+    vim.cmd([[%s/\s\+$//e]])
+    vim.fn.winrestview(view)
+  end,
+  desc = "Trim trailing whitespace on save",
+})
+
+-- ==========================
+-- Obsidian front-matter 'modified' 자동 갱신 + diff 체크
 -- ==========================
 local OBSIDIAN_VAULT = vim.fn.expand("$MY_VAULT")
 
@@ -118,29 +148,3 @@ vim.api.nvim_create_autocmd("BufWritePost", {
     vim.b.obsidian_last_saved_fp = normalized_fingerprint(args.buf)
   end,
 })
-
--- ==========================
--- 2) (예시) 여러 autocmd를 함께 관리
---    Yank 하이라이트, 트레일링 공백 제거 등
--- ==========================
--- local grp_yank = aug("YankHighlight", { clear = true })
--- vim.api.nvim_create_autocmd("TextYankPost", {
---   group = grp_yank,
---   callback = function()
---     pcall(vim.highlight.on_yank, { higroup = "IncSearch", timeout = 120 })
---   end,
---   desc = "Highlight on yank",
--- })
---
--- local grp_trim = aug("TrimWhitespaceOnSave", { clear = true })
--- vim.api.nvim_create_autocmd("BufWritePre", {
---   group = grp_trim,
---   pattern = "*",
---   callback = function(args)
---     -- Markdown 코드블록 등에서 보존하고 싶다면 패턴을 좁히세요
---     local view = vim.fn.winsaveview()
---     vim.cmd([[%s/\s\+$//e]])
---     vim.fn.winrestview(view)
---   end,
---   desc = "Trim trailing whitespace on save",
--- })

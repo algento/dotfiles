@@ -6,6 +6,14 @@ vim.opt.softtabstop = 2 -- hhow many spaces are applied when pressing tab
 vim.opt.smarttab = true
 vim.opt.termguicolors = true
 
+-- # reduce delasy and timeout ----------------------------------------------------#
+vim.opt.iminsert = 0
+vim.opt.imsearch = 0
+vim.o.timeout = true
+vim.o.timeoutlen = 400 -- 기본 1000ms
+vim.o.ttimeout = true -- 키코딩 딜레이
+vim.o.ttimeoutlen = 20
+
 -- # setting indent ----------------------------------------------------#
 vim.opt.smartindent = true
 vim.opt.autoindent = true -- allow backspace on indent, end of line or insert mode start position
@@ -53,16 +61,4 @@ vim.opt.backspace = "indent,eol,start"
 
 -- turn off swapfile
 vim.opt.swapfile = false
-
 vim.opt.autochdir = false
-
--- Highlight when yanking (copying) text
---  Try it with `yap` in normal mode
---  See `:help vim.hl.on_yank()`
-vim.api.nvim_create_autocmd("TextYankPost", {
-  desc = "Highlight when yanking (copying) text",
-  group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
-  callback = function()
-    vim.hl.on_yank()
-  end,
-})
