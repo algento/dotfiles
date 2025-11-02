@@ -48,20 +48,31 @@ return {
       },
       image = {
         -- img_dirs = {
-        --   vim.fn.expand("~/Github/docs/obsidian-sync/Attachments"),
         -- },
         enabled = true,
-        max_width = 0,
-        max_height = 0,
+        -- max_width = 0,
+        -- max_height = 0,
         backend = "kitty",
         integrations = {
           markdown = {
             enabled = true,
           },
         },
+        doc = {
+          inline = false,
+          float = true,
+        },
       },
     },
     keys = {
+      {
+        "<C-n>",
+        function()
+          Snacks.explorer()
+        end,
+        desc = "Explorer",
+      },
+      -- Scratch Buffer
       {
         "<leader>sf",
         function()
@@ -76,13 +87,7 @@ return {
         end,
         desc = "Select Scratch Buffer",
       },
-      -- {
-      --   "<leader>gl",
-      --   function()
-      --     Snacks.lazygit.log_file()
-      --   end,
-      --   desc = "Lazygit Log (cwd)",
-      -- },
+      -- lazygit
       {
         "<leader>lg",
         function()
@@ -90,41 +95,42 @@ return {
         end,
         desc = "Lazygit",
       },
-      -- {
-      --   "<C-p>",
-      --   function()
-      --     Snacks.picker.pick("files")
-      --   end,
-      --   desc = "Find Files",
-      -- },
-      -- {
-      --   "<leader><leader>",
-      --   function()
-      --     Snacks.picker.recent()
-      --   end,
-      --   desc = "Recent Files",
-      -- },
-      -- {
-      --   "<leader>fb",
-      --   function()
-      --     Snacks.picker.buffers()
-      --   end,
-      --   desc = "Buffers",
-      -- },
-      -- {
-      --   "<leader>fg",
-      --   function()
-      --     Snacks.picker.grep()
-      --   end,
-      --   desc = "Grep Files",
-      -- },
-      {
-        "<C-n>",
+      --[[ {
+        "<leader>gl",
         function()
-          Snacks.explorer()
+          Snacks.lazygit.log_file()
         end,
-        desc = "Explorer",
+        desc = "Lazygit Log (cwd)",
+      }, ]]
+      -- Snack picker (diable, usd fzf-lua)
+      --[[ {
+        "<C-p>",
+        function()
+          Snacks.picker.pick("files")
+        end,
+        desc = "Find Files",
       },
+      {
+        "<leader><leader>",
+        function()
+          Snacks.picker.recent()
+        end,
+        desc = "Recent Files",
+      },
+      {
+        "<leader>fb",
+        function()
+          Snacks.picker.buffers()
+        end,
+        desc = "Buffers",
+      },
+      {
+        "<leader>fg",
+        function()
+          Snacks.picker.grep()
+        end,
+        desc = "Grep Files",
+      }, ]]
     },
   },
 }

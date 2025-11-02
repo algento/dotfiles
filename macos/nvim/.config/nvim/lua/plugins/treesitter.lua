@@ -67,10 +67,11 @@ return {
         highlight = {
           enable = true,
           -- additional_vim_regex_highlighting = false,
+          disable = { "text", "markdown" },
         },
         indent = { enable = true },
         playground = {
-          enable = true,
+          enable = false,
         },
       })
       --[[ # for code folding ]]
@@ -78,8 +79,9 @@ return {
       -- vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
     end,
   },
+
+  -- https://www.josean.com/posts/nvim-treesitter-and-textobjects
   {
-    -- https://www.josean.com/posts/nvim-treesitter-and-textobjects
     "nvim-treesitter/nvim-treesitter-textobjects",
     lazy = true,
     config = function()

@@ -32,9 +32,9 @@ return {
       -- },
       -- checkbox = {
       --   enabled = true,
-      --   -- checked = "󰄲",
-      --   -- unchecked = "󰄱",
-      --   -- in_progress = "󰪚",
+      --   checked = "󰄲",
+      --   unchecked = "󰄱",
+      --   in_progress = "󰪚",
       -- },
       -- quote = {
       --   enabled = true,
@@ -49,7 +49,6 @@ return {
         enabled = false, -- use snacks.image
       },
       html = {
-        -- Turn on / off all HTML rendering
         enabled = true,
         comment = {
           -- Turn on / off HTML comment concealing
@@ -68,8 +67,8 @@ return {
     },
     opts = {
       symbol_folding = {
-        -- Unfold entire symbol tree by default with false, otherwise enter a
-        -- number starting from 1
+        -- Unfold entire symbol tree by default with false,
+        -- otherwise enter a number starting from 1
         autofold_depth = false,
         -- autofold_depth = 1,
       },
@@ -116,25 +115,27 @@ return {
     end,
   },
 
-  -- {
-  --   "iamcco/markdown-preview.nvim",
-  --   cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
-  --   build = "cd app && npm install",
-  --   init = function()
-  --     vim.g.mkdp_filetypes = { "markdown" }
-  --   end,
-  --   ft = { "markdown" },
-  -- },
-  -- {
-  --   "brianhuster/live-preview.nvim",
-  --   dependencies = {
-  --     -- You can choose one of the following pickers
-  --     "nvim-telescope/telescope.nvim",
-  --     "ibhagwan/fzf-lua",
-  --     "echasnovski/mini.pick",
-  --     "folke/snacks.nvim",
-  --   },
-  -- },
+  --[[ {
+    "iamcco/markdown-preview.nvim",
+    cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+    build = "cd app && npm install",
+    init = function()
+      vim.g.mkdp_filetypes = { "markdown" }
+    end,
+    ft = { "markdown" },
+  }, ]]
+
+  --[[  {
+    "brianhuster/live-preview.nvim",
+    dependencies = {
+      -- You can choose one of the following pickers
+      "nvim-telescope/telescope.nvim",
+      "ibhagwan/fzf-lua",
+      "echasnovski/mini.pick",
+      "folke/snacks.nvim",
+    },
+  }, ]]
+
   {
     "hakonharnes/img-clip.nvim",
     opts = {
@@ -168,10 +169,7 @@ return {
     "obsidian-nvim/obsidian.nvim",
     version = "*", -- 최신 안정 버전
     -- ft = "markdown",
-    -- Replace the above line with this if you only want to load obsidian.nvim for markdown files in your vault:
     event = {
-      -- If you want to use the home shortcut '~' here you need to call 'vim.fn.expand'.
-      -- E.g. "BufReadPre " .. vim.fn.expand "~" .. "/my-vault/*.md"
       -- refer to `:h file-pattern` for more examples
       --   "BufReadPre path/to/my-vault/*.md",
       --   "BufNewFile path/to/my-vault/*.md",
@@ -182,7 +180,6 @@ return {
     },
     dependencies = {
       "nvim-lua/plenary.nvim",
-      -- "floke/snacks.nvim",
     },
     ---@module 'obsidian'
     ---@type obsidian.config
@@ -195,7 +192,6 @@ return {
       },
       ui = {
         enable = false,
-        -- picker = "snacks",
       },
       attachments = {
         img_folder = "Attachments",
@@ -219,20 +215,20 @@ return {
       templates = {
         folder = "Templates",
       },
-      -- 새 노트의 frontmatter를 통제하고 싶을 때(원치 않는 기본 템플릿 느낌 제거)
-      -- note_frontmatter_func = function(note)
-      --   -- note: { id, title, aliases, tags }
-      --   local out = {
-      --     title = note.title,
-      --     tags = note.tags,
-      --     created = os.date("%Y-%m-%d %H:%M"),
-      --     modified = os.date("%Y-%m-%d %H:%M"),
-      --     type = "literature-note",
-      --     kanban = "to-do",
-      --     links = note.links,
-      --   }
-      --   return out
-      -- end,
+      --[[ -- 새 노트의 frontmatter를 통제하고 싶을 때(원치 않는 기본 템플릿 느낌 제거)
+      note_frontmatter_func = function(note)
+        -- note: { id, title, aliases, tags }
+        local out = {
+          title = note.title,
+          tags = note.tags,
+          created = os.date("%Y-%m-%d %H:%M"),
+          modified = os.date("%Y-%m-%d %H:%M"),
+          type = "literature-note",
+          kanban = "to-do",
+          links = note.links,
+        }
+        return out
+      end, ]]
       frontmatter = {
         enabled = false,
       },
@@ -240,7 +236,6 @@ return {
       completion = {
         blink = true,
       },
-      -- (선택) 레거시 커맨드 숨기기
       legacy_commands = false,
     },
     keys = {
