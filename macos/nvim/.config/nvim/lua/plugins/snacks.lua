@@ -47,9 +47,10 @@ return {
         },
       },
       image = {
-        -- img_dirs = {
-        -- },
         enabled = true,
+        img_dirs = {
+          vim.fn.expand("~/Github/docs/obsidian-sync/Attachments"),
+        },
         -- max_width = 0,
         -- max_height = 0,
         backend = "kitty",
@@ -59,6 +60,7 @@ return {
           },
         },
         doc = {
+          enabled = true,
           inline = false,
           float = true,
         },

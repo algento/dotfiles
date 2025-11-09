@@ -1,5 +1,112 @@
 -- lua/autocmds.lua
--- 여러 autocmd를 한 파일에서 관리하는 예시
+_G.SNACKS_RESOLVE = function(path)
+  local vault_root = vim.fn.expand("~/Github/docs/obsidian-sync")
+  local attachments_dir = vault_root .. "/Attachments"
+
+  local function file_exists(p)
+    return (vim.uv and vim.uv.fs_stat(p) ~= nil) or (vim.loop and vim.loop.fs_stat(p) ~= nil)
+  end
+
+  local function ci_match(dir, fname)
+    local target = fname:lower()
+    local ok, iter = pcall(vim.fs.dir, dir)
+    if not ok then
+      return nil
+    end
+    for name, typ in iter do
+      if typ == "file" and name:lower() == target then
+        return dir .. "/" .. name
+      end
+    end
+    return nil
+  end
+
+  local function try_extensions(dir, stem)
+    local exts = { ".png", ".jpg", ".jpeg", ".webp", ".gif" }
+    for _, ext in ipairs(exts) do
+      local cand = dir .. "/" .. stem .. ext
+      if file_exists(cand) then
+        return cand
+      end
+      local ci = ci_match(dir, stem .. ext)
+      if ci then
+        return ci
+      end
+    end
+    return nil
+  end
+
+  -- 공백/따옴표 정리
+  path = (vim.fn.trim and vim.fn.trim(path)) or path
+  path = path:gsub('^"', ""):gsub('"$', ""):gsub("^'", ""):gsub("'$", "")
+
+  -- .md/.markdown은 스킵
+  local lower = path:lower()
+  if lower:match("%.mark?down$") or lower:match("%.md$") then
+    vim.notify("[resolve skip] in=" .. path)
+    return nil
+  end
+
+  -- http(s) 링크는 그대로
+  if path:match("^https?://") then
+    return path
+  end
+
+  -- (A) 경로에 슬래시가 있든 없든: 현재 문자열이 가리키는 파일이 실제로 있으면 그대로
+  if file_exists(path) then
+    vim.notify("[resolve_file exist] in=" .. path)
+    return path
+  end
+
+  -- basename 추출해서 Attachments 우선으로 재시도
+  local base = vim.fn.fnamemodify(path, ":t")
+  if base ~= "" then
+    -- Attachments 직접 매치
+    local cand = attachments_dir .. "/" .. base
+    if file_exists(cand) then
+      vim.notify("[resolve_attachment] in=" .. path)
+      return cand
+    end
+
+    -- Attachments 확장자 보정
+    local stem = base:gsub("%.[^./]+$", "")
+    local fixed = try_extensions(attachments_dir, stem)
+    if fixed then
+      return fixed
+    end
+
+    -- 현재 문서 디렉터리 쪽도 재시도
+    local curdir = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":p:h")
+    local local_cand = curdir .. "/" .. base
+    if file_exists(local_cand) then
+      return local_cand
+    end
+
+    local fixed_local = try_extensions(curdir, stem)
+    if fixed_local then
+      return fixed_local
+    end
+
+    -- 대소문자 무시 직접 매치
+    local ci1 = ci_match(attachments_dir, base)
+    if ci1 then
+      return ci1
+    end
+    local ci2 = ci_match(curdir, base)
+    if ci2 then
+      return ci2
+    end
+  end
+
+  -- 마지막으로 원문 유지(디버깅)
+  return path
+end
+vim.api.nvim_create_user_command("ImgResolve", function(opts)
+  -- print(vim.inspect((function(path)
+  --   print(vim.inspect(_G.SNACKS_RESOLVE(opts.args)))
+  -- end)(opts.args)))
+  print(_G.SNACKS_RESOLVE(opts.args))
+end, { nargs = 1 })
 
 local aug = vim.api.nvim_create_augroup
 

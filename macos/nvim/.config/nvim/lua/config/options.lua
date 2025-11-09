@@ -1,3 +1,7 @@
+-- # setting leader key-----------------------------------------------#
+vim.g.mapleader = " "
+vim.g.maplocalleader = "\\"
+
 -- # setting tap ----------------------------------------------------#
 vim.opt.expandtab = true -- convert tabs to space
 vim.opt.shiftwidth = 2 -- amount to indent width
@@ -12,7 +16,7 @@ vim.opt.imsearch = 0
 vim.o.timeout = true
 vim.o.timeoutlen = 400 -- 기본 1000ms
 vim.o.ttimeout = true -- 키코딩 딜레이
-vim.o.ttimeoutlen = 20
+vim.o.ttimeoutlen = 10
 
 -- # setting indent ----------------------------------------------------#
 vim.opt.smartindent = true

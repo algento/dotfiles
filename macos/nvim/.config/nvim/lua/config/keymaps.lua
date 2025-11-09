@@ -25,6 +25,9 @@ vim.keymap.set("n", "<leader>cf", function()
   })
 end, { desc = "Format current file" })
 
+--# 한글 설정
+-- vim.keymap.del("i", "jk")
+
 -- vim.keymap.set("n", "K", vim.lsp.buf.hover, { desc = "Lsp hover" })
 -- vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, {})
 -- vim.keymap.set("n", "<leader>gr", vim.lsp.buf.references, {})

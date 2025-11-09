@@ -67,7 +67,7 @@ return {
         highlight = {
           enable = true,
           -- additional_vim_regex_highlighting = false,
-          disable = { "text", "markdown" },
+          -- disable = { "text", "markdown" },
         },
         indent = { enable = true },
         playground = {

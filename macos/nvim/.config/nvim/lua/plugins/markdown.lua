@@ -14,36 +14,26 @@ return {
       file_types = { "markdown", "quarto", "rmd" }, -- 렌더링할 파일 타입 지정
       heading = {
         enabled = true,
-        border = true,
-        -- position = "inline", -- "inline" | "floating"
-        -- icons = { "󰲡", "󰲣", "󰲥", "󰲧", "󰲩", "󰲫" }, -- 제목 앞 아이콘
         -- signs = false, -- 왼쪽 사인컬럼 표시 여부
+        icons = { "󰎤 ", "󰎧 ", "󰎪 ", "󰎭 ", "󰎱 ", "󰎳 " },
+        border = true,
+        -- border_virtual = true,
+        -- position = "inline", -- "inline" | "floating"
       },
       code = {
         enabled = true,
-        style = "minimal", -- "full" = 테두리 + 배경 / "minimal" = 단순 박스
-        border = "rounded", -- "none" | "rounded" | "single" 등
+        style = "full", -- "full" = 테두리 + 배경 / "minimal" = 단순 박스
+        language_border = " ",
+        language_left = "",
+        language_right = "",
+        left_pad = 2,
+        right_pad = 4,
         highlight = "CursorLine", -- 코드 블록 배경색 하이라이트
       },
-      -- bullet = {
-      --   enabled = true,
-      --   -- icons = { "●", "○", "◆", "◇" }, -- 리스트 기호 대체
-      --   -- shift_width = 2,
-      -- },
-      -- checkbox = {
-      --   enabled = true,
-      --   checked = "󰄲",
-      --   unchecked = "󰄱",
-      --   in_progress = "󰪚",
-      -- },
-      -- quote = {
-      --   enabled = true,
-      --   icon = "┃",
-      --   repeat_linebreak = false,
-      -- },
       table = {
         enabled = true,
         border = "thin",
+        -- border_virtual = true,
       },
       latex = {
         enabled = false, -- use snacks.image
@@ -117,7 +107,7 @@ return {
 
   --[[ {
     "iamcco/markdown-preview.nvim",
-    cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+    cmd = { "MarkdownPreviewToggle", "Markd::ownPreview", "MarkdownPreviewStop" },
     build = "cd app && npm install",
     init = function()
       vim.g.mkdp_filetypes = { "markdown" }
@@ -158,7 +148,7 @@ return {
         function()
           require("img-clip").paste_image()
         end,
-        mode = { "n", "i" },
+        mode = "n",
         desc = "Paste image from clipboard",
       },
       -- 파일 드래그&드롭도 지원 (터미널이 텍스트로 경로를 보낼 때)
@@ -187,7 +177,7 @@ return {
       workspaces = {
         {
           name = "2ndbrain",
-          path = "~/Github/docs/obsidian-sync", -- Obsidian vault 경로
+          path = vim.fn.expand("~/Github/docs/obsidian-sync"), -- Obsidian vault 경로
         },
       },
       ui = {
@@ -202,7 +192,7 @@ return {
           return string.format("![%s](%s)", name, encoded)
         end,
       },
-      notes_subdir = "0. Inbox",
+      notes_subdir = "0_Inbox",
       note_id_func = function(title)
         -- 제목을 안 넣고 만들면 백업 규칙(날짜-난수)
         if not title or title == "" then

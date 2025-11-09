@@ -23,7 +23,7 @@ return {
           -- require("noice").cmd("all")
         end,
         desc = "[N]oice [H]istory",
-        mode = { "n", "v", "i" },
+        mode = "n",
       },
     },
     dependencies = {
