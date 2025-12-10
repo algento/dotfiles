@@ -68,6 +68,8 @@ return {
           "emmet_ls", -- "jinja_lsp",
           "prettierd",
           "django-template-lsp",
+          -- docker
+          "hadolint",
         },
       })
 
