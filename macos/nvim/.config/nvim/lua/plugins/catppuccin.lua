@@ -6,7 +6,7 @@ return {
   opts = {
     term_colors = true,
     transparent_background = true, -- disables setting the background color.j
-    fzf = true,
+    -- fzf = true,
   },
   config = function()
     vim.cmd.colorscheme("catppuccin-mocha")

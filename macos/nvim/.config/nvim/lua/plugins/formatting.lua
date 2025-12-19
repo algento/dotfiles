@@ -1,6 +1,7 @@
 return {
   {
     "stevearc/conform.nvim",
+    enabled = false,
     event = { "BufReadPre", "BufNewFile" },
     opts = {
       notify_on_error = true,
@@ -45,15 +46,15 @@ return {
       },
       format_on_save = {
         -- These options will be passed to conform.format()
-        -- async = false,
-        timeout_ms = 500,
+        async = false,
+        timeout_ms = 1000,
         lsp_format = "fallback",
       },
       keys = {
         {
           "<leader>cf",
           function()
-            require("conform").format({ async = false, timeout_ms = 500, lsp_format = "fallback" })
+            require("conform").format({ async = false, timeout_ms = 1000, lsp_format = "fallback" })
           end,
           mode = "",
           desc = "[C]ode [F]ormat",
