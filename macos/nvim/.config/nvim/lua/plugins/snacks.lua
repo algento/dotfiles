@@ -49,7 +49,7 @@ return {
       image = {
         enabled = true,
         img_dirs = {
-          vim.fn.expand("~/Github/docs/obsidian-sync/Attachments"),
+          "/Users/sejong/Github/docs/obsidian-sync/Attachments",
         },
         -- max_width = 0,
         -- max_height = 0,

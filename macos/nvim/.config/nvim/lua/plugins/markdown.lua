@@ -131,7 +131,7 @@ return {
     opts = {
       default = {
         prompt_for_file_name = false,
-        dir_path = "~/Github/docs/obsidian-sync/Attachments", -- obsidian inbox 기준의 상대 경로
+        dir_path = "/Users/sejong/Github/docs/obsidian-sync/Attachments", -- obsidian inbox 기준의 상대 경로
         -- relative_to_current_file = true, -- 현재 노트 기준 상대경로로 삽입
         insert_mode_after_paste = true,
         use_absolute_path = true,
