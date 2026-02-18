@@ -1,0 +1,86 @@
+[user]
+    name = Sejong Heo
+    email = tromberx@gmail.com
+[credential "https://github.com"]
+	helper =
+	helper = !/opt/homebrew/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper =
+	helper = !/opt/homebrew/bin/gh auth git-credential
+[oh-my-zsh]
+    hide-status = 1
+    hide-dirty = 1
+
+# clearly makes git better
+[column]
+    ui = auto
+[branch]
+    sort = -committerdate
+[tag]
+    sort = version:refname
+[init]
+    defaultBranch = main
+[diff]
+    algorithm = histogram
+    colorMoved = plain
+    mnemonicPrefix = true
+    renames = true
+[push]
+    default = simple
+    autoSetupRemote = true
+    followTags = true
+[fetch]
+    prune = true
+    pruneTags = true
+    all = true
+
+# why the hell not?
+[help]
+    autocorrect = prompt
+[commit]
+    verbose = true
+[rerere]
+    enabled = true
+    autoupdate = true
+[core]
+    excludesfile = ~/.gitignore
+[rebase]
+    autoSquash = true
+    autoStash = true
+    updateRefs = true
+
+# a matter of taste (uncomment if you dare)
+[core]
+    # fsmonitor = true
+    # untrackedCache = true
+[merge]
+    # (just 'diff3' if git version < 2.3)
+    # conflictstyle = zdiff3
+[pull]
+    # rebase = true
+
+# git delta
+[core]
+    pager = delta
+
+[interactive]
+    diffFilter = delta --color-only
+
+[delta]
+    navigate = true    # use n and N to move between diff sections
+    side-by-side = true
+
+    # delta detects terminal colors automatically; set one of these to disable auto-detection
+    # dark = true
+    # light = true
+
+[merge]
+    conflictstyle = diff3
+
+[diff]
+    colorMoved = default
+[filter "lfs"]
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
