@@ -18,3 +18,7 @@ sudo apt update
 sudo apt install -y vscode
 
 echo '--Install vscode plugins'
+# Generate my extension lists
+# code --list-extensions >vscode-extensions.list
+
+cat vscode-extensions.list | xargs -L 1 code --install-extension

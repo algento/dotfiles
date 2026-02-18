@@ -32,6 +32,7 @@ brew install --cask ticktick
 # keyboard/mouse, 한글 입력기: https://github.com/gureum/gureum
 brew install --cask input-source-pro karabiner-elements
 brew install --cask gereumkim
+brew install --cask keyboardcleantool
 
 # utility and tweak
 brew install --cask tencent-lemon onyx
@@ -67,6 +68,8 @@ brew install --cask balenaetcher
 
 # github desktop
 brew install --cask github
+
+brew install --cask codex
 
 # container
 brew install --cask docker-desktop
