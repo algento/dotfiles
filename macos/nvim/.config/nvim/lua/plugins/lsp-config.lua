@@ -127,29 +127,13 @@ return {
           --  For example, in C this would take you to the header.
           map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
 
-          -- This function resolves a difference between neovim nightly (version 0.11) and stable (version 0.10)
-          ---@param client vim.lsp.Client
-          ---@param method vim.lsp.protocol.Method
-          ---@param bufnr? integer some lsp support methods only in specific files
-          ---@return boolean
-          local function client_supports_method(client, method, bufnr)
-            if vim.fn.has("nvim-0.11") == 1 then
-              return client:supports_method(method, bufnr)
-            else
-              return client.supports_method(method, { bufnr = bufnr })
-            end
-          end
-
           -- The following two autocommands are used to highlight references of the
           -- word under your cursor when your cursor rests there for a little while.
           --    See `:help CursorHold` for information about when this is executed
           --
           -- When you move your cursor, the highlights will be cleared (the second autocommand).
           local client = vim.lsp.get_client_by_id(event.data.client_id)
-          if
-            client
-            and client_supports_method(client, vim.lsp.protocol.Methods.textDocument_documentHighlight, event.buf)
-          then
+          if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight, event.buf) then
             local highlight_augroup = vim.api.nvim_create_augroup("kickstart-lsp-highlight", { clear = false })
             vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
               buffer = event.buf,
@@ -176,19 +160,48 @@ return {
           -- code, if the language server you are using supports them
           --
           -- This may be unwanted, since they displace some of your code
-          if client and client_supports_method(client, vim.lsp.protocol.Methods.textDocument_inlayHint, event.buf) then
+          if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint, event.buf) then
             map("<leader>th", function()
               vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }))
             end, "[T]oggle Inlay [H]ints")
+          end
+
+          if client and client.name == "ruff" then -- ruff code action 추가
+            -- Notes on code actions: https://github.com/astral-sh/ruff-lsp/issues/119#issuecomment-1595628355
+            -- Get isort like behavior: https://github.com/astral-sh/ruff/issues/8926#issuecomment-1834048218
+            -- 기존 'commands' 테이블 역할을 하는 유저 커맨드 등록
+            vim.api.nvim_buf_create_user_command(event.buf, "RuffAutofix", function()
+              vim.lsp.buf.code_action({
+                context = { only = { "source.fixAll.ruff" } },
+                apply = true,
+              })
+            end, { desc = "Ruff: Fix all auto-fixable problems" })
+
+            vim.api.nvim_buf_create_user_command(event.buf, "RuffOrganizeImports", function()
+              vim.lsp.buf.code_action({
+                context = { only = { "source.organizeImports.ruff" } },
+                apply = true,
+              })
+            end, { desc = "Ruff: Format imports" })
+
+            -- Hover 중복 방지 (Pyright 등과 병행 시)
+            client.server_capabilities.hoverProvider = false
+          end
+          -- Clangd 전용 키맵
+          if client and client.name == "clangd" then
+            map("<leader>ch", "<cmd>ClangdSwitchSourceHeader<cr>", "Switch Source/Header")
           end
         end,
       })
 
       -- Setup CMP
       local capabilities = vim.lsp.protocol.make_client_capabilities()
-      local blink_capabilities = require("blink.cmp").get_lsp_capabilities()
-      capabilities = vim.tbl_deep_extend("force", capabilities, blink_capabilities)
+      -- local blink_capabilities = require("blink.cmp").get_lsp_capabilities()
+      -- capabilities = vim.tbl_deep_extend("force", capabilities, blink_capabilities)
 
+      if package.loaded["blink.cmp"] then
+        capabilities = require("blink.cmp").get_lsp_capabilities(capabilities)
+      end
       -- # Setup LSP
       --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
       --
@@ -198,13 +211,14 @@ return {
       --  - capabilities (table): Override fields in capabilities. Can be used to disable certain LSP features.
       --  - settings (table): Override the default settings passed when initializing the server.
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
+      local util = require("lspconfig.util")
       local servers = {
         lua_ls = {
-          root_dir = function(fname)
-            return util.root_pattern("init.lua")(fname) -- init.lua 있는 폴더를 루트로
-              or util.find_git_ancestor(fname) -- 없으면 git root
-              or util.path.dirname(fname)
-          end,
+          -- root_dir = function(fname)
+          --   return util.root_pattern("init.lua")(fname) -- init.lua 있는 폴더를 루트로
+          --     or util.find_git_ancestor(fname) -- 없으면 git root
+          --     or util.path.dirname(fname)
+          -- end,
         },
         marksman = {},
         html = {},
@@ -234,75 +248,44 @@ return {
           on_attach = function(client, bufnr)
             if client.name == "ruff" then
               -- Disable hover in favor of Pyright.
-              client.server_capabilities.signatureHelperProvider = false
+              client.server_capabilities.signatureHelpProvider = false
               client.server_capabilities.hoverProvider = false
               -- client.server_capabilities.diagnosticProvider = false
             end
           end,
-          -- ruff code action 추가
-          -- Notes on code actions: https://github.com/astral-sh/ruff-lsp/issues/119#issuecomment-1595628355
-          -- Get isort like behavior: https://github.com/astral-sh/ruff/issues/8926#issuecomment-1834048218
-          commands = {
-            RuffAutofix = {
-              function()
-                vim.lsp.buf.execute_command({
-                  command = "ruff.applyAutofix",
-                  arguments = {
-                    { uri = vim.uri_from_bufnr(0) },
-                  },
-                })
-              end,
-              description = "Ruff: Fix all auto-fixable problems",
-            },
-            RuffOrganizeImports = {
-              function()
-                vim.lsp.buf.execute_command({
-                  command = "ruff.applyOrganizeImports",
-                  arguments = {
-                    { uri = vim.uri_from_bufnr(0) },
-                  },
-                })
-              end,
-              description = "Ruff: Format imports",
-            },
-          },
         },
 
         -- C/C++
         neocmake = {},
         clangd = {
-          filetypes = { "c", "cpp", "objc", "objcpp", "cuda", "proto" },
-          on_attach = function(client, bufnr)
-            client.server_capabilities.signatureHelperProvider = false
-            require("clangd_extensions").setup()
-          end,
-          keys = {
-            {
-              "<leader>ch",
-              "<cmd>ClangdSwitchSourceHeader<cr>",
-              desc = "Switch Source/Header (C/C++)",
-            },
-          },
           cmd = {
-            "clangd",
-            "--log=verbose",
+            "/opt/homebrew/opt/llvm/bin/clangd",
             "--background-index",
             "--clang-tidy",
-            --"--clang-tidy-checks=performance-*,bugprone-*"
-            "--suggest-missing-includes",
             "--header-insertion=iwyu",
             "--completion-style=detailed",
             "--function-arg-placeholders",
             "--fallback-style=llvm",
-            --"--query-driver=/usr/bin/gcc,/usr/bin/g++
-            --,/usr/local/gcc-15,/usr/bin/clang, /Library/Developer/CommandLineTools/usr/bin/c++",
-            --"--compile-commands-dir=build",
+            "--compile-commands-dir=build",
+            "--suggest-missing-includes",
+            "--completion-style=detailed",
+            "--include-ineligible-results",
+            "--clang-tidy-checks=performance-*,bugprone-*",
+            -- "/opt/homebrew/opt/llvm/bin/clangd",
+            -- "--log=verbose",
+            -- "--background-index",
+            -- "--clang-tidy",
+            -- "--header-insertion=iwyu",
+            -- "--function-arg-placeholders",
+            -- "--fallback-style=llvm",
+            --"--query-driver=/usr/bin/gcc,/usr/bin/g++,/usr/local/gcc-15,/usr/bin/clang,/Library/Developer/CommandLineTools/usr/bin/c++",
           },
           init_options = {
             usePlaceholders = true,
             completeUnimported = true,
             clangdFileStatus = true,
           },
+          filetypes = { "c", "cpp", "objc", "objcpp", "cuda", "proto" },
         },
       }
 
@@ -310,17 +293,34 @@ return {
         -- explicitly set to an empty table (done via mason-tool-installer)
         ensure_installed = {},
         automatic_installation = false,
-        handlers = {
-          function(server_name)
-            local server = servers[server_name] or {}
-            -- This handles overriding only values explicitly passed
-            -- by the server configuration above. Useful when disabling
-            -- certain features of an LSP (for example, turning off formatting for ts_ls)
-            server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
-            require("lspconfig")[server_name].setup(server)
-          end,
-        },
       })
+      local function chain_on_attach(a, b)
+        if a == nil then
+          return b
+        end
+        if b == nil then
+          return a
+        end
+        return function(client, bufnr)
+          a(client, bufnr)
+          b(client, bufnr)
+        end
+      end
+
+      -- 공통 on_attach가 필요하면 여기 정의 (LspAttach만 쓰면 없어도 됨)
+      local function common_on_attach(_, _) end
+      for name, opts in pairs(servers) do
+        local server_opts = vim.tbl_deep_extend("force", {}, opts)
+
+        -- capabilities 병합
+        server_opts.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server_opts.capabilities or {})
+
+        -- on_attach 체이닝(선택)
+        server_opts.on_attach = chain_on_attach(common_on_attach, server_opts.on_attach)
+
+        -- Neovim 0.11+ 네이티브 등록
+        vim.lsp.config(name, server_opts)
+      end
 
       -- show diagnostics message on screen
       -- See :help vim.diagnostic.Opts
