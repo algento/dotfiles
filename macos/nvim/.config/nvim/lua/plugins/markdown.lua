@@ -134,11 +134,15 @@ return {
         dir_path = "/Users/sejong/Github/docs/obsidian-sync/Attachments", -- obsidian inbox 기준의 상대 경로
         -- relative_to_current_file = true, -- 현재 노트 기준 상대경로로 삽입
         insert_mode_after_paste = true,
-        use_absolute_path = true,
-        template = "![$FILE_NAME]($FILE_PATH)$CURSOR",
+        use_absolute_path = false,
         file_name = function()
           return os.date("%Y%m%d-%H%M%S")
         end,
+      },
+      filetypes = {
+        markdown = {
+          template = "![](Attachments/$FILE_NAME)$CURSOR",
+        },
       },
     },
     keys = {
@@ -184,12 +188,12 @@ return {
         enable = false,
       },
       attachments = {
-        img_folder = "Attachments",
+        folder = "Attachments",
         -- 붙여넣기 시 자동 이름 규칙 설정 (선택)
         image_text_func = function(path)
           local name = vim.fs.basename(tostring(path))
           local encoded = require("obsidian.util").urlencode(name)
-          return string.format("![%s](%s)", name, encoded)
+          return string.format("![%s](%s)", name, string.match(encoded, "Attachments/.*"))
         end,
       },
       notes_subdir = "0_Inbox",
