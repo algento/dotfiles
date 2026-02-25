@@ -12,6 +12,7 @@ return {
         "bash",
         "c",
         "cmake",
+        "comment",
         "cpp",
         "css",
         "csv",
