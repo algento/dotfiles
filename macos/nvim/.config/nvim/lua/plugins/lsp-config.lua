@@ -13,6 +13,7 @@ return {
         "html",
         "cssls",
         "djlsp",
+        "copilot",
       },
       automatic_installation = false,
     },

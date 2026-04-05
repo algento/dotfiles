@@ -3,81 +3,80 @@ return {
     "nvim-treesitter/nvim-treesitter",
     dependencies = {
       -- "nvim-treesitter/playground",
-      "nvim-treesitter-textobjects",
+      "nvim-treesitter/nvim-treesitter-textobjects",
     },
     build = ":TSUpdate",
     event = { "BufReadPre", "BufNewFile" },
-    opts = {
-      ensure_installed = {
-        "bash",
-        "c",
-        "cmake",
-        "comment",
-        "cpp",
-        "css",
-        "csv",
-        "cuda",
-        "dockerfile",
-        "doxygen",
-        "git_config",
-        "git_rebase",
-        "git_attributes",
-        "gitcommit",
-        "gitignore",
-        "glsl",
-        "go",
-        "html",
-        "htmldjango",
-        "java",
-        "javascript",
-        "jinja",
-        "jinja_inline",
-        "json",
-        "jsonc",
-        "latex",
-        "lua",
-        "markdown",
-        "markdown_inline",
-        "ninja",
-        "proto",
-        "python",
-        "query",
-        "rust",
-        "typescript",
-        "tmux",
-        "vim",
-        "vimdoc",
-        "yaml",
-      },
-      incremental_selection = {
-        enable = true,
-        keymaps = {
-          -- set to `false` to disable one of the mappings
-          init_selection = "<C-space>",
-          node_incremental = "<C-space>",
-          scope_incremental = false,
-          node_decremental = "<bs>",
-        },
-      },
-    },
-    config = function(_, opts)
+    config = function()
       local config = require("nvim-treesitter.configs")
       config.setup({
-        opts = opts,
-        -- auto_install = true,
+        ensure_installed = {
+          "bash",
+          "c",
+          "cmake",
+          "comment",
+          "cpp",
+          "css",
+          "csv",
+          "cuda",
+          "dockerfile",
+          "doxygen",
+          "git_config",
+          "git_rebase",
+          "gitcommit",
+          "gitignore",
+          "glsl",
+          "go",
+          "html",
+          "htmldjango",
+          "java",
+          "javascript",
+          "jinja",
+          "jinja_inline",
+          "json",
+          "jsonc",
+          "latex",
+          "lua",
+          "markdown",
+          "markdown_inline",
+          "ninja",
+          "proto",
+          "python",
+          "query",
+          "rust",
+          "typescript",
+          "tmux",
+          "vim",
+          "vimdoc",
+          "yaml",
+        },
+        auto_install = true,
+        incremental_selection = {
+          enable = true,
+          keymaps = {
+            -- set to `false` to disable one of the mappings
+            init_selection = "<C-space>",
+            node_incremental = "<C-space>",
+            scope_incremental = false,
+            node_decremental = "<bs>",
+          },
+        },
         highlight = {
           enable = true,
-          -- additional_vim_regex_highlighting = false,
-          -- disable = { "text", "markdown" },
+          disable = { "text", "markdown" },
+          additional_vim_regex_highlighting = { "markdown" },
         },
         indent = { enable = true },
         playground = {
           enable = false,
         },
       })
-      --[[ # for code folding ]]
-      -- vim.wo.foldmethod = "expr"
-      -- vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+      -- use bash parser for zsh files
+      vim.treesitter.language.register("bash", "zsh")
+
+      --   --[[ # for code folding ]]
+      --   -- vim.wo.foldmethod = "expr"
+      --   -- vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
     end,
   },
 
