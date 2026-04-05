@@ -280,6 +280,7 @@ run = 'layout floating'
 [[on-window-detected]]
 if.app-name-regex-substring = 'Preview'
 run = 'layout floating'
+
 [[on-window-detected]]
 if.app-name-regex-substring = 'App Store'
 run = 'layout floating'
@@ -300,6 +301,10 @@ run = ['layout floating']
 [[on-window-detected]]
 if.app-id = "com.electron.dockerdesktop"
 run = ['layout floating']
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'test_'
+run = 'layout floating'
 
 
 # force certain workspaces to certain monitors
