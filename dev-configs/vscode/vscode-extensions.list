@@ -3,6 +3,7 @@ aaron-bond.better-comments
 adpyke.codesnap
 alefragnani.bookmarks
 alefragnani.project-manager
+anthropic.claude-code
 batisteo.vscode-django
 bbenoist.doxygen
 benjamin-simmonds.pythoncpp-debug
@@ -26,8 +27,6 @@ fill-labs.dependi
 franneck94.c-cpp-runner
 franneck94.vscode-coding-tools-extension-pack
 github.codespaces
-github.copilot
-github.copilot-chat
 guyutongxue.cpp-reference
 harikrishnan94.cxx-compiler-explorer
 james-yu.latex-workshop
@@ -59,6 +58,7 @@ ms-vscode-remote.remote-ssh
 ms-vscode-remote.remote-ssh-edit
 ms-vscode-remote.vscode-remote-extensionpack
 ms-vscode.cmake-tools
+ms-vscode.cpp-devtools
 ms-vscode.cpptools
 ms-vscode.cpptools-extension-pack
 ms-vscode.cpptools-themes
