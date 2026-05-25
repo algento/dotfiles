@@ -1,17 +1,16 @@
 # Fonts 설정 ------------------------------- #
-# font-family = "MesloLGS NF"
 font-family = "JetBrainsMono Nerd Font"
 font-family = "Noto Sans CJK KR"
-# font-family = "D2Coding"
-# font-family = "Noto Sans Mono CJK KR"
-# font-style = "Regular"
 font-size = 14
-# font-thicken = true
-# cursor-style = bar
-
 # 폰트 width 조정
 adjust-cell-width = -6%
-# adjust_cell-height = 20%
+
+# Ligatures 및 렌더링 최적화
+font-feature = ["calt", "liga", "dlig"]
+
+# Cursor 설정 ------------------------------- #
+cursor-style = block
+cursor-style-blink = true
 
 # Window 설정 ------------------------------- #
 # Windo Padding (x: horizontal,left/right, y : vertical, top/bottom)
@@ -24,12 +23,12 @@ window-width = 120
 
 # Window 기타 설정
 split-divider-color = 547792
-# https://fredrikaverpil.github.io/blog/2024/12/04/ghostty-on-macos
 macos-titlebar-style = tabs
 window-colorspace = display-p3
+# 비활성 분할창 투명도 조절
+unfocused-split-opacity = 0.8
 
 # shell 설정------------------------------- #
-# shell-integration = none
 shell-integration = zsh
 shell-integration-features = cursor, sudo, no-title
 
@@ -40,25 +39,24 @@ confirm-close-surface = false
 mouse-scroll-multiplier = 0.7
 mouse-hide-while-typing = true
 
-# 투명도 설정 : 95%
+# 투명도 설정 : 98%
 background-opacity = 0.98
-# background-blur = true
+background-blur = true
 
 # GTK 설정------------------------------- #
 gtk-single-instance = true
 gtk-titlebar = true
-gtk-wide-tabs=false
+gtk-wide-tabs = false
 
 # Clipboard 설정------------------------------- #
 clipboard-read = "allow"
 clipboard-paste-protection = false
 
 # theme ------------------------------- #
-# check theme : ghostty +list-themes
-# transparent tab case: change window-theme to ghostty
 window-theme = dark
 theme = Catppuccin Mocha
 
+# Keybinds ------------------------------- #
 keybind = ctrl+shift+n=new_window
 
 keybind = ctrl+shift+h=goto_split:left
@@ -82,4 +80,5 @@ keybind = super+ctrl+j=resize_split:down,10
 keybind = super+ctrl+k=resize_split:up,10
 keybind = super+ctrl+l=resize_split:right,10
 
-# window-save-state = always
+# Inspector
+keybind = super+shift+i=inspector:toggle
