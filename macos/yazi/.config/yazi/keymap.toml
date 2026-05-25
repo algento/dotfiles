@@ -1,3 +1,5 @@
+# ~/.config/yazi/keymap.toml
+
 [[mgr.prepend_keymap]]
 on   = "l"
 run  = "plugin smart-enter"
@@ -22,3 +24,39 @@ desc = "Delete a bookmark"
 on = [ "b", "D" ]
 run = "plugin bookmarks delete_all"
 desc = "Delete all bookmarks"
+
+# --- 생산성 향상 단축키 추가 ---
+
+# 파일 필터링 (Filter)
+[[mgr.prepend_keymap]]
+on   = "f"
+run  = "filter"
+desc = "Filter files by name"
+
+# 현재 디렉토리에서 터미널 열기
+[[mgr.prepend_keymap]]
+on   = "T"
+run  = "shell --block '$SHELL'"
+desc = "Open terminal in current directory"
+
+# 파일 경로 복사
+[[mgr.prepend_keymap]]
+on   = [ "y", "p" ]
+run  = "copy path"
+desc = "Copy the absolute path"
+
+[[mgr.prepend_keymap]]
+on   = [ "y", "d" ]
+run  = "copy dirname"
+desc = "Copy the path of the parent directory"
+
+[[mgr.prepend_keymap]]
+on   = [ "y", "n" ]
+run  = "copy filename"
+desc = "Copy the name of the file"
+
+# 숨김 파일 토글
+[[mgr.prepend_keymap]]
+on   = "."
+run  = "reveal --toggle"
+desc = "Toggle hidden files"

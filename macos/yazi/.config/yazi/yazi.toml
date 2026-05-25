@@ -1,9 +1,15 @@
 # ~/.config/yazi/yazi.toml
+
 [mgr]
 show_hidden = true
 show_symlink = true
+show_count = true
 linemode = "size_and_mtime"
 ratio          = [ 2, 5, 3 ]
+sort_by        = "alphabetical"
+sort_sensitive = false
+sort_reverse   = false
+sort_dir_first = true
 
 [preview]
 warp = "yes"
@@ -12,36 +18,34 @@ tab_size = 2
 max_width = 1200
 max_height = 2400
 cache_dir = ""
-image_filter = "triangle"
-image_quality = 50
-# sixel_fraction  = 15
-# ueberzug_scale  = 1
-# ueberzug_offset = [ 0, 0, 0, 0 ]
+image_filter = "lanczos3"
+image_quality = 75
+syntax_theme = "catppuccin-mocha"
 
 [opener]
 edit = [
-	{ run = '${EDITOR:=nvim} "$@"', desc = "$EDITOR", block = true, for = "unix" },
-	{ run = 'code "%*"',    orphan = true, desc = "code",         for = "windows" },
-	{ run = 'code -w "%*"', block = true,  desc = "code (block)", for = "windows" },
+    { run = '${EDITOR:=nvim} "$@"', desc = "$EDITOR", block = true, for = "unix" },
+    { run = 'code "%*"',    orphan = true, desc = "code",         for = "windows" },
+    { run = 'code -w "%*"', block = true,  desc = "code (block)", for = "windows" },
 ]
 open = [
-	{ run = 'xdg-open "$@"',                desc = "Open", for = "linux" },
-	{ run = 'open "$@"',                    desc = "Open", for = "macos" },
-	{ run = 'start "" "%1"', orphan = true, desc = "Open", for = "windows" },
+    { run = 'open "$@"',                    desc = "Open", for = "macos" },
+    { run = 'xdg-open "$@"',                desc = "Open", for = "linux" },
+    { run = 'start "" "%1"', orphan = true, desc = "Open", for = "windows" },
 ]
 reveal = [
-	{ run = 'open -R "$1"',                          desc = "Reveal", for = "macos" },
-	{ run = 'explorer /select, "%1"', orphan = true, desc = "Reveal", for = "windows" },
-	{ run = '''exiftool "$1"; echo "Press enter to exit"; read _''', block = true, desc = "Show EXIF", for = "unix" },
+    { run = 'open -R "$1"',                          desc = "Reveal", for = "macos" },
+    { run = 'explorer /select, "%1"', orphan = true, desc = "Reveal", for = "windows" },
+    { run = '''exiftool "$1"; echo "Press enter to exit"; read _''', block = true, desc = "Show EXIF", for = "unix" },
 ]
 extract = [
-	{ run = '7z x "$1"', desc = "Extract here", for = "unix" },
-	{ run = '7z x "%1"', desc = "Extract here", for = "windows" },
+    { run = '7z x "$1"', desc = "Extract here", for = "unix" },
+    { run = '7z x "%1"', desc = "Extract here", for = "windows" },
 ]
 play = [
-	{ run = 'mpv "$@"', orphan = true, for = "unix" },
-	{ run = 'mpv "%1"', orphan = true, for = "windows" },
-	{ run = '''mediainfo "$1"; echo "Press enter to exit"; read _''', block = true, desc = "Show media info", for = "unix" },
+    { run = 'mpv "$@"', orphan = true, for = "unix" },
+    { run = 'mpv "%1"', orphan = true, for = "windows" },
+    { run = '''mediainfo "$1"; echo "Press enter to exit"; read _''', block = true, desc = "Show media info", for = "unix" },
 ]
 archive =[
     { run = '7z a -tzip archive.zip "$@"', block=true, desc="Archive here", for = "macos"}
@@ -49,33 +53,25 @@ archive =[
 
 [open]
 rules = [
-	{ name = "*/", use = [ "edit", "open", "reveal", "archive" ] },
-
-	{ mime = "text/*",  use = [ "edit", "reveal" ] },
-	{ mime = "image/*", use = [ "open", "reveal" ] },
-	{ mime = "video/*", use = [ "play", "reveal" ] },
-  # { mime = "audio/*", use = [ "play", "reveal" ] },
-  # { mime = "inode/x-empty", use = [ "edit", "reveal" ] },
-
-	{ mime = "application/json", use = [ "edit", "reveal" ] },
-  # { mime = "*/javascript",     use = [ "edit", "reveal" ] },
-
-	{ mime = "application/zip",             use = [ "extract", "reveal" ] },
-	{ mime = "application/gzip",            use = [ "extract", "reveal" ] },
-	{ mime = "application/x-tar",           use = [ "extract", "reveal" ] },
-	{ mime = "application/x-bzip",          use = [ "extract", "reveal" ] },
-	{ mime = "application/x-bzip2",         use = [ "extract", "reveal" ] },
-	{ mime = "application/x-7z-compressed", use = [ "extract", "reveal" ] },
-	{ mime = "application/x-rar",           use = [ "extract", "reveal" ] },
-	{ mime = "application/xz",              use = [ "extract", "reveal" ] },
-
-	{ mime = "*", use = [ "open", "reveal" ] },
+    { mime = "inode/directory", use = [ "edit", "open", "reveal", "archive" ] },
+    { mime = "text/*",  use = [ "edit", "reveal" ] },
+    { mime = "image/*", use = [ "open", "reveal" ] },
+    { mime = "video/*", use = [ "play", "reveal" ] },
+    { mime = "application/json", use = [ "edit", "reveal" ] },
+    { mime = "application/zip",             use = [ "extract", "reveal" ] },
+    { mime = "application/gzip",            use = [ "extract", "reveal" ] },
+    { mime = "application/x-tar",           use = [ "extract", "reveal" ] },
+    { mime = "application/x-7z-compressed", use = [ "extract", "reveal" ] },
+    { mime = "*", use = [ "open", "reveal" ] },
 ]
+
+[input]
+cursor_blink = true
 
 [tasks]
 micro_workers    = 10
 macro_workers    = 25
 bizarre_retry    = 5
-image_alloc      = 8388608 # 10MB, 536870912 = 512MB
+image_alloc      = 8388608
 image_bound      = [ 0, 0 ]
 suppress_preload = false
