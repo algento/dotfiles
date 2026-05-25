@@ -39,18 +39,9 @@ default-root-container-orientation = 'auto'
 key-mapping.preset = 'qwerty'
 
 # Mouse follows focus when focused monitor changes
-# Drop it from your config, if you don't like this behavior
-# See https://nikitabobko.github.io/AeroSpace/guide#on-focus-changed-callbacks
-# See https://nikitabobko.github.io/AeroSpace/commands#move-mouse
 on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
 
 # Gaps between windows (inner-*) and between monitor edges (outer-*).
-# Possible values:
-# - Constant:     gaps.outer.top = 8
-# - Per monitor:  gaps.outer.top = [{ monitor.main = 16 }, { monitor."some-pattern" = 32 }, 24]
-#                 In this example, 24 is a default value when there is no match.
-#                 Monitor pattern is the same as for 'workspace-to-monitor-force-assignment'.
-#                 See: https://nikitabobko.github.io/AeroSpace/guide#assign-workspaces-to-monitors
 [gaps]
 inner.horizontal = 5
 inner.vertical = 5
@@ -59,65 +50,27 @@ outer.right = 5
 outer.bottom = 5
 outer.top = 5
 
-# outer.top = [
-#     {monitor."builtin"= 10},
-#     {monitor."main"= 50},
-#     50
-# ]
-
 # 'main' binding mode declaration
-# See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
-# 'main' binding mode must be always presented
 [mode.main.binding]
-
-# All possible keys:
-# - Letters.        a, b, c, ..., z
-# - Numbers.        0, 1, 2, ..., 9
-# - Keypad numbers. keypad0, keypad1, keypad2, ..., keypad9
-# - F-keys.         f1, f2, ..., f20
-# - Special keys.   minus, equal, period, comma, slash, backslash, quote, semicolon, backtick,
-#                   leftSquareBracket, rightSquareBracket, space, enter, esc, backspace, tab
-# - Keypad special. keypadClear, keypadDecimalMark, keypadDivide, keypadEnter, keypadEqual,
-#                   keypadMinus, keypadMultiply, keypadPlus
-# - Arrows.         left, down, up, right
-
-# All possible modifiers: cmd, alt, ctrl, shift
-
-# All possible commands: https://nikitabobko.github.io/AeroSpace/commands
-
-# You can uncomment this line to open up terminal with alt + enter shortcut
-# See: https://nikitabobko.github.io/AeroSpace/commands#exec-and-forget
-# alt-enter = 'exec-and-forget open -n /System/Applications/Utilities/Terminal.app'
-
-# See: https://nikitabobko.github.io/AeroSpace/commands#layout
 
 # App Shortcuts
 alt-t = 'exec-and-forget open -a /Applications/Ghostty.app'
 alt-o = 'exec-and-forget open -a /Applications/Obsidian.app'
 alt-v = 'exec-and-forget open -a /Applications/Visual Studio Code.app'
 
-# =========================================
-# 포커스 이동: Capslock + arrow
-# See: https://nikitabobko.github.io/AeroSpace/commands#focus
-# =========================================
+# 포커스 이동
 alt-h = 'focus left'
 alt-j = 'focus down'
 alt-k = 'focus up'
 alt-l = 'focus right'
 
-# =========================================
-# 창 위치 이동: Capslock + Cmd + arrow
-# See: https://nikitabobko.github.io/AeroSpace/commands#move
-# =========================================
+# 창 위치 이동
 alt-shift-h = 'move left'
 alt-shift-j = 'move down'
 alt-shift-k = 'move up'
 alt-shift-l = 'move right'
 
-# ==============================================================================
 # 워크스페이스 전환
-# See: https://nikitabobko.github.io/AeroSpace/commands#workspace
-# ==============================================================================
 alt-1 = 'workspace code'
 alt-2 = 'workspace note'
 alt-3 = 'workspace docs'
@@ -127,10 +80,7 @@ alt-6 = 'workspace video'
 alt-7 = 'workspace music'
 alt-8 = 'workspace vm'
 
-# ==============================================================================
-# 창 이동
-# See: https://nikitabobko.github.io/AeroSpace/commands#move-node-to-workspace
-# ==============================================================================
+# 창 이동 (to workspace)
 alt-shift-1 = 'move-node-to-workspace code'
 alt-shift-2 = 'move-node-to-workspace note'
 alt-shift-3 = 'move-node-to-workspace docs'
@@ -140,30 +90,24 @@ alt-shift-6 = 'move-node-to-workspace video'
 alt-shift-7 = 'move-node-to-workspace music'
 alt-shift-8 = 'move-node-to-workspace vm'
 
-# ==============================================================================
 # 기타
-# ==============================================================================
-# See: https://nikitabobko.github.io/AeroSpace/commands#workspace-back-and-forth
 alt-tab = 'workspace-back-and-forth'
-# See: https://nikitabobko.github.io/AeroSpace/commands#move-workspace-to-monitor
 alt-shift-tab = 'move-workspace-to-monitor --wrap-around next'
 
 alt-slash = 'layout tiles horizontal vertical'
 alt-comma = 'layout accordion horizontal vertical'
 alt-shift-f = 'fullscreen'
-# See: https://nikitabobko.github.io/AeroSpace/commands#mode
-alt-shift-semicolon = 'mode service'
 
-# 'service' binding mode declaration.
-# See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
+# 모드 전환
+alt-r = 'mode resize'
+alt-shift-semicolon = 'mode service'
+alt-shift-r = 'reload-config'
+
+# 'service' binding mode declaration
 [mode.service.binding]
 esc = ['reload-config', 'mode main']
 r = ['flatten-workspace-tree', 'mode main'] # reset layout
-#s = ['layout sticky tiling', 'mode main'] # sticky is not yet supported https://github.com/nikitabobko/AeroSpace/issues/2
-f = [
-    'layout floating tiling',
-    'mode main',
-] # Toggle between floating and tiling layout
+f = ['layout floating tiling', 'mode main'] # Toggle between floating and tiling layout
 backspace = ['close-all-windows-but-current', 'mode main']
 
 alt-shift-h = ['join-with left', 'mode main']
@@ -171,33 +115,22 @@ alt-shift-j = ['join-with down', 'mode main']
 alt-shift-k = ['join-with up', 'mode main']
 alt-shift-l = ['join-with right', 'mode main']
 
-# See: https://nikitabobko.github.io/AeroSpace/commands#resize
-alt-shift-minus = 'resize smart -50'
-alt-shift-equal = 'resize smart +50'
-
+# 'resize' binding mode declaration
 [mode.resize.binding]
 h = 'resize width -50'
 j = 'resize height +50'
 k = 'resize height -50'
 l = 'resize width +50'
 b = 'balance-sizes'
+esc = 'mode main'
+enter = 'mode main'
 
-# =============================================================================
-# Auto Split - Alternate split direction for new windows
-# =============================================================================
+# Auto Split
 [[on-window-detected]]
 check-further-callbacks = true
 run = 'split opposite'
 
-# ==============================================================================
-# workspace
-# https://ghostty.org/docs/help/macos-tiling-wms
-# ==============================================================================
-
-# if.app-id = "com.ReadCube.Papers"
-# if.app-id = "com.google.Chrome"
-# if.app-id = "com.apple.Safari"
-
+# Workspace Assignment rules
 [[on-window-detected]]
 if.app-id = "com.mitchellh.ghostty"
 run = ['move-node-to-workspace code']
@@ -231,6 +164,14 @@ if.app-id = "com.TickTick.task.mac"
 run = ['move-node-to-workspace schedule']
 
 [[on-window-detected]]
+if.app-id = "com.apple.iCal"
+run = ['move-node-to-workspace schedule']
+
+[[on-window-detected]]
+if.app-id = "com.apple.reminders"
+run = ['move-node-to-workspace schedule']
+
+[[on-window-detected]]
 if.app-id = "com.ridi.books"
 run = ['move-node-to-workspace reading']
 
@@ -250,9 +191,7 @@ run = ['move-node-to-workspace music']
 if.app-id = "com.vmware.fusion"
 run = ['move-node-to-workspace vm']
 
-# ==============================================================================
-# Floating window
-# ==============================================================================
+# Floating window rules
 [[on-window-detected]]
 if.app-id = "com.apple.Passwords"
 run = ["layout floating"]
@@ -266,6 +205,10 @@ if.app-id = "com.apple.ActivityMonitor"
 run = ["layout floating"]
 
 [[on-window-detected]]
+if.app-id = "com.apple.keychainaccess"
+run = ["layout floating"]
+
+[[on-window-detected]]
 if.app-name-regex-substring = 'System Settings'
 run = 'layout floating'
 
@@ -274,22 +217,25 @@ if.app-id = "com.apple.Notes"
 run = ['layout floating']
 
 [[on-window-detected]]
-if.app-name-regex-substring = 'Photos'
-run = 'layout floating'
+if.app-id = "com.apple.Photos"
+run = ['layout floating']
 
 [[on-window-detected]]
-if.app-name-regex-substring = 'Preview'
-run = 'layout floating'
+if.app-id = "com.apple.Preview"
+run = ['layout floating']
 
 [[on-window-detected]]
-if.app-name-regex-substring = 'App Store'
-run = 'layout floating'
+if.app-id = "com.apple.AppStore"
+run = ['layout floating']
+
+[[on-window-detected]]
+if.app-id = "com.apple.calculator"
+run = ['layout floating']
 
 [[on-window-detected]]
 if.app-id = "com.sublimetext.4"
 run = ["layout floating"]
 
-# Non-Apple application ------------------------
 [[on-window-detected]]
 if.app-id = "com.tencent.lemon"
 run = ["layout floating"]
@@ -305,16 +251,3 @@ run = ['layout floating']
 [[on-window-detected]]
 if.app-name-regex-substring = 'test_'
 run = 'layout floating'
-
-
-# force certain workspaces to certain monitors
-# [workspace-to-monitor-force-assignment]
-# 1 = 'main'                  # Monitor sequence number from left to right. 1-based indexing
-# 2 = 'main'                  # Main monitor
-# 3 = 'main'                  # Non-main monitor in case when there are only two monitors
-# 4 = 'main'                  # Non-main monitor in case when there are only two monitors
-# 5 = 'main'
-# 6 = 'main'
-# 7 = 'main'
-# 8 = 'main'
-# 9 = 'secondary'
