@@ -6,10 +6,6 @@ return {
     ---@type render.md.UserConfig
 
     opts = {
-      completions = {
-        -- lsp = { enabled = true },
-      },
-      update_in_insert = false,
       debounce = 150,
       file_types = { "markdown", "quarto", "rmd" }, -- 렌더링할 파일 타입 지정
       heading = {
@@ -29,11 +25,6 @@ return {
         left_pad = 2,
         right_pad = 4,
         highlight = "CursorLine", -- 코드 블록 배경색 하이라이트
-      },
-      table = {
-        enabled = true,
-        border = "thin",
-        -- border_virtual = true,
       },
       latex = {
         enabled = false, -- use snacks.image
