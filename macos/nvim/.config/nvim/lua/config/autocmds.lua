@@ -1,6 +1,6 @@
 -- lua/autocmds.lua
 _G.SNACKS_RESOLVE = function(path)
-  local vault_root = vim.fn.expand("~/Github/docs/obsidian-sync")
+  local vault_root = vim.fn.expand("/Users/sejong/Github/sejong-wiki")
   local attachments_dir = vault_root .. "/Attachments"
 
   local function file_exists(p)

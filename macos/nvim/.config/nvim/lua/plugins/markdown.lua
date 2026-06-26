@@ -131,17 +131,17 @@ return {
     opts = {
       default = {
         prompt_for_file_name = false,
-        dir_path = "/Users/sejong/Github/docs/obsidian-sync/Attachments", -- obsidian inbox 기준의 상대 경로
+        dir_path = "/Users/sejong/Github/sejong-wiki/resources/figs", -- obsidian inbox 기준의 상대 경로
         -- relative_to_current_file = true, -- 현재 노트 기준 상대경로로 삽입
         insert_mode_after_paste = true,
         use_absolute_path = false,
         file_name = function()
-          return os.date("%Y%m%d-%H%M%S")
+          return os.date("%Y-%m-%d-%H%M")
         end,
       },
       filetypes = {
         markdown = {
-          template = "![](Attachments/$FILE_NAME)$CURSOR",
+          template = "![](Resources/Figs/$FILE_NAME)$CURSOR",
         },
       },
     },
@@ -169,8 +169,8 @@ return {
       --   "BufNewFile path/to/my-vault/*.md",
       "BufReadPre "
         .. vim.fn.expand("~")
-        .. "/Github/docs/obsidian-sync/*.md",
-      "BufNewFile " .. vim.fn.expand("~") .. "/Github/docs/obsidian-sync/**.md",
+        .. "/Github/sejong-wiki/*.md",
+      "BufNewFile " .. vim.fn.expand("~") .. "/Github/sejong-wiki/**.md",
     },
     dependencies = {
       "nvim-lua/plenary.nvim",
@@ -181,22 +181,22 @@ return {
       workspaces = {
         {
           name = "2ndbrain",
-          path = vim.fn.expand("~/Github/docs/obsidian-sync"), -- Obsidian vault 경로
+          path = vim.fn.expand("~/Github/sejong-wiki/"), -- Obsidian vault 경로
         },
       },
       ui = {
         enable = false,
       },
       attachments = {
-        folder = "Attachments",
+        folder = "resources/figs",
         -- 붙여넣기 시 자동 이름 규칙 설정 (선택)
         image_text_func = function(path)
           local name = vim.fs.basename(tostring(path))
           local encoded = require("obsidian.util").urlencode(name)
-          return string.format("![%s](%s)", name, string.match(encoded, "Attachments/.*"))
+          return string.format("![%s](%s)", name, string.match(encoded, "Resources/Figs/.*"))
         end,
       },
-      notes_subdir = "0_Inbox",
+      notes_subdir = "(+)",
       note_id_func = function(title)
         -- 제목을 안 넣고 만들면 백업 규칙(날짜-난수)
         if not title or title == "" then
@@ -207,7 +207,7 @@ return {
         return safe
       end,
       templates = {
-        folder = "Templates",
+        folder = "resources",
       },
       --[[ -- 새 노트의 frontmatter를 통제하고 싶을 때(원치 않는 기본 템플릿 느낌 제거)
       note_frontmatter_func = function(note)

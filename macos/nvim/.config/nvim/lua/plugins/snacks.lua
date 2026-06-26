@@ -23,7 +23,12 @@ return {
          ]],
         },
       },
-      indent = { enabled = true },
+      indent = {
+        enabled = true,
+        filter = function(buf)
+          return vim.bo[buf].filetype ~= "markdown"
+        end,
+      },
       input = { enabled = true },
       git = { enabled = true },
       explorer = { enabled = false },
@@ -49,7 +54,7 @@ return {
       image = {
         enabled = true,
         img_dirs = {
-          "/Users/sejong/Github/docs/obsidian-sync/Attachments",
+          "/Users/sejong/Github/sejong-wiki/resources/figs",
         },
         -- max_width = 0,
         -- max_height = 0,
