@@ -1,6 +1,7 @@
 return {
   {
     "nvim-treesitter/nvim-treesitter",
+    branch = "main",
     dependencies = {
       -- "nvim-treesitter/playground",
       "nvim-treesitter/nvim-treesitter-textobjects",
@@ -8,7 +9,7 @@ return {
     build = ":TSUpdate",
     event = { "BufReadPre", "BufNewFile" },
     config = function()
-      local config = require("nvim-treesitter.configs")
+      local config = require("nvim-treesitter.config")
       config.setup({
         ensure_installed = {
           "bash",
@@ -85,7 +86,7 @@ return {
     "nvim-treesitter/nvim-treesitter-textobjects",
     lazy = true,
     config = function()
-      require("nvim-treesitter.configs").setup({
+      require("nvim-treesitter.config").setup({
         textobjects = {
           select = {
             enable = true,

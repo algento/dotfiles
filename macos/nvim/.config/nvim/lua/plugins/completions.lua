@@ -78,7 +78,7 @@ return {
             "buffer",
           },
           per_filetype = {
-            markdown = { "path" },
+            markdown = { "lsp", "path" },
           },
 
           providers = {

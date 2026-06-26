@@ -161,7 +161,7 @@ return {
 
   {
     "obsidian-nvim/obsidian.nvim",
-    version = "*", -- 최신 안정 버전
+    branch = "main",
     -- ft = "markdown",
     event = {
       -- refer to `:h file-pattern` for more examples
@@ -227,9 +227,6 @@ return {
         enabled = false,
       },
       picker = { name = "fzf-lua" },
-      completion = {
-        blink = true,
-      },
       legacy_commands = false,
     },
     keys = {

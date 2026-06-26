@@ -14,6 +14,13 @@ vim.api.nvim_create_autocmd("LspAttach", {
       vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
     end
 
+    -- Neovim 0.12 default LSP keymaps 비활성화 (기존 커스텀 단축키와의 혼선 방지)
+    pcall(vim.keymap.del, "n", "gra", { buffer = event.buf })
+    pcall(vim.keymap.del, "n", "grn", { buffer = event.buf })
+    pcall(vim.keymap.del, "n", "grr", { buffer = event.buf })
+    pcall(vim.keymap.del, "n", "gri", { buffer = event.buf })
+    pcall(vim.keymap.del, "n", "grt", { buffer = event.buf })
+
     -- NOTE: To jump back, press <C-t>.
     map("gd", vim.lsp.buf.definition, "[G]oto [D]efinition")
     -- map("gd", require("fzf-lua").lsp_definitions, "[G]oto [D]efinition")
@@ -83,7 +90,10 @@ vim.api.nvim_create_autocmd("LspAttach", {
     -- This may be unwanted, since they displace some of your code
     if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint, event.buf) then
       map("<leader>th", function()
-        vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }))
+        vim.lsp.inlay_hint.enable(
+          not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }),
+          { bufnr = event.buf }
+        )
       end, "[T]oggle Inlay [H]ints")
     end
 
@@ -111,6 +121,16 @@ vim.api.nvim_create_autocmd("LspAttach", {
     -- Clangd 전용 키맵
     if client and client.name == "clangd" then
       map("<leader>ch", "<cmd>LspClangdSwitchSourceHeader<cr>", "Switch Source/Header")
+    end
+
+    -- Obsidian LSP 전용 완성 트리거 HACK (blink.cmp 연동 및 [[ 입력 활성화용)
+    if client and client.name == "obsidian-ls" then
+      local chars = {}
+      for i = 32, 126 do
+        table.insert(chars, string.char(i))
+      end
+      client.server_capabilities.completionProvider.triggerCharacters = chars
+      pcall(vim.lsp.completion.enable, true, client.id, event.buf, { autotrigger = true })
     end
   end,
 })
@@ -154,3 +174,33 @@ vim.diagnostic.config({
     -- width = 60,
   },
 })
+
+-- ==========================================
+-- Neovim 0.12 Native LSP Activation
+-- ==========================================
+local servers = {
+  "lua_ls",
+  "bashls",
+  "pylsp",
+  "ruff",
+  "clangd",
+  "marksman",
+  "html",
+  "cssls",
+  "copilot",
+  "djlsp"
+}
+
+for _, server in ipairs(servers) do
+  local custom_config = {}
+  -- after/lsp/ 디렉토리의 설정 파일 동적 로드
+  local has_custom, custom_opts = pcall(require, "after.lsp." .. server)
+  if has_custom and type(custom_opts) == "table" then
+    custom_config = custom_opts
+  end
+
+  -- vim.lsp.config를 통한 서버 설정 확장 및 활성화
+  vim.lsp.config(server, custom_config)
+  vim.lsp.enable(server)
+end
+

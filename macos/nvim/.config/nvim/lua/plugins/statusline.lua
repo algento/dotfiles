@@ -10,5 +10,5 @@ return {
       })
     end,
   },
-  -- { "echasnovski/mini.statusline", version = false, opts = {} },
 }
+
