@@ -1,0 +1,10 @@
+{
+  "enableWorkflows": true,
+  "enabledPlugins": {
+    "pyright-lsp@claude-plugins-official": true
+  },
+  "effortLevel": "low",
+  "skipWorkflowUsageWarning": true,
+  "theme": "auto",
+  "tui": "fullscreen"
+}

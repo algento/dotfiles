@@ -1,0 +1,9 @@
+personality = "pragmatic"
+[projects."/Users/sejong/Github/docs/dotfiles"]
+trust_level = "trusted"
+
+[projects."/Users/sejong/Github/programming/cpp-gui-study"]
+trust_level = "trusted"
+
+[plugins."github@openai-curated"]
+enabled = true

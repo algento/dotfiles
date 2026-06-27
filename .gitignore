@@ -1,3 +1,10 @@
 *.DS_Store
 **.DS_Store
 
+# Agent secrets — never commit (safety net for macos/agents/ stow package)
+macos/agents/.codex/auth.json
+macos/agents/.codex/*.sqlite*
+macos/agents/.gemini/oauth_creds.json
+macos/agents/.gemini/google_accounts.json
+macos/agents/.claude/.credentials.json
+macos/agents/.claude/.credentials*
