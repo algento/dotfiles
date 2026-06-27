@@ -44,6 +44,15 @@ return {
       },
       input = { enabled = true },
       git = { enabled = true },
+      terminal = {
+        enabled = true,
+        win = {
+          style = "float",
+          width = 0.8,
+          height = 0.8,
+          border = "rounded",
+        },
+      },
       explorer = { enabled = false },
       picker = {
         enabled = false,

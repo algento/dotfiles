@@ -67,6 +67,9 @@ vim.opt.backspace = "indent,eol,start"
 vim.opt.swapfile = false
 vim.opt.autochdir = false
 
+-- Neovim 0.12 OOTB: 완성창 가동 시 알림 축소 및 인트로 화면 비활성화
+vim.opt.shortmess:append("cI")
+
 
 
 

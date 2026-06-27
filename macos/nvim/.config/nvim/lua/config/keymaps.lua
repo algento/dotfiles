@@ -25,4 +25,17 @@ vim.keymap.set("n", "<leader>cf", function()
   })
 end, { desc = "Format current file" })
 
+--# Snacks.nvim 모듈용 단축키 설정
+vim.keymap.set("n", "<leader>ft", function()
+  Snacks.terminal.toggle()
+end, { desc = "Toggle Float Terminal" })
+
+vim.keymap.set("n", "<leader>sf", function()
+  Snacks.scratch()
+end, { desc = "Toggle Scratch Pad" })
+
+vim.keymap.set("n", "<leader>S", function()
+  Snacks.scratch.select()
+end, { desc = "Select Scratch Pad" })
+
 

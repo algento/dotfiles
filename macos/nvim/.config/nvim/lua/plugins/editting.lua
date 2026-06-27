@@ -1,14 +1,26 @@
 return {
-  -- auto pairs
+  -- mini.pairs (auto pairs 대체)
   {
-    "windwp/nvim-autopairs",
+    "echasnovski/mini.pairs",
     event = "InsertEnter",
+    opts = {},
+  },
+  -- mini.surround (ys, ds, cs 키맵 커스텀 셋업)
+  {
+    "echasnovski/mini.surround",
+    keys = { "ys", "ds", "cs" },
     opts = {
-      -- check_ts = true, --enable treesitter
-      -- ts_config = {
-      --   lua = { "string" }, --don't add pairs in lua string treesitter nodes
-      -- },
-      -- map_space = false,
+      mappings = {
+        add = "ys",
+        delete = "ds",
+        replace = "cs",
+        find = "",
+        find_left = "",
+        highlight = "",
+        update_n_lines = "",
+        suffix_last = "",
+        suffix_next = "",
+      },
     },
   },
   -- auto tags
