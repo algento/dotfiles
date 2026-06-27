@@ -11,7 +11,7 @@ vim.keymap.set("n", "<c-l>", ":wincmd l<CR>")
 --# Copy and Save ---------------------------------------#
 vim.keymap.set("n", "<leader>h", ":nohlsearch<CR>")
 vim.keymap.set("v", "<leader>y", '"*y')
--- vim.keymap.set("n", "<leader>cp", ':let @*=expand("%:p")<CR>')
+
 vim.keymap.set("n", "<D-s>", "<Esc>:w<CR>")
 
 --# LSP keymaps ---------------------------------------#
@@ -25,13 +25,4 @@ vim.keymap.set("n", "<leader>cf", function()
   })
 end, { desc = "Format current file" })
 
---# 한글 설정
--- vim.keymap.del("i", "jk")
 
--- vim.keymap.set("n", "K", vim.lsp.buf.hover, { desc = "Lsp hover" })
--- vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, {})
--- vim.keymap.set("n", "<leader>gr", vim.lsp.buf.references, {})
--- vim.keymap.set("n", "<leader>gi", vim.lsp.buf.implementation, {})
--- vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, {})
--- vim.keymap.set("n", "<leader>gf", vim.lsp.buf.format, {})
--- vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, {})

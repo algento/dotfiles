@@ -23,7 +23,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
     -- NOTE: To jump back, press <C-t>.
     map("gd", vim.lsp.buf.definition, "[G]oto [D]efinition")
-    -- map("gd", require("fzf-lua").lsp_definitions, "[G]oto [D]efinition")
+
 
     -- WARN: this is Goto Declaration. For example, in C this would take you to the header.
     map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
@@ -143,7 +143,7 @@ vim.diagnostic.config({
   underline = {
     severity = vim.diagnostic.severity.ERROR,
   },
-  -- update_in_insert = false,
+
   virtual_text = {
     source = "always", -- "if_many"
     spacing = 2,
@@ -169,9 +169,7 @@ vim.diagnostic.config({
   float = {
     border = "rounded",
     source = "always",
-    -- show_header = true,
-    -- focus = false,
-    -- width = 60,
+
   },
 })
 
