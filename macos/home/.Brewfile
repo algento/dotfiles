@@ -146,7 +146,7 @@ cask "nikitabobko/tap/aerospace"
 # Agent orchestration platform
 cask "antigravity"
 # Tool to flash OS images to SD cards & USB drives
-cask "balenaetcher"
+# [disabled 2026-06-27 · 미사용 8개월+] cask "balenaetcher"
 # 3D creation suite
 cask "blender"
 # Web browser focusing on privacy
@@ -191,7 +191,7 @@ cask "karabiner-elements"
 # Blocks all Keyboard and TouchBar input
 cask "keyboardcleantool"
 # GPU-based terminal emulator
-cask "kitty"
+# [disabled 2026-06-27 · ghostty로 대체, 미사용] cask "kitty"
 # Full TeX Live distribution with GUI applications
 cask "mactex"
 # Provides updates to various Microsoft products
@@ -225,7 +225,7 @@ cask "sublime-text"
 # Cleanup and system status tool
 cask "tencent-lemon"
 # LaTeX editor
-cask "texifier"
+# [disabled 2026-06-27 · mas와 중복, 미사용(mactex 사용)] cask "texifier"
 # To-do & task list manager
 cask "ticktick"
 # Tool to hide menu bar icons
@@ -236,10 +236,10 @@ cask "visual-studio-code"
 cask "xquartz"
 # Collect, organise, cite, and share research sources
 cask "zotero"
-mas "Bitdefender Virus Scanner", id: 500154009
+# [disabled 2026-06-27 · 미사용, defender와 중복] mas "Bitdefender Virus Scanner", id: 500154009
 mas "BitPerfect", id: 455545700
 mas "Caffeinated", id: 1362171212
-mas "DaisyDisk", id: 411643860
+# [disabled 2026-06-27 · 미사용 8개월+] mas "DaisyDisk", id: 411643860
 mas "Day One", id: 1055511498
 mas "Dropover", id: 1355679052
 mas "Goodnotes", id: 1444383602
@@ -252,7 +252,7 @@ mas "Monosnap", id: 540348655
 mas "Notability", id: 360593530
 mas "Numbers", id: 409203825
 mas "Pages", id: 409201541
-mas "Texifier", id: 458866234
+# [disabled 2026-06-27 · cask와 중복] mas "Texifier", id: 458866234
 mas "Unclutter", id: 577085396
 vscode "1yib.rust-bundle"
 vscode "aaron-bond.better-comments"
