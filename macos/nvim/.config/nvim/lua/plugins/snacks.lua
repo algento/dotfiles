@@ -115,42 +115,7 @@ return {
         end,
         desc = "Lazygit",
       },
-      --[[ {
-        "<leader>gl",
-        function()
-          Snacks.lazygit.log_file()
-        end,
-        desc = "Lazygit Log (cwd)",
-      }, ]]
-      -- Snack picker (diable, usd fzf-lua)
-      --[[ {
-        "<C-p>",
-        function()
-          Snacks.picker.pick("files")
-        end,
-        desc = "Find Files",
-      },
-      {
-        "<leader><leader>",
-        function()
-          Snacks.picker.recent()
-        end,
-        desc = "Recent Files",
-      },
-      {
-        "<leader>fb",
-        function()
-          Snacks.picker.buffers()
-        end,
-        desc = "Buffers",
-      },
-      {
-        "<leader>fg",
-        function()
-          Snacks.picker.grep()
-        end,
-        desc = "Grep Files",
-      }, ]]
+
     },
   },
 }

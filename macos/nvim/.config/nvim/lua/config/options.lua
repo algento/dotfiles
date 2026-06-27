@@ -67,10 +67,6 @@ vim.opt.backspace = "indent,eol,start"
 vim.opt.swapfile = false
 vim.opt.autochdir = false
 
--- Neovim 0.12 내장 ui2 (메시지 및 명령줄 팝업) 활성화
--- Neovim 0.12 ui2의 Treesitter 버그(Invalid node type 'tab' 등)로 인해 임시 비활성화합니다.
--- pcall(function()
---   require('vim._core.ui2').enable({})
--- end)
+
 
 
