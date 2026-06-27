@@ -14,6 +14,8 @@ return {
   -- auto tags
   {
     "windwp/nvim-ts-autotag",
+    dependencies = { "nvim-treesitter" },
+    event = { "BufReadPre", "BufNewFile" },
     opts = {},
   },
   -- Code Folding

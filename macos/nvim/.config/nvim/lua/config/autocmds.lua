@@ -133,6 +133,9 @@ vim.api.nvim_create_autocmd("BufWritePre", {
   group = grp_trim,
   pattern = "*",
   callback = function(args)
+    if not vim.bo[args.buf].modifiable or vim.bo[args.buf].readonly then
+      return
+    end
     local view = vim.fn.winsaveview()
     vim.cmd([[%s/\s\+$//e]])
     vim.fn.winrestview(view)
