@@ -37,3 +37,5 @@ log/
 # Application specific files
 venv
 node_modules
+
+**/.claude/settings.local.json

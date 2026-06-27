@@ -249,6 +249,7 @@ eval $(thefuck --alias fk)
 #------------------------------------------------------------------------------#
 # NeoVim & Tmux
 #------------------------------------------------------------------------------#
+export PATH="$HOME/.local/share/bob/nvim-bin:$PATH"
 export PATH="$HOME/.tmux/plugins/tmuxifier/bin:$PATH"
 # export LANG=ko_KR.UTF-8
 # export LC_ALL=ko_KR.UTF-8
@@ -282,7 +283,8 @@ autoload -Uz compinit
 compinit
 # End of Docker CLI completions
 
-export MY_VAULT="$HOME/Github/docs/obsidian-sync"
+export MY_VAULT="$HOME/Github/sejong-wiki"
+export PATH="/usr/local/bin:$PATH"
 
 #------------------------------------------------------------------------------#
 #- MATLAB Setting
@@ -316,3 +318,9 @@ export MY_VAULT="$HOME/Github/docs/obsidian-sync"
 #-------------------------------------------------------------------------------
 
 # source ~/.swiftly/env.sh
+
+# Added by Antigravity
+export PATH="/Users/sejong/.antigravity/antigravity/bin:$PATH"
+
+# Added by Antigravity IDE
+export PATH="/Users/sejong/.antigravity-ide/antigravity-ide/bin:$PATH"
