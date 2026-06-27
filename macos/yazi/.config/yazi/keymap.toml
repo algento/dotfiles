@@ -39,24 +39,30 @@ on   = "T"
 run  = "shell --block '$SHELL'"
 desc = "Open terminal in current directory"
 
-# 파일 경로 복사
-[[mgr.prepend_keymap]]
-on   = [ "y", "p" ]
-run  = "copy path"
-desc = "Copy the absolute path"
-
-[[mgr.prepend_keymap]]
-on   = [ "y", "d" ]
-run  = "copy dirname"
-desc = "Copy the path of the parent directory"
-
-[[mgr.prepend_keymap]]
-on   = [ "y", "n" ]
-run  = "copy filename"
-desc = "Copy the name of the file"
+# # 파일 경로 복사
+# [[mgr.prepend_keymap]]
+# on   = [ "y", "p" ]
+# run  = "copy path"
+# desc = "Copy the absolute path"
+#
+# [[mgr.prepend_keymap]]
+# on   = [ "y", "d" ]
+# run  = "copy dirname"
+# desc = "Copy the path of the parent directory"
+#
+# [[mgr.prepend_keymap]]
+# on   = [ "y", "n" ]
+# run  = "copy filename"
+# desc = "Copy the name of the file"
 
 # 숨김 파일 토글
 [[mgr.prepend_keymap]]
-on   = "."
-run  = "reveal --toggle"
+on   = ["."]
+run  = "hidden toggle"
 desc = "Toggle hidden files"
+
+# 파일 압축
+[[mgr.prepend_keymap]]
+on   = [ "c", "a", "a" ]
+run  = "plugin compress"
+desc = "Archive selected files"
