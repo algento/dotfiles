@@ -1,16 +1,5 @@
 return {
   {
-    "jay-babu/mason-nvim-dap.nvim",
-    event = "VeryLazy",
-    dependencies = {
-      "williamboman/mason.nvim",
-      "mfussenegger/nvim-dap",
-    },
-    opts = {
-      handlers = {},
-    },
-  },
-  {
     "mfussenegger/nvim-dap",
     dependencies = {
       "rcarriga/nvim-dap-ui",
@@ -37,18 +26,30 @@ return {
         dapui.close()
       end
 
-      -- require("dap").adapters["codelldb"] = {
-      --   type = "server",
-      --   host = "127.0.0.1", -- error if "localhost"
-      --   port = "${port}",
-      --   executable = {
-      --     command = "codelldb",
-      --     args = {
-      --       "--port",
-      --       "${port}",
-      --     },
-      --   },
-      -- }
+      -- C/C++ codelldb Native adapter 및 configuration 설정
+      dap.adapters.codelldb = {
+        type = "server",
+        port = "${port}",
+        executable = {
+          command = vim.fn.expand("$HOME/.local/share/nvim/mason/bin/codelldb"),
+          args = { "--port", "${port}" },
+        },
+      }
+      dap.configurations.cpp = {
+        {
+          name = "Launch file",
+          type = "codelldb",
+          request = "launch",
+          program = function()
+            return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+          end,
+          cwd = "${workspaceFolder}",
+          stopOnEntry = false,
+        },
+      }
+      dap.configurations.c = dap.configurations.cpp
+      dap.configurations.rust = dap.configurations.cpp
+
       vim.keymap.set("n", "<leader>db", dap.toggle_breakpoint, {})
       vim.keymap.set("n", "<leader>dc", dap.continue, {})
       vim.keymap.set("n", "<leader>di", dap.step_into, {})
