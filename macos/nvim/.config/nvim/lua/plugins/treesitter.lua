@@ -2,10 +2,6 @@ return {
   {
     "nvim-treesitter/nvim-treesitter",
     branch = "main",
-    dependencies = {
-      -- "nvim-treesitter/playground",
-      "nvim-treesitter/nvim-treesitter-textobjects",
-    },
     build = ":TSUpdate",
     event = { "BufReadPre", "BufNewFile" },
     config = function()
@@ -13,7 +9,6 @@ return {
       config.setup({
         ensure_installed = {
           "bash",
-          "c",
           "cmake",
           "comment",
           "cpp",
@@ -37,7 +32,6 @@ return {
           "json",
           "jsonc",
           "latex",
-          "lua",
           "markdown",
           "markdown_inline",
           "ninja",
@@ -47,15 +41,12 @@ return {
           "rust",
           "typescript",
           "tmux",
-          "vim",
-          "vimdoc",
           "yaml",
         },
         auto_install = true,
         incremental_selection = {
           enable = true,
           keymaps = {
-            -- set to `false` to disable one of the mappings
             init_selection = "<C-space>",
             node_incremental = "<C-space>",
             scope_incremental = false,
@@ -75,25 +66,21 @@ return {
       -- use bash parser for zsh files
       vim.treesitter.language.register("bash", "zsh")
 
-      --   --[[ # for code folding ]]
-      --   -- vim.wo.foldmethod = "expr"
-      --   -- vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-    end,
-  },
+      -- 로컬 스크립트를 변경하지 않는 완전한 설정 레벨 해법:
+      -- lazy.nvim의 자동 소싱(plugin/ 스크립트 실행)을 피하기 위해 플러그인은 비활성화하되,
+      -- 쿼리 파일들을 사용하기 위해 rtp에 경로만 직접 마운트합니다.
+      local textobjects_path = vim.fn.stdpath("data") .. "/lazy/nvim-treesitter-textobjects"
+      if vim.fn.isdirectory(textobjects_path) == 1 then
+        vim.opt.rtp:append(textobjects_path)
+      end
 
-  -- https://www.josean.com/posts/nvim-treesitter-and-textobjects
-  {
-    "nvim-treesitter/nvim-treesitter-textobjects",
-    lazy = true,
-    config = function()
+      -- textobjects 설정도 nvim-treesitter가 완전히 로드된 후 setup합니다.
       require("nvim-treesitter.config").setup({
         textobjects = {
           select = {
             enable = true,
-            -- Automatically jump forward to textobj, similar to targets.vim
             lookahead = true,
             keymaps = {
-              -- You can use the capture groups defined in textobjects.scm
               ["a="] = { query = "@assignment.outer", desc = "Select outer part of an assignment" },
               ["i="] = { query = "@assignment.inner", desc = "Select inner part of an assignment" },
               ["l="] = { query = "@assignment.lhs", desc = "Select left hand side of an assignment" },
@@ -116,66 +103,29 @@ return {
 
               ["ac"] = { query = "@class.outer", desc = "Select outer part of a class" },
               ["ic"] = { query = "@class.inner", desc = "Select inner part of a class" },
-
-              --[[
-              -- You can use the capture groups defined in textobjects.scm
-              ["af"] = "@function.outer",
-              -- You can optionally set descriptions to the mappings (used in the desc parameter of
-              -- nvim_buf_set_keymap) which plugins like which-key display
-              ["ic"] = { query = "@class.inner", desc = "Select inner part of a class region" },
-              -- You can also use captures from other query groups like `locals.scm`
-              ["as"] = { query = "@local.scope", query_group = "locals", desc = "Select language scope" },
-              ]]
             },
-            selection_modes = {
-              --[[
-              -- You can choose the select mode (default is charwise 'v')
-              --
-              -- Can also be a function which gets passed a table with the keys
-              -- * query_string: eg '@function.inner'
-              -- * method: eg 'v' or 'o'
-              -- and should return the mode ('v', 'V', or '<c-v>') or a table
-              -- mapping query_strings to modes.
-
-              ["@parameter.outer"] = "v", -- charwise
-              ["@function.outer"] = "V", -- linewise
-              ["@class.outer"] = "<c-v>", -- blockwise
-              ]]
-            },
-            -- If you set this to `true` (default is `false`) then any textobject is
-            -- extended to include preceding or succeeding whitespace. Succeeding
-            -- whitespace has priority in order to act similarly to eg the built-in
-            -- `ap`.
-            --
-            -- Can also be a function which gets passed a table with the keys
-            -- * query_string: eg '@function.inner'
-            -- * selection_mode: eg 'v'
-            -- and should return true or false
             include_surrounding_whitespace = true,
           },
           swap = {
             enable = true,
             swap_next = {
-              ["<leader>na"] = "@parameter.inner", -- swap parameters/argument with next
-              ["<leader>nm"] = "@function.outer", -- swap function with next
+              ["<leader>na"] = "@parameter.inner",
+              ["<leader>nm"] = "@function.outer",
             },
             swap_previous = {
-              ["<leader>pa"] = "@parameter.inner", -- swap parameters/argument with prev
-              ["<leader>pm"] = "@function.outer", -- swap function with previous
+              ["<leader>pa"] = "@parameter.inner",
+              ["<leader>pm"] = "@function.outer",
             },
           },
           move = {
             enable = true,
-            set_jumps = true, -- whether to set jumps in the jumplist
+            set_jumps = true,
             goto_next_start = {
               ["]f"] = { query = "@call.outer", desc = "Next function call start" },
               ["]m"] = { query = "@function.outer", desc = "Next method/function def start" },
               ["]c"] = { query = "@class.outer", desc = "Next class start" },
               ["]i"] = { query = "@conditional.outer", desc = "Next conditional start" },
               ["]l"] = { query = "@loop.outer", desc = "Next loop start" },
-
-              -- You can pass a query group to use query from `queries/<lang>/<query_group>.scm file in your runtime path.
-              -- Below example nvim-treesitter's `locals.scm` and `folds.scm`. They also provide highlights.scm and indent.scm.
               ["]s"] = { query = "@scope", query_group = "locals", desc = "Next scope" },
               ["]z"] = { query = "@fold", query_group = "folds", desc = "Next fold" },
             },
@@ -200,22 +150,15 @@ return {
               ["[I"] = { query = "@conditional.outer", desc = "Prev conditional end" },
               ["[L"] = { query = "@loop.outer", desc = "Prev loop end" },
             },
-            --[[
-            goto_next_start = {
-              -- You can use regex matching (i.e. lua pattern) and/or pass a list in a "query" key to group multiple queries.
-              ["]o"] = "@loop.*",
-              --
-              -- You can pass a query group to use query from `queries/<lang>/<query_group>.scm file in your runtime path.
-              -- Below example nvim-treesitter's `locals.scm` and `folds.scm`. They also provide highlights.scm and indent.scm.
-              ["]s"] = { query = "@local.scope", query_group = "locals", desc = "Next scope" },
-              ["]z"] = { query = "@fold", query_group = "folds", desc = "Next fold" },
-            },
-            -- Use if you want more granular movements
-            -- Make it even more gradual by adding multiple queries and regex.
-             ]]
           },
         },
       })
     end,
+  },
+
+  -- lazy.nvim의 자동 소싱(plugin/ 스크립트 로드)을 완전히 우회하되 플러그인이 삭제되지 않도록 lazy = true 처리
+  {
+    "nvim-treesitter/nvim-treesitter-textobjects",
+    lazy = true,
   },
 }

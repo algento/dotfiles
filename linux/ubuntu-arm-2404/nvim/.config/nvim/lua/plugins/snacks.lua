@@ -6,6 +6,19 @@ return {
     },
     priority = 1000,
     lazy = false,
+    config = function(_, opts)
+      local status, snacks_util = pcall(require, "snacks.util")
+      if status and snacks_util and snacks_util.blend then
+        local original_blend = snacks_util.blend
+        snacks_util.blend = function(fg, bg, alpha)
+          if not fg or not bg or type(fg) ~= "string" or type(bg) ~= "string" or fg:sub(1, 1) ~= "#" or bg:sub(1, 1) ~= "#" then
+            return fg or bg or "#000000"
+          end
+          return original_blend(fg, bg, alpha)
+        end
+      end
+      require("snacks").setup(opts)
+    end,
     opts = {
       bigfile = { enabled = true },
       dashboard = {
@@ -49,7 +62,7 @@ return {
       image = {
         enabled = true,
         img_dirs = {
-          vim.fn.expand("~/Github/docs/obsidian-sync/Attachments"),
+          vim.fn.expand("~/Github/sejong-wiki/resources/figs"),
         },
         -- max_width = 0,
         -- max_height = 0,
