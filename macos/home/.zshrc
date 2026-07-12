@@ -226,8 +226,9 @@ alias rcat="$(which cat)"
 #------------------------------------------------------------------------------#
 # eza (better ls)
 #------------------------------------------------------------------------------#
-# alias ls="eza --color=always --long --git --no-filesize --icons=always --no-time --no-user --no-permissions"
-alias ls="eza --color=always --long --git --icons=always --no-user"
+# ls는 시스템 기본(plain)으로 두어 스크립트 파싱 안정성 확보. eza 롱뷰는 ll로 사용.
+# alias ll="eza --color=always --long --git --no-filesize --icons=always --no-time --no-user --no-permissions"
+alias ll="eza --color=always --long --git --icons=always --no-user"
 
 #------------------------------------------------------------------------------#
 # Zoxide (better cd)
