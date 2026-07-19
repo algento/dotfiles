@@ -116,3 +116,8 @@ run_cmd() {
         "$@"
       fi
 }
+
+# Auto-detect OS on sourcing if not already set
+if [ -z "${OS_TYPE:-}" ]; then
+    detect_os
+fi

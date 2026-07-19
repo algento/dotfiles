@@ -126,12 +126,18 @@ fi
 # ==============================================================================
 log_info "설치를 시작합니다..."
 
+# 1. OS-specific System Package Setup
+if [ "$INSTALL_MACOS" = "1" ] && [ "$OS_TYPE" = "macOS" ]; then
+    run_cmd bash "$SCRIPT_DIR/modules/brew.sh"
+fi
+
+# 2. Core Development Environment (zsh plugins, bob-nvim)
 if [ "$INSTALL_CORE" = "1" ]; then
     run_cmd bash "$SCRIPT_DIR/modules/core.sh"
 fi
 
+# 3. Dotfiles Symlink Deployment (Stow)
 if [ "$INSTALL_MACOS" = "1" ] && [ "$OS_TYPE" = "macOS" ]; then
-    run_cmd bash "$SCRIPT_DIR/modules/brew.sh"
     run_cmd bash "$SCRIPT_DIR/modules/dotfiles.sh"
 fi
 
@@ -139,6 +145,7 @@ if [ "$INSTALL_UBUNTU" = "1" ] && [ "$OS_TYPE" = "Ubuntu" ]; then
     run_cmd bash "$SCRIPT_DIR/modules/dotfiles.sh"
 fi
 
+# 4. Runtime Environment Setup
 if [ "$INSTALL_PYTHON" = "1" ]; then
     run_cmd bash "$SCRIPT_DIR/modules/python.sh"
 fi
