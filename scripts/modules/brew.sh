@@ -1,6 +1,6 @@
 #!/bin/bash
 # ==============================================================================
-# brew.sh - Homebrew Setup & Package Synchronization Module
+# brew.sh - Homebrew Setup & Package Synchronization Module (macOS & Ubuntu)
 # ==============================================================================
 set -e
 
@@ -11,13 +11,13 @@ if [ -f "$SCRIPT_DIR/lib/utils.sh" ]; then
 fi
 
 log_info "modules/brew.sh 실행 중..."
-log_info "Homebrew 설치 상태 점검 및 macos/home/.Brewfile 패키지 동기화를 진행합니다."
+log_info "Homebrew 설치 상태 점검 및 패키지 동기화를 진행합니다."
 
 # ==============================================================================
-# 1. Homebrew Installation & Shellenv Setup
+# 1. OS Compatibility Check
 # ==============================================================================
-if [ "$OS_TYPE" != "macOS" ]; then
-    log_warn "Homebrew 설치 및 Brewfile 동기화는 macOS 환경에서만 지원됩니다."
+if [ "$OS_TYPE" != "macOS" ] && [ "$OS_TYPE" != "Ubuntu" ]; then
+    log_warn "Homebrew 설치는 macOS 및 Ubuntu 환경에서만 지원됩니다."
     exit 0
 fi
 
@@ -27,12 +27,23 @@ load_brew_env() {
         eval "$(/opt/homebrew/bin/brew shellenv)"
     elif [ -f "/usr/local/bin/brew" ]; then
         eval "$(/usr/local/bin/brew shellenv)"
+    elif [ -f "/home/linuxbrew/.linuxbrew/bin/brew" ]; then
+        eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
     fi
 }
 
-# Check if brew command exists
+# Load current context environment if already installed
+load_brew_env
+
+# Check if brew command exists, if not proceed to installation
 if ! has_command brew; then
     log_info "Homebrew가 시스템에 감지되지 않았습니다. 설치를 진행합니다..."
+    
+    if [ "$OS_TYPE" = "Ubuntu" ]; then
+        log_info "Linuxbrew 설치를 위해 필수 의존성(build-essential, curl 등)을 먼저 확보합니다..."
+        run_cmd sudo apt update -y
+        run_cmd sudo apt install -y build-essential procps curl file git
+    fi
     
     # Run the Homebrew installation non-interactively
     run_cmd env NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
@@ -43,7 +54,7 @@ else
     log_info "Homebrew가 이미 설치되어 있습니다. (건너뜀)"
 fi
 
-# Ensure brew command is now available in active path
+# Double check if brew path resolved correctly
 load_brew_env
 
 if ! has_command brew && [ "$DRY_RUN" != "1" ]; then
@@ -53,14 +64,19 @@ fi
 # ==============================================================================
 # 2. Brewfile Bundle Synchronization
 # ==============================================================================
-BREWFILE_PATH="$SCRIPT_DIR/../macos/home/.Brewfile"
+BREWFILE_PATH=""
+if [ "$OS_TYPE" = "macOS" ]; then
+    # macOS uses full configuration (.Brewfile)
+    BREWFILE_PATH="$SCRIPT_DIR/../macos/home/.Brewfile"
+elif [ "$OS_TYPE" = "Ubuntu" ]; then
+    # Ubuntu only installs common CLI tools (Brewfile.common)
+    BREWFILE_PATH="$SCRIPT_DIR/../macos/home/Brewfile.common"
+fi
 
 if [ -f "$BREWFILE_PATH" ]; then
     log_info "Brewfile 동기화를 시작합니다: $BREWFILE_PATH"
     
     # Perform brew bundle execution
-    # Some casks or MAS apps might require sudo password during upgrade/install.
-    # We catch the exit status to avoid crashing the whole installer pipeline.
     bundle_status=0
     run_cmd brew bundle --file="$BREWFILE_PATH" || bundle_status=$?
     
@@ -77,6 +93,44 @@ if [ -f "$BREWFILE_PATH" ]; then
     fi
 else
     error_exit "Brewfile 원본 파일을 찾을 수 없습니다: $BREWFILE_PATH"
+fi
+
+# ==============================================================================
+# 3. Ubuntu-specific VS Code Snap Installation & Extension Sync
+# ==============================================================================
+if [ "$OS_TYPE" = "Ubuntu" ]; then
+    # If code command is not present, check GUI environment and install via snap
+    if ! has_command code; then
+        # Check if desktop display environment is active (GUI environment)
+        if [ -n "${DISPLAY:-}" ]; then
+            log_info "우분투 데스크톱 GUI 환경을 감지했습니다. VS Code 설치를 시작합니다 (snap)..."
+            run_cmd sudo snap install --classic code
+        else
+            log_info "헤드리스/서버 환경입니다. VS Code GUI 설치를 건너뜁니다."
+        fi
+    fi
+    
+    # Sync VS Code extensions if code is now available
+    if has_command code || [ "$DRY_RUN" = "1" ]; then
+        VSCODE_BREWFILE_PATH="$SCRIPT_DIR/../macos/home/Brewfile.vscode"
+        if [ -f "$VSCODE_BREWFILE_PATH" ]; then
+            log_info "VS Code 환경이 감지되어 익스텐션 동기화를 진행합니다: $VSCODE_BREWFILE_PATH"
+            bundle_status=0
+            run_cmd brew bundle --file="$VSCODE_BREWFILE_PATH" || bundle_status=$?
+            
+            if [ -f "${VSCODE_BREWFILE_PATH}.lock.json" ]; then
+                run_cmd rm -f "${VSCODE_BREWFILE_PATH}.lock.json"
+            fi
+            
+            if [ $bundle_status -ne 0 ]; then
+                log_warn "일부 VS Code 익스텐션 설치 중 경고가 감지되었습니다. Exit Code: $bundle_status"
+            else
+                log_info "VS Code 익스텐션 동기화가 완료되었습니다."
+            fi
+        fi
+    else
+        log_warn "VS Code가 설치되지 않아 Brewfile.vscode 동기화를 건너뜁니다. (원격 환경 권장)"
+    fi
 fi
 
 log_success "brew.sh 모듈 설치 완료!"

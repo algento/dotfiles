@@ -10,6 +10,17 @@ if [ -f "$SCRIPT_DIR/lib/utils.sh" ]; then
     source "$SCRIPT_DIR/lib/utils.sh"
 fi
 
+# Reload Homebrew PATH if not yet available (cross-module 실행 시 환경이 단절될 수 있음)
+if ! command -v brew &>/dev/null; then
+    if [ -f "/home/linuxbrew/.linuxbrew/bin/brew" ]; then
+        eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+    elif [ -f "/opt/homebrew/bin/brew" ]; then
+        eval "$(/opt/homebrew/bin/brew shellenv)"
+    elif [ -f "/usr/local/bin/brew" ]; then
+        eval "$(/usr/local/bin/brew shellenv)"
+    fi
+fi
+
 log_info "modules/core.sh 실행 중..."
 log_info "zsh, git, tmux, Neovim(bob v0.12.0 핀) 설치 및 공통 설정을 연동합니다."
 
@@ -29,7 +40,8 @@ if [ "$OS_TYPE" = "Ubuntu" ]; then
     # Zsh를 기본 셸로 설정
     if [ "$SHELL_NAME" != "zsh" ]; then
         log_info "기본 셸을 zsh로 변경합니다..."
-        run_cmd sudo chsh -s "$(which zsh)" "$USER"
+        target_user="${USER:-$(whoami)}"
+        run_cmd sudo chsh -s "$(which zsh)" "$target_user"
     fi
 elif [ "$OS_TYPE" = "macOS" ]; then
     log_info "macOS 환경: 기본 zsh/git 활용 및 Homebrew 설치 여부는 brew.sh 단계에서 점검합니다."
@@ -84,22 +96,11 @@ TARGET_NVIM_VERSION="0.12.0"
 # Check bob command existence
 if ! has_command bob; then
     log_info "bob 버전 관리 도구가 감지되지 않았습니다."
-    if [ "$OS_TYPE" = "macOS" ]; then
-        if has_command brew; then
-            log_info "Homebrew를 통해 bob을 자동으로 설치합니다..."
-            run_cmd brew install bob
-        else
-            log_warn "Homebrew가 아직 설치되지 않아 bob을 자동 설치할 수 없습니다."
-            log_warn "brew.sh 단계 완료 후, core.sh를 재실행하면 Neovim v${TARGET_NVIM_VERSION}이 설치됩니다."
-        fi
-    elif [ "$OS_TYPE" = "Ubuntu" ]; then
-        if has_command cargo; then
-            log_info "cargo를 통해 bob-nvim을 자동으로 설치합니다..."
-            run_cmd cargo install bob-nvim
-        else
-            log_warn "Rust/Cargo 또는 bob이 설치되어 있지 않아 Neovim v${TARGET_NVIM_VERSION} 설치를 진행할 수 없습니다."
-            log_warn "rust.sh 모듈 또는 bob 패키지가 수동 설치된 후 이 모듈을 다시 실행해 주세요."
-        fi
+    if has_command brew; then
+        log_info "Homebrew를 통해 bob을 자동으로 설치합니다..."
+        run_cmd brew install bob
+    else
+        log_warn "Homebrew가 감지되지 않아 bob을 자동 설치할 수 없습니다. Neovim 버전 핀 설정을 시도하기 전에 brew가 활성화되어 있는지 확인해 주세요."
     fi
 fi
 
