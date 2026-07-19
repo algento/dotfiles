@@ -8,3 +8,8 @@ macos/agents/.gemini/oauth_creds.json
 macos/agents/.gemini/google_accounts.json
 macos/agents/.claude/.credentials.json
 macos/agents/.claude/.credentials*
+
+# Local environment configuration & logs (sensitive keys)
+.zshenv.local
+*.local
+*.log
