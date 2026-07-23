@@ -126,8 +126,8 @@ fi
 # ==============================================================================
 log_info "설치를 시작합니다..."
 
-# 1. OS-specific System Package Setup
-if [ "$INSTALL_MACOS" = "1" ] && [ "$OS_TYPE" = "macOS" ]; then
+# 1. OS-specific / Common Package Manager Setup
+if { [ "$INSTALL_MACOS" = "1" ] && [ "$OS_TYPE" = "macOS" ]; } || { [ "$INSTALL_UBUNTU" = "1" ] && [ "$OS_TYPE" = "Ubuntu" ]; }; then
     run_cmd bash "$SCRIPT_DIR/modules/brew.sh"
 fi
 
@@ -143,6 +143,11 @@ fi
 
 if [ "$INSTALL_UBUNTU" = "1" ] && [ "$OS_TYPE" = "Ubuntu" ]; then
     run_cmd bash "$SCRIPT_DIR/modules/dotfiles.sh"
+fi
+
+# 3.1 macOS System Preferences Setup (Configuration as Code)
+if [ "$INSTALL_MACOS" = "1" ] && [ "$OS_TYPE" = "macOS" ]; then
+    run_cmd bash "$SCRIPT_DIR/modules/macos_defaults.sh"
 fi
 
 # 4. Runtime Environment Setup
