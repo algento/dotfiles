@@ -11,8 +11,6 @@ cask "nikitabobko/tap/aerospace", trusted: true
 cask "antigravity"
 # Terminal interface for Antigravity agents
 cask "antigravity-cli"
-# Tool to flash OS images to SD cards & USB drives
-# [disabled 2026-06-27 · 미사용 8개월+] cask "balenaetcher"
 # 3D creation suite
 cask "blender"
 # Web browser focusing on privacy
@@ -56,8 +54,6 @@ cask "input-source-pro"
 cask "karabiner-elements"
 # Blocks all Keyboard and TouchBar input
 cask "keyboardcleantool"
-# GPU-based terminal emulator
-# [disabled 2026-06-27 · ghostty로 대체, 미사용] cask "kitty"
 # Full TeX Live distribution with GUI applications
 cask "mactex"
 # Provides updates to various Microsoft products
@@ -84,14 +80,12 @@ cask "pinta"
 cask "raycast"
 # Ebook reader
 cask "ridibooks"
-# Porting tool, to make Windows programs/games into native apps
-cask "sikarugir-app/sikarugir/sikarugir"
 # Text editor for code, markup and prose
 cask "sublime-text"
+# Messaging app
+cask "telegram"
 # Cleanup and system status tool
 cask "tencent-lemon"
-# LaTeX editor
-# [disabled 2026-06-27 · mas와 중복, 미사용(mactex 사용)] cask "texifier"
 # To-do & task list manager
 cask "ticktick"
 # Multi-platform VNC client and server
@@ -104,10 +98,8 @@ cask "visual-studio-code"
 cask "xquartz"
 # Collect, organise, cite, and share research sources
 cask "zotero"
-# [disabled 2026-06-27 · 미사용, defender와 중복] mas "Bitdefender Virus Scanner", id: 500154009
 mas "BitPerfect", id: 455545700
 mas "Caffeinated", id: 1362171212
-# [disabled 2026-06-27 · 미사용 8개월+] mas "DaisyDisk", id: 411643860
 mas "Dropover", id: 1355679052
 mas "Goodnotes", id: 1444383602
 mas "Hex Fiend", id: 1342896380
@@ -119,6 +111,5 @@ mas "Monosnap", id: 540348655
 mas "Notability", id: 360593530
 mas "Numbers", id: 409203825
 mas "Pages", id: 409201541
-# [disabled 2026-06-27 · cask와 중복] mas "Texifier", id: 458866234
 mas "Unclutter", id: 577085396
 mas "Save to Raindrop.io", id: 1549370672
