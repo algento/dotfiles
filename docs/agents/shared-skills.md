@@ -3,10 +3,11 @@
 - 적용일: 2026-10-05
 - 대상: Codex, Claude Code, Antigravity, Hermes `edith`만
 - 이 문서는 공유 스킬의 선택·제외·재설치 기준을 소유한다.
-- 설치 출처·경로·폴더 해시·갱신 시각은
+- 외부 스킬의 설치 출처·경로·폴더 해시·갱신 시각은
   [설치 기록](../../macos/agents/.agents/.skill-lock.json)이 소유한다.
 - 원본 위치·에이전트 연결·배포 도구를 전환할 때는
-  [전역 스킬·MCP 관리 방안](global-management.md)을 따른다. MCP 정본·배포 도구는 구현됐으며 스킬 원본 전환은 후속 범위다.
+  [전역 스킬·MCP 관리 방안](global-management.md)을 따른다. 직접 제작 Zotero 원본은
+  dotfiles로 전환했고 DEVONthink는 볼트 로컬로 유지한다. 스킬 배포 자동화는 후속 범위다.
 
 ## 적용 결과
 
@@ -17,16 +18,17 @@ Matt Pocock 스킬을 원본 `main`의 확인된 커밋
 
 | 구분 | 출처 | 공유 스킬 수 |
 | :--- | :--- | ---: |
-| 직접 제작 | Sejong, `sejong-wiki` | 2 |
+| 직접 제작 | Sejong, dotfiles | 1 |
 | 외부 제작 | `mattpocock/skills` | 25 |
 | 외부 제작 | `googleworkspace/cli` | 9 |
 | 외부 제작 | `kepano/obsidian-skills` | 5 |
 | 외부 제작 | `adeze/raindrop-mcp` | 5 |
 | 외부 제작 | `vercel-labs/skills` | 1 |
 | 외부 제작 | Egonex, Understand Anything | 9 |
-| 합계 | 직접 제작 2 + 외부 제작 54 | **56** |
+| 합계 | 직접 제작 1 + 외부 제작 54 | **55** |
 
-직접 제작 스킬은 `raindrop-devonthink`, `raindrop-zotero`다.
+직접 제작 글로벌 스킬은 `raindrop-zotero`다. `raindrop-devonthink`는
+사용자 결정으로 `sejong-wiki` 로컬에 유지하며 글로벌 공유 목록에서 제외했다.
 외부 제작 스킬의 여섯 출처(Matt, Google Workspace, kepano, Raindrop MCP,
 Vercel, UA)를 각각 확인한 최신 커밋으로 갱신했다. 직접 제작 스킬은 변경하지 않았다.
 별도 합의에 따라 `dandacompany` 출처는 공유 대상에서 제외했다.
@@ -150,7 +152,7 @@ fast-forward했다. 플러그인 버전은 `2.9.4 → 2.9.7`이다. 스킬과 �
 계정별 글로벌 훅 등록은 변경하지 않았다.
 
 Claude에는 `find-skills`와 UA 9개의 누락 링크를 추가했다. 이 단계에서 공유 경로는
-56개, Claude 연결은 54개이며 직접 제작 Raindrop 스킬 2개 연결만 남았다.
+당시 56개, Claude 연결은 54개였다. 아래 글로벌·로컬 분리 적용 뒤에는 모두 55개다.
 
 검증: 15개 스킬 / 73개 파일의 원본 일치, YAML·JSON·폴더 해시,
 세 에이전트 경로에 15개 존재 및 깨진 심링크 부재를 확인했다.
@@ -163,9 +165,9 @@ UA 보조 JavaScript·Python 스크립트는 문법 검사를 통과했다.
 
 | 에이전트 | 실제 적용 상태 |
 | :--- | :--- |
-| Codex | `~/.agents/skills`가 공유 폴더를 참조. 사용자 스킬 56개가 파일 기준 존재 |
-| Claude Code | 외부 제작 54개 모두 연결. 직접 제작 Raindrop 스킬 2개 연결은 후속 작업 |
-| Antigravity | `~/.gemini/config/skills`가 공유 폴더 전체 참조. 파일 기준 56개 |
+| Codex | `~/.agents/skills`가 공유 폴더를 참조. 사용자 스킬 55개가 파일 기준 존재 |
+| Claude Code | 외부 제작 54개와 직접 제작 Zotero 1개, 총 55개 개별 링크 |
+| Antigravity | `~/.gemini/config/skills`가 공유 폴더 전체 참조. 파일 기준 55개 |
 | Hermes `edith` | 아직 생성·연결하지 않음 |
 
 Matt 원본의 `agents/openai.yaml`도 함께 갱신했다. 명시적 호출 전용 스킬은
@@ -182,8 +184,31 @@ Claude·공유 경로의 깨진 링크 검사, 제외 항목 부재 확인을 �
 Google·kepano 검증 결과: 14개·19개 파일의 원본 바이트 일치, frontmatter YAML,
 설치 기록 JSON 및 폴더 해시를 확인했다. 세 에이전트 경로에 14개가 모두 존재하고
 깨진 심링크가 없다. 실제 보조 파일 링크를 확인했고, 위 미설치 helper 링크는
-선택적 참조로 별도 기록했다. 이후 UA·Vercel 연결을 추가한 현재 상태에서 Claude에
-연결되지 않은 것은 `raindrop-devonthink`, `raindrop-zotero` 2개다.
+선택적 참조로 별도 기록했다. UA·Vercel 업데이트 당시에는 Claude에
+`raindrop-devonthink`, `raindrop-zotero` 2개가 없었다. 이후 Zotero는 연결했고
+DEVONthink는 글로벌 대상에서 제외했다.
+
+### 글로벌·로컬 분리 — 2026-10-05
+
+`sejong-wiki`의 스킬 8개 전체를 검토한 뒤 사용자가 Zotero 글로벌·DEVONthink 로컬
+구분을 승인했다. [분류·전환 기록](../plans/2026-10-05-global-skills-preview.md)이
+8개의 판단 근거와 실제 변경·검증·복구 기록을 소유한다.
+
+직접 제작 글로벌 원본은 [raindrop-zotero](../../macos/agents/.agents/skills/raindrop-zotero/SKILL.md)와
+같은 폴더의 `references/result-schema.md`다. 파일 2개를 바이트 변경 없이 이동했다.
+출처는 기존 `sejong-wiki/skills/raindrop-zotero`이며 저자·버전은 본문 frontmatter를 따른다.
+이 직접 제작 원본은 Git으로 관리하며 외부 설치 도구의 `.skill-lock.json`에 넣지 않는다.
+해당 설치 기록의 54개와 직접 제작 1개가 공통 55개를 구성한다.
+
+볼트의 기존 Zotero 경로는 제거했다. DEVONthink는 볼트의
+물리 원본과 기존 `.agents/skills → ../skills`로 사용하며 새로운 로컬 링크를 추가하지
+않았다. DEVONthink 본문은 글로벌 Zotero의 실제 경로와 미설치 시 보류 안내를
+명시한다. 볼트의 `global-setup.sh`는 제거했고 `local-setup.sh`는 글로벌 설치를
+실행하지 않으며 dotfiles 관리 문서를 안내한다.
+UA 9개의 외부 체크아웃·커밋과 외부 54개 본문은 그대로 유지했다.
+
+파일 기준 배포 검증과 앱 내부 실제 발견·워크플로 실행은 구분한다. 후자는 이번
+분리에서 검증하지 않았다. `scripts/sync-agents`는 여전히 MCP만 관리한다.
 
 커밋 전 스테이징 검사에서는 Google 서비스 스킬 8개의 원본에 파일 끝 빈 줄
 경고가 확인됐다. 원본 바이트 일치를 유지했고, `blank-at-eof`만 제외한

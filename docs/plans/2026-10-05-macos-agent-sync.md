@@ -56,12 +56,14 @@ Hermes·앱 로딩·스킬·이벤트는 미완료이므로 전체 단계 체크
   56개 / Claude 연결 44개다. 필수 `gws-shared`를 추가했고 Google 9개와 kepano
   5개는 세 에이전트 경로에 존재한다. 미설치 helper와 적용 커밋은 위 관리 문서를 읽는다.
 - Raindrop MCP 저장소 스킬 5개, Vercel 1개, UA 9개도 최신 확인 커밋으로 갱신했다.
-  UA 원본은 `2.9.7`로 fast-forward했고 외부 링크를 유지했다. 현재 공유 경로 56개 /
-  Claude 연결 54개다. 직접 제작 스킬 2개 연결과 Hermes `edith` 적용은 남아 있다.
+  UA 원본은 `2.9.7`로 fast-forward했고 외부 링크를 유지했다. 당시 공유 경로는 56개,
+  Claude 연결은 54개였다. 이후 전체 볼트 스킬 8개를 검토하고 Zotero만 글로벌
+  원본으로 전환했다. DEVONthink는 로컬로 유지하여 현재 공통 55개·Claude 55개다.
+  [분류·전환 기록](2026-10-05-global-skills-preview.md)을 참조한다. Hermes `edith`는 남아 있다.
 - `dandacompany` 출처는 제외했다. Hermes는 `edith`만 고려하고 기존
   강의 실습용 프로필은 현황 비교·동기화 대상으로 삼지 않는다.
 - MCP·훅·Hermes 프로필은 이번 작업에서 변경하지 않았다. 전체 스킬 로딩과
-  다른 출처의 Claude 누락 연결은 후속 작업이다.
+  스킬 배포 자동화와 실제 앱 로딩은 후속 작업이다.
 
 ### 적용 전 조사 스냅샷
 

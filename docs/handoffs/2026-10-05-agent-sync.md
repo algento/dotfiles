@@ -47,22 +47,26 @@ macOS에서 Codex, Claude Code, Antigravity, Hermes가 가능한 한 동일한
 
 후속 변경: DEVONthink·Raindrop·Zotero의 전역 사용 요청을 받아 Codex·Claude·Antigravity의
 등록을 맞췄다. 경로·인증·검증 상태는 [전역 MCP 설정](../agents/global-mcp.md)이
-정본이다. 아래 표는 이전 스킬 정리 시점의 상태다. Hermes `edith`는 아직 없다.
+정본이다. 아래 표는 Zotero 글로벌·DEVONthink 로컬 분리까지 반영한 상태다.
+Hermes `edith`는 아직 없다.
 
 2026-10-05 인수인계 작성 시 로컬 파일을 다시 확인했다.
 
 | 대상 | 상태 |
 | :--- | :--- |
-| 공유 경로 | 사용자 스킬 56개. `~/.agents/skills`는 dotfiles의 `.agents/skills`를 참조 |
+| 공유 경로 | 사용자 스킬 55개. `~/.agents/skills`는 dotfiles의 `.agents/skills`를 참조 |
 | Codex·Antigravity | 공유 경로 전체 참조. 시스템·플러그인 기능은 이 숫자와 별개 |
-| Claude Code | 공유 스킬 54개 개별 링크. 직접 제작 Raindrop 2개 링크가 아직 없음 |
+| Claude Code | 외부 54개 + Zotero 1개, 공유 스킬 55개 개별 링크 |
 | Hermes `edith` | 아직 생성하지 않음 |
 | 외부 제작 스킬 | 여섯 출처 모두 관리 문서에 고정한 최신 확인 커밋으로 갱신 |
 | UA 원본 | 외부 저장소 전체를 fast-forward. `2.9.7`, 작업 트리 깨끗함. 기존 9개 링크 유지 |
 | MCP·글로벌 훅 | 이번 스킬 정리 과정에서 변경하지 않음 |
 
-UA와 직접 제작 Raindrop 스킬은 저장소 밖 원본을 링크한다. dotfiles만 복제하면
-재현되지 않는다. UA 출처 메타데이터는 설치 기록에 추가했으며 원본 준비가 필요하다.
+직접 제작 Zotero 원본은 dotfiles에 있고 볼트의 이전 경로는 제거했다.
+DEVONthink는 볼트 로컬 원본·기존 `.agents/skills → ../skills` 연결로 유지한다.
+8개 전체 분류와 전환·검증·복구는 [스킬 전환 기록](../plans/2026-10-05-global-skills-preview.md)을
+따른다. UA는 저장소 밖 원본을 링크하므로 dotfiles만 복제하면 재현되지 않는다.
+UA 출처 메타데이터는 설치 기록에 추가했으며 원본 준비가 필요하다.
 이번 UA 업데이트는 플러그인 내부 파일을 함께 갱신했지만 에이전트 글로벌 훅 등록을
 바꾸거나 개발 의존성 설치·빌드를 수행한 것은 아니다.
 
@@ -85,8 +89,9 @@ UA와 직접 제작 Raindrop 스킬은 저장소 밖 원본을 링크한다. dot
 
 1. `git status`와 위 정본을 읽고 현재 상태를 재확인한다. 전체 작업 트리에는
    Aerospace, 셸, 에이전트 설정 등 무관한 변경이 있다. 전체 추가·커밋으로 흡수하지 않는다.
-2. 공유 스킬 동기화를 마무리하려면 Claude의 직접 제작 Raindrop 2개 링크와
-   각 에이전트의 실제 스킬 선택·로딩을 확인한다. 링크만으로 실행 호환성을 단정하지 않는다.
+2. 글로벌 55개 파일 연결은 일치한다. 각 에이전트의 실제 스킬 선택·로딩과 스킬
+   배포 자동화를 확인한다. DEVONthink는 글로벌 연결 대상이 아니다.
+   링크만으로 실행 호환성을 단정하지 않는다.
 3. Hermes `edith` 생성 방식과 설정 상속·기본 스킬 중복을 확인한 뒤, 이 프로필만
    공통 경로를 참조하게 한다. 기존 프로필 복제나 활성 프로필 전환을 자동으로 하지 않는다.
 4. DEVONthink·Raindrop·Zotero는 Codex·Claude·Antigravity에 전역 적용했다.
@@ -108,8 +113,12 @@ UA와 직접 제작 Raindrop 스킬은 저장소 밖 원본을 링크한다. dot
   저장소의 쓰기는 권한 승인을 거쳐 수행했다. 다음 세션도 현재 권한을 확인한다.
 - 백업 압축·옮겨 둔 제외 스킬·UA 이전 이력 bundle의 위치는 관리 문서의 복구 절을
   참조한다. 임시 폴더이므로 장기 보존되지 않을 수 있다. 복구는 별도 폴더에서 비교한다.
-- 직접 제작 스킬 원본인 `sejong-wiki`는 이 작업에서 수정하지 않았다. vault 작업이
-  필요하면 Obsidian CLI 규칙을 적용하며 직접 Markdown 편집으로 우회하지 않는다.
+- 후속 Zotero 전환에서 `sejong-wiki`의 원본을 이동한 뒤 호환 링크도 제거했다.
+  `global-setup.sh` 제거·`local-setup.sh` 호출부 정리, README·스킬 README·DEVONthink
+  글로벌 라우팅 안내·ADR-0002를 반영했다. Markdown은 Obsidian CLI로 수정했다.
+  볼트 세션 토큰은 `07d04fdd1940`이다.
+  변경 커밋은 `30da3e0`, 로컬 workspace 스킬로 남긴 로그 커밋은 `d845840`이다.
+  다음 볼트 커밋 전 장부·사용자 변경을 다시 확인한다.
 - 인증 토큰·계정 파일·대화 기록·세션 DB를 문서나 커밋에 포함하지 않는다.
 
 ## Suggested skills

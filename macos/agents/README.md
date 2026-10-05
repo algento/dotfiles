@@ -15,6 +15,8 @@
   적용 상태, 검증 한계와 다음 세션의 작업 순서.
 - [공유 스킬 관리](../../docs/agents/shared-skills.md): 제작 출처, 설치·제외 목록,
   Matt 스킬 업데이트 및 이름 변경, 프로젝트별 재설치와 복구 기준.
+- [스킬 분류·전환 기록](../../docs/plans/2026-10-05-global-skills-preview.md):
+  볼트 스킬 8개의 검토 결과, Zotero 글로벌·DEVONthink 로컬 배치와 실제 검증.
 - [macOS 에이전트 설정 동기화 계획](../../docs/plans/2026-10-05-macos-agent-sync.md):
   Codex·Claude Code·Antigravity·Hermes `edith`의 공통 스킬·MCP·이벤트 관리.
   현황과 합의 범위, 단계별 완료 기준, 다음 세션 인수인계를 기록한다.
@@ -41,6 +43,10 @@ cd ~/Github/docs/dotfiles/macos && stow -t ~ agents
 | `.agents/skills/` | 공유 스킬 원본. Codex·Antigravity는 전체 경로 참조, Claude는 개별 스킬 링크 |
 | `.agents/.skill-lock.json` | 스킬 잠금 메타 |
 | `.agents/mcp/servers.json`, `sources.json` | 공통 MCP 실행 정의·출처 기록 |
+
+공통 스킬은 55개다. 직접 제작 `raindrop-zotero`는 본문·결과 스키마를 포함한
+dotfiles 물리 원본이며, `raindrop-devonthink`는 `sejong-wiki` 로컬에만 유지한다.
+외부 스킬 54개의 설치 기록과 UA 외부 원본 준비 조건은 공유 스킬 관리 문서를 따른다.
 
 ## MCP 배포
 
