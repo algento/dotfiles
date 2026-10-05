@@ -48,6 +48,11 @@ Antigravity 관리 파일은 `macos`에서 `stow -t ~ agents`의 배포 대상�
 
 ## 검증
 
+후속 실제 앱 검증은 [2026-10-05 앱 로딩 기록](../handoffs/2026-10-05-agent-app-validation.md)을
+참조한다. Codex 새 CLI app-server와 Claude Code는 세 서버의 도구 발견에 성공했다.
+Antigravity는 DEVONthink·Raindrop에 성공했고, Zotero의 `server/discover` 초기 요청
+호환성 오류가 재현됐다. 아래는 최초 설정·SDK 검증 당시의 기록이다.
+
 - TOML·JSON 구문 검사 및 세 에이전트의 실행 설정 일치 검사 통과.
 - Codex는 `/private/tmp`에서 `mcp get`으로 두 서버를 활성 전역 서버로 해석했다.
 - Claude는 같은 디렉터리에서 Raindrop을 `User config (available in all your
