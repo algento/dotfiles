@@ -5,6 +5,12 @@
 
 ## 진행 계획
 
+- [최근 세션 기록](../../docs/handoffs/2026-10-05-global-skills-mcp-session.md):
+  전역 MCP 등록·공통 정본·배포 구현의 결과, 검증·미커밋 변경 범위와 다음 작업.
+- [전역 스킬·MCP 관리 방안](../../docs/agents/global-management.md): 정본을
+  추가·이동하거나 배포·차이 검사 도구를 구현할 때 읽는 관리 구조와 전환 기준.
+- [전역 MCP 설정](../../docs/agents/global-mcp.md): DEVONthink·Raindrop·Zotero의
+  에이전트별 적용 경로, 인증 참조 및 검증 상태.
 - [현재 작업 인수인계](../../docs/handoffs/2026-10-05-agent-sync.md): 결정 맥락,
   적용 상태, 검증 한계와 다음 세션의 작업 순서.
 - [공유 스킬 관리](../../docs/agents/shared-skills.md): 제작 출처, 설치·제외 목록,
@@ -30,9 +36,19 @@ cd ~/Github/docs/dotfiles/macos && stow -t ~ agents
 | `.claude/settings.json` | Claude Code 설정 (민감정보 없음) |
 | `.codex/config.toml` | Codex CLI 설정 |
 | `.gemini/settings.json` | Gemini/Antigravity 설정 |
+| `.gemini/config/mcp_config.json` | Antigravity 전역 DEVONthink·Raindrop·Zotero MCP |
 | `.gemini/trusted_hooks.json` | Gemini 신뢰 훅 목록 |
 | `.agents/skills/` | 공유 스킬 원본. Codex·Antigravity는 전체 경로 참조, Claude는 개별 스킬 링크 |
 | `.agents/.skill-lock.json` | 스킬 잠금 메타 |
+| `.agents/mcp/servers.json`, `sources.json` | 공통 MCP 실행 정의·출처 기록 |
+
+## MCP 배포
+
+실행 정의 변경은 `.agents/mcp/servers.json`에서 시작한다. 저장소 루트의
+`scripts/sync-agents`가 검사·계획·적용·복구를 제공하며 Python 3.11 이상과
+`uv`가 필요하다. 사용법·관리 범위는 [전역 관리 방안](../../docs/agents/global-management.md)의
+배포 도구 계약을 따른다. 로컬 상태·백업과 계정 파일은 Git 밖에 둔다.
+Hermes와 스킬 링크 자동화는 아직 지원하지 않는다.
 
 ## 제외 (절대 커밋 금지 — `.gitignore` 안전망 등록)
 

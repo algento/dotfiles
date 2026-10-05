@@ -1,0 +1,440 @@
+#!/usr/bin/env -S uv run --script
+# /// script
+# requires-python = ">=3.11"
+# dependencies = ["tomlkit==0.13.3"]
+# ///
+"""Merge explicitly managed MCP definitions; never access account data or run servers."""
+import argparse
+import contextlib
+import copy
+import fcntl
+import hashlib
+import json
+import os
+from pathlib import Path
+import re
+import shlex
+import shutil
+import stat
+import sys
+import tempfile
+import uuid
+
+import tomlkit
+
+ROOT = Path(__file__).resolve().parent.parent
+TARGETS = {"codex": (".codex/config.toml", "mcp_servers"),
+           "claude": (".claude.json", "mcpServers"),
+           "antigravity": (".gemini/config/mcp_config.json", "mcpServers")}
+MANAGED_LINKS = {"codex": ROOT / "macos/agents/.codex/config.toml",
+                 "antigravity": ROOT / "macos/agents/.gemini/config/mcp_config.json"}
+
+
+class SyncError(Exception):
+    pass
+
+
+def digest(raw):
+    return hashlib.sha256(raw).hexdigest()
+
+
+def encode(value):
+    return (json.dumps(value, ensure_ascii=False, indent=2) + "\n").encode()
+
+
+def load_json(path):
+    try:
+        return json.loads(path.read_bytes(), object_pairs_hook=unique_object)
+    except (ValueError, OSError):
+        raise SyncError(f"invalid or unreadable JSON: {path}") from None
+
+
+def unique_object(pairs):
+    result = {}
+    for key, value in pairs:
+        if key in result:
+            raise ValueError("duplicate JSON key")
+        result[key] = value
+    return result
+
+
+def snapshot(path):
+    resolved = path.resolve(strict=False)
+    if path.is_symlink() and not path.exists():
+        raise SyncError(f"broken symlink: {path}")
+    if path.exists() and not path.is_file():
+        raise SyncError(f"not a regular file: {path}")
+    raw = path.read_bytes() if path.exists() else None
+    return {"path": str(path), "resolved": str(resolved),
+            "link": os.readlink(path) if path.is_symlink() else None,
+            "hash": digest(raw) if raw is not None else None,
+            "mode": stat.S_IMODE(path.stat().st_mode) if raw is not None else None}
+
+
+def private_dir(path):
+    path.mkdir(parents=True, exist_ok=True, mode=0o700)
+    if path.is_symlink() or stat.S_IMODE(path.stat().st_mode) & 0o077:
+        raise SyncError(f"private directory required (0700): {path}")
+
+
+def atomic_write(path, raw, mode=0o600):
+    fd, name = tempfile.mkstemp(prefix=".sync-agents-", dir=path.parent)
+    try:
+        with os.fdopen(fd, "wb") as stream:
+            os.fchmod(stream.fileno(), mode)
+            stream.write(raw)
+            stream.flush()
+            os.fsync(stream.fileno())
+        os.replace(name, path)
+    finally:
+        if os.path.exists(name):
+            os.unlink(name)
+
+
+def normalized(server):
+    if not isinstance(server, dict):
+        raise SyncError("server definition must be an object")
+    result = dict(server)
+    result.setdefault("args", [])
+    if result.get("enabled") is True:
+        result.pop("enabled")
+    if result.get("type") == "stdio":
+        result.pop("type")
+    return result
+
+
+def parse(raw, agent):
+    try:
+        value = tomlkit.parse(raw.decode()) if agent == "codex" else json.loads(raw, object_pairs_hook=unique_object)
+        if not isinstance(value, dict):
+            raise ValueError()
+        key = TARGETS[agent][1]
+        if key in value and not isinstance(value[key], dict):
+            raise ValueError()
+        return value
+    except (ValueError, TypeError, UnicodeError, tomlkit.exceptions.ParseError):
+        raise SyncError(f"invalid {agent} configuration (contents omitted)") from None
+
+
+class Sync:
+    def __init__(self, home, manifest, sources):
+        self.home = Path(home).absolute()
+        self.manifest = Path(manifest).absolute()
+        self.sources = Path(sources).absolute()
+        self.directory = self.home / ".local/state/sync-agents"
+        self.state_path = self.directory / "state.json"
+
+    def definitions(self):
+        data = load_json(self.manifest)
+        sources = load_json(self.sources)
+        if (not isinstance(data, dict) or set(data) != {"schema_version", "servers"}
+                or data["schema_version"] != 1 or not isinstance(data["servers"], dict)):
+            raise SyncError("unsupported manifest schema")
+        if (not isinstance(sources, dict) or sources.get("schema_version") != 1
+                or not isinstance(sources.get("servers"), dict)):
+            raise SyncError("unsupported sources schema")
+        desired = {agent: {} for agent in TARGETS}
+        prerequisites = []
+        for name, server in data["servers"].items():
+            if not re.fullmatch(r"[A-Za-z0-9_-]+", name):
+                raise SyncError("invalid server ID")
+            if name not in sources["servers"] or not isinstance(sources["servers"][name], dict):
+                raise SyncError(f"missing source record: {name}")
+            record = sources["servers"][name]
+            source_fields = {"source", "source_status", "installation", "executable", "observed_version",
+                             "observed_at", "commit", "local_modifications", "evidence", "limitations"}
+            if (set(record) - source_fields or not isinstance(record.get("source"), str)
+                    or any(v is not None and not isinstance(v, str) for k, v in record.items() if k != "local_modifications")
+                    or (record.get("local_modifications") is not None and type(record["local_modifications"]) is not bool)):
+                raise SyncError(f"invalid source metadata: {name}")
+            allowed = {"transport", "command", "args", "enabled", "targets", "auth_file"}
+            if (not isinstance(server, dict) or set(server) - allowed
+                    or server.get("transport") != "stdio"
+                    or not isinstance(server.get("command"), str) or not server["command"]
+                    or not isinstance(server.get("args"), list)
+                    or not all(isinstance(x, str) for x in server["args"])
+                    or type(server.get("enabled")) is not bool
+                    or not isinstance(server.get("targets"), list)
+                    or not all(isinstance(x, str) and x in TARGETS for x in server["targets"])
+                    or len(set(server["targets"])) != len(server["targets"])):
+                raise SyncError(f"unsupported definition: {name}")
+            if not server["enabled"]:
+                continue
+            def expand(value, shell=False):
+                home = shlex.quote(str(self.home)) if shell else str(self.home)
+                value = value.replace("${HOME}", home)
+                if "${" in value:
+                    raise SyncError(f"unsupported variable: {name}")
+                return value
+            command = expand(server["command"])
+            args = [expand(x, shell=(command == "bash" and i > 0 and server["args"][i-1] == "-c"))
+                    for i, x in enumerate(server["args"])]
+            definition = {"command": command, "args": args}
+            for agent in server["targets"]:
+                desired[agent][name] = definition
+            executable = Path(command) if "/" in command else shutil.which(command)
+            present = bool(executable and Path(executable).is_file() and os.access(executable, os.X_OK))
+            prerequisites.append({"server": name, "kind": "executable", "present": present})
+            if "auth_file" in server:
+                if not isinstance(server["auth_file"], str):
+                    raise SyncError(f"invalid auth reference: {name}")
+                auth = Path(expand(server["auth_file"]))
+                present = auth.is_file() and os.access(auth, os.R_OK)
+                private = present and not stat.S_IMODE(auth.stat().st_mode) & 0o077
+                prerequisites.append({"server": name, "kind": "auth_file", "present": present,
+                                      "private": bool(private)})
+        return desired, prerequisites
+
+    def state(self):
+        if self.state_path.is_symlink():
+            raise SyncError("management state must not be a symlink")
+        if not self.state_path.exists():
+            return {"schema_version": 1, "managed": {agent: {} for agent in TARGETS}}
+        value = load_json(self.state_path)
+        if (not isinstance(value, dict) or set(value) != {"schema_version", "managed"}
+                or value["schema_version"] != 1 or not isinstance(value["managed"], dict)
+                or set(value["managed"]) != set(TARGETS)):
+            raise SyncError("invalid management state")
+        for agent, servers in value["managed"].items():
+            if not isinstance(servers, dict):
+                raise SyncError("invalid management state")
+            for name, server in servers.items():
+                if (not re.fullmatch(r"[A-Za-z0-9_-]+", name) or not isinstance(server, dict)
+                        or set(server) != {"command", "args"} or not isinstance(server["command"], str)
+                        or not isinstance(server["args"], list)
+                        or not all(isinstance(x, str) for x in server["args"])):
+                    raise SyncError("invalid management state")
+        return value
+
+    def pending(self):
+        for path in sorted(self.directory.glob("backups/*/journal.json")):
+            journal = load_json(path)
+            if not isinstance(journal, dict) or journal.get("status") not in {"pending", "failed", "restoring", "complete", "restored"}:
+                raise SyncError(f"invalid recovery journal: {path}")
+            if journal["status"] in {"pending", "failed", "restoring"}:
+                raise SyncError(f"unfinished apply; restore first: {path.parent}")
+
+    def build(self):
+        self.pending()
+        desired, prerequisites = self.definitions()
+        state = self.state()
+        plan = {"schema_version": 1, "home": str(self.home),
+                "inputs": [snapshot(p) for p in (self.manifest, self.sources, self.state_path)],
+                "prerequisites": prerequisites, "targets": [], "connection": "unverified"}
+        rendered = {}
+        for agent, (relative, key) in TARGETS.items():
+            path = self.home / relative
+            before = snapshot(path)
+            raw = path.read_bytes() if path.exists() else b""
+            doc = parse(raw, agent) if path.exists() else (tomlkit.document() if agent == "codex" else {})
+            servers = doc.get(key, {})
+            previous = state["managed"][agent]
+            actions = []
+            for name in sorted(set(desired[agent]) | set(previous)):
+                actual = normalized(servers[name]) if name in servers else None
+                wanted = desired[agent].get(name)
+                prior = previous.get(name)
+                if wanted is not None:
+                    extra = actual is not None and set(actual) - {"command", "args"}
+                    if extra or (actual != wanted and actual is not None and (prior is None or actual != prior)):
+                        action = "conflict"
+                    elif actual == wanted:
+                        action = "equal" if prior == wanted else "adopt"
+                    else:
+                        action = "add" if actual is None else "change"
+                        if key not in doc:
+                            doc[key] = tomlkit.table() if agent == "codex" else {}
+                        doc[key][name] = copy.deepcopy(wanted)
+                else:
+                    if actual is None:
+                        action = "forget"
+                    elif actual != prior:
+                        action = "conflict"
+                    else:
+                        action = "remove"
+                        del doc[key][name]
+                actions.append({"server": name, "action": action})
+            changed = any(x["action"] in {"add", "change", "remove"} for x in actions)
+            output = (tomlkit.dumps(doc).encode() if agent == "codex" else encode(doc)) if changed else raw
+            if output:
+                parse(output, agent)
+            rendered[agent] = output
+            link_status = "not-required"
+            if agent in MANAGED_LINKS:
+                link_status = ("managed-link" if path.is_symlink() and path.resolve() == MANAGED_LINKS[agent].resolve()
+                               else "different-link" if path.is_symlink() else "unlinked")
+            plan["targets"].append({"agent": agent, "before": before, "after_hash": digest(output) if output else None,
+                                    "changed": changed, "actions": actions, "managed": desired[agent], "link_status": link_status})
+        return plan, rendered
+
+    @contextlib.contextmanager
+    def lock(self):
+        private_dir(self.directory)
+        path = self.directory / ".lock"
+        fd = os.open(path, os.O_CREAT | os.O_RDWR | os.O_NOFOLLOW, 0o600)
+        with os.fdopen(fd, "w") as stream:
+            try:
+                fcntl.flock(stream, fcntl.LOCK_EX | fcntl.LOCK_NB)
+            except BlockingIOError:
+                raise SyncError("another sync-agents mutation is running") from None
+            yield
+
+    def apply(self, approved):
+        with self.lock():
+            plan, rendered = self.build()
+            if approved != plan:
+                raise SyncError("plan is stale or modified; generate a new plan")
+            if any(x["action"] == "conflict" for t in plan["targets"] for x in t["actions"]):
+                raise SyncError("conflicting user configuration; nothing applied")
+            if any(not x["present"] or x.get("private") is False for x in plan["prerequisites"]):
+                raise SyncError("missing prerequisite or non-private auth file; nothing applied")
+            state = self.state()
+            final = {"schema_version": 1, "managed": {t["agent"]: t["managed"] for t in plan["targets"]}}
+            if state == final and not any(t["changed"] for t in plan["targets"]):
+                return {"status": "unchanged"}
+            # Preflight every destination before creating backups or changing any configuration.
+            for t in plan["targets"]:
+                if t["changed"] and not Path(t["before"]["resolved"]).parent.is_dir():
+                    raise SyncError(f"missing config parent: {t['agent']}")
+            backups = self.directory / "backups"
+            private_dir(backups)
+            backup = backups / uuid.uuid4().hex
+            private_dir(backup)
+            state_before = snapshot(self.state_path)
+            if self.state_path.exists():
+                atomic_write(backup / "state.before", self.state_path.read_bytes())
+            journal = {"schema_version": 1, "home": str(self.home), "status": "pending",
+                       "state_before": state_before, "state_hashes": [state_before["hash"]],
+                       "targets": plan["targets"], "completed": []}
+            next_state = copy.deepcopy(state)
+            for t in plan["targets"]:
+                next_state["managed"][t["agent"]] = t["managed"]
+                journal["state_hashes"].append(digest(encode(next_state)))
+                if t["changed"] and t["before"]["hash"] is not None:
+                    atomic_write(backup / (t["agent"] + ".before"), Path(t["before"]["resolved"]).read_bytes())
+            journal_path = backup / "journal.json"
+            atomic_write(journal_path, encode(journal))
+            try:
+                expected_state = snapshot(self.state_path)
+                for t in plan["targets"]:
+                    if ([snapshot(p) for p in (self.manifest, self.sources)] != plan["inputs"][:2]
+                            or snapshot(self.state_path) != expected_state):
+                        raise SyncError("manifest, sources or state changed during apply")
+                    if snapshot(Path(t["before"]["path"])) != t["before"]:
+                        raise SyncError(f"configuration changed during apply: {t['agent']}")
+                    if t["changed"]:
+                        atomic_write(Path(t["before"]["resolved"]), rendered[t["agent"]], t["before"]["mode"] or 0o600)
+                    state["managed"][t["agent"]] = t["managed"]
+                    atomic_write(self.state_path, encode(state))
+                    expected_state = snapshot(self.state_path)
+                    journal["completed"].append(t["agent"])
+                    atomic_write(journal_path, encode(journal))
+                journal["status"] = "complete"
+                atomic_write(journal_path, encode(journal))
+            except Exception:
+                journal["status"] = "failed"
+                atomic_write(journal_path, encode(journal))
+                raise SyncError(f"partial apply; restore with --backup {backup}") from None
+            return {"status": "applied", "backup": str(backup), "changed_configs": [t["agent"] for t in plan["targets"] if t["changed"]]}
+
+    def restore(self, backup):
+        with self.lock():
+            backup = Path(backup).resolve()
+            if backup.parent != (self.directory / "backups").resolve():
+                raise SyncError("backup must belong to this home's sync-agents state")
+            journal = load_json(backup / "journal.json")
+            if (not isinstance(journal, dict) or journal.get("home") != str(self.home)
+                    or journal.get("schema_version") != 1
+                    or not isinstance(journal.get("targets"), list)
+                    or not isinstance(journal.get("state_before"), dict)
+                    or not isinstance(journal.get("state_hashes"), list)):
+                raise SyncError("backup home/schema mismatch")
+            if journal.get("status") == "restored":
+                return {"status": "already-restored"}
+            current_state = snapshot(self.state_path)
+            before_state = journal["state_before"]
+            if before_state.get("path") != str(self.state_path):
+                raise SyncError("invalid state backup path")
+            if current_state["resolved"] != before_state["resolved"] or current_state["link"] != before_state["link"] or current_state["hash"] not in journal["state_hashes"]:
+                raise SyncError("management state changed since backup")
+            restore_files = []
+            if {t.get("agent") for t in journal["targets"] if isinstance(t, dict)} != set(TARGETS) or len(journal["targets"]) != len(TARGETS):
+                raise SyncError("invalid backup targets")
+            for t in journal["targets"]:
+                before = t["before"]
+                if before["path"] != str(self.home / TARGETS[t["agent"]][0]):
+                    raise SyncError("invalid configuration backup path")
+                current = snapshot(Path(before["path"]))
+                if (current["resolved"] != before["resolved"] or current["link"] != before["link"]
+                        or current["hash"] not in {before["hash"], t["after_hash"]}):
+                    raise SyncError(f"configuration changed since backup: {t['agent']}")
+                if t["changed"] and before["hash"] is not None:
+                    raw = (backup / (t["agent"] + ".before")).read_bytes()
+                    if digest(raw) != before["hash"]:
+                        raise SyncError("backup content hash mismatch")
+                    parse(raw, t["agent"])
+                    restore_files.append((t, raw))
+                elif t["changed"]:
+                    restore_files.append((t, None))
+            state_raw = (backup / "state.before").read_bytes() if before_state["hash"] else None
+            if state_raw is not None and digest(state_raw) != before_state["hash"]:
+                raise SyncError("state backup hash mismatch")
+            journal["status"] = "restoring"
+            atomic_write(backup / "journal.json", encode(journal))
+            for t, raw in restore_files:
+                path = Path(t["before"]["resolved"])
+                if raw is None:
+                    path.unlink(missing_ok=True)
+                else:
+                    atomic_write(path, raw, t["before"]["mode"])
+            if state_raw is None:
+                self.state_path.unlink(missing_ok=True)
+            else:
+                atomic_write(self.state_path, state_raw, 0o600)
+            journal["status"] = "restored"
+            atomic_write(backup / "journal.json", encode(journal))
+            return {"status": "restored", "backup": str(backup)}
+
+
+def main(argv=None):
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--home", type=Path, default=Path.home())
+    parser.add_argument("--manifest", type=Path, default=ROOT / "macos/agents/.agents/mcp/servers.json")
+    parser.add_argument("--sources", type=Path, default=ROOT / "macos/agents/.agents/mcp/sources.json")
+    sub = parser.add_subparsers(dest="command", required=True)
+    sub.add_parser("check")
+    sub.add_parser("plan").add_argument("--output", type=Path, required=True)
+    sub.add_parser("apply").add_argument("--plan", type=Path, required=True)
+    sub.add_parser("restore").add_argument("--backup", type=Path, required=True)
+    args = parser.parse_args(argv)
+    sync = Sync(args.home, args.manifest, args.sources)
+    try:
+        if args.command in {"check", "plan"}:
+            plan, _ = sync.build()
+            if args.command == "plan":
+                if args.output.exists() or args.output.is_symlink():
+                    raise SyncError("plan output exists; choose a new path")
+                # Exclusive creation avoids replacing arbitrary files/links.
+                fd = os.open(args.output, os.O_CREAT | os.O_EXCL | os.O_WRONLY, 0o600)
+                with os.fdopen(fd, "wb") as stream:
+                    stream.write(encode(plan))
+            print(json.dumps({"targets": [{"agent": t["agent"], "changed": t["changed"], "actions": t["actions"], "link_status": t["link_status"]} for t in plan["targets"]],
+                              "prerequisites": plan["prerequisites"], "connection": "unverified"}, ensure_ascii=False, indent=2))
+            issues = (any(x["action"] != "equal" for t in plan["targets"] for x in t["actions"])
+                      or any(t["link_status"] not in {"managed-link", "not-required"} for t in plan["targets"]))
+            missing = any(not x["present"] or x.get("private") is False for x in plan["prerequisites"])
+            return 1 if args.command == "check" and (issues or missing) else 0
+        result = sync.apply(load_json(args.plan)) if args.command == "apply" else sync.restore(args.backup)
+        print(json.dumps(result, indent=2))
+        return 0
+    except (SyncError, OSError) as exc:
+        # Do not include parser errors or configuration values, which may contain secrets.
+        print(f"sync-agents: {exc}", file=sys.stderr)
+        return 2
+    except (ValueError, TypeError, KeyError):
+        print("sync-agents: invalid structured data (contents omitted)", file=sys.stderr)
+        return 2
+
+
+if __name__ == "__main__":
+    sys.exit(main())

@@ -1,0 +1,18 @@
+{
+  "mcpServers": {
+    "devonthink": {
+      "command": "npx",
+      "args": ["-y", "mcp-server-devonthink"]
+    },
+    "raindrop": {
+      "command": "bash",
+      "args": [
+        "-c",
+        "set -a && source /Users/sejong/.config/sejong-mcp/raindrop.env && exec npx @adeze/raindrop-mcp@latest"
+      ]
+    },
+    "zotero": {
+      "command": "/Users/sejong/.cargo/bin/zotero-mcp"
+    }
+  }
+}

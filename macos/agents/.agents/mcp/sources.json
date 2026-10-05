@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "servers": {
+    "devonthink": {
+      "source": "npm:mcp-server-devonthink",
+      "source_status": "package reference from existing configuration",
+      "installation": "npx -y, existing npm resolution; not updated",
+      "executable": "npx",
+      "observed_version": "0.1.0",
+      "observed_at": "2026-10-05",
+      "commit": null,
+      "local_modifications": null,
+      "evidence": "docs/agents/global-mcp.md: 2026-10-05 SDK 2.3.0 initialize/tools/list rerun; scripts/tests/verify_mcp_connection.py",
+      "limitations": "Version reconfirmed on 2026-10-05; package resolution is not pinned."
+    },
+    "raindrop": {
+      "source": "npm:@adeze/raindrop-mcp",
+      "source_status": "package reference from existing configuration",
+      "installation": "npx @adeze/raindrop-mcp@latest, existing configuration; not updated",
+      "executable": "npx",
+      "observed_version": "2.4.5",
+      "observed_at": "2026-10-05",
+      "commit": null,
+      "local_modifications": null,
+      "evidence": "docs/agents/global-mcp.md: 2026-10-05 SDK 2.3.0 initialize/tools/list rerun; scripts/tests/verify_mcp_connection.py",
+      "limitations": "Version reconfirmed on 2026-10-05; @latest remains unpinned."
+    },
+    "zotero": {
+      "source": "https://github.com/richardjlyon/zotero-mcp",
+      "source_status": "candidate, original commit unconfirmed",
+      "installation": "Existing Cargo local build from /tmp/zotero-mcp-local-review/crates/zotero-mcp; not reinstalled",
+      "executable": "${HOME}/.cargo/bin/zotero-mcp",
+      "observed_version": "0.4.0",
+      "observed_at": "2026-10-05",
+      "commit": null,
+      "local_modifications": null,
+      "evidence": "docs/agents/global-mcp.md: 2026-10-05 SDK 2.3.0 initialize/tools/list rerun; scripts/tests/verify_mcp_connection.py",
+      "limitations": "Original commit and local modifications unconfirmed; existing binary preserved."
+    }
+  }
+}

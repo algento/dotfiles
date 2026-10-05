@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "servers": {
+    "devonthink": {
+      "transport": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "mcp-server-devonthink"
+      ],
+      "enabled": true,
+      "targets": [
+        "codex",
+        "claude",
+        "antigravity"
+      ]
+    },
+    "raindrop": {
+      "transport": "stdio",
+      "command": "bash",
+      "args": [
+        "-c",
+        "set -a && source ${HOME}/.config/sejong-mcp/raindrop.env && exec npx @adeze/raindrop-mcp@latest"
+      ],
+      "auth_file": "${HOME}/.config/sejong-mcp/raindrop.env",
+      "enabled": true,
+      "targets": [
+        "codex",
+        "claude",
+        "antigravity"
+      ]
+    },
+    "zotero": {
+      "transport": "stdio",
+      "command": "${HOME}/.cargo/bin/zotero-mcp",
+      "args": [],
+      "enabled": true,
+      "targets": [
+        "codex",
+        "claude",
+        "antigravity"
+      ]
+    }
+  }
+}

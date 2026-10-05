@@ -7,3 +7,13 @@ trust_level = "trusted"
 
 [plugins."github@openai-curated"]
 enabled = true
+
+[mcp_servers.raindrop]
+command = "bash"
+args = [
+    "-c",
+    "set -a && source /Users/sejong/.config/sejong-mcp/raindrop.env && exec npx @adeze/raindrop-mcp@latest",
+]
+
+[mcp_servers.zotero]
+command = "/Users/sejong/.cargo/bin/zotero-mcp"
