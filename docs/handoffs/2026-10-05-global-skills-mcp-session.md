@@ -7,9 +7,9 @@
 - 검증: 격리·SDK 회귀 테스트 18개 통과, 설정 일치·반복 적용·세 서버 연결 확인.
 - 앱 후속 검증: [앱 로딩 검증 기록](2026-10-05-agent-app-validation.md). Codex 새 CLI 서버·Claude 연결 성공, Antigravity Zotero 호환성 오류와 Codex 데스크톱 재로딩 확인이 남아 있다.
 - 남은 범위: 스킬 배포 자동화·UA 준비, Hermes `edith`, 프로젝트 중복·이벤트 훅.
-- Git: MCP 관련 변경은 `31ba585`로 커밋했다. 볼트 변경은 `30da3e0`, 로컬 스킬로
-  남긴 세션 로그는 `d845840`으로 커밋했다. dotfiles 스킬 분리·문서 변경은
-  후속 요청으로 선별 커밋하며 push는 수행하지 않는다.
+- Git: dotfiles MCP 구현 `31ba585`, 스킬 분리 `7d0fff7`, 앱 검증 기록 `24b4363`.
+  볼트 변경 `30da3e0`, 로컬 스킬로 남긴 세션 로그 `d845840`.
+  후속 사용자 요청으로 아래 작업 기록 갱신을 선별 커밋하고 dotfiles `main`을 푸시한다.
 
 ## 작업 목적과 승인 범위
 
@@ -83,12 +83,13 @@ Zotero MCP는 직접 제작 서버로 분류하지 않았다. 외부 코드의 �
 - 볼트의 `global-setup.sh`를 제거하고 `local-setup.sh` 호출부를 dotfiles 안내로 바꿨다.
   README·스킬 README·DEVONthink 본문·ADR-0002는 Obsidian CLI로 정리했다.
 - 글로벌 Codex·Claude·Antigravity 경로의 동일 원본 55개·깨진 링크 없음과
-  Zotero 상대 참조·설치 스크립트 구문을 확인했다. 실제 앱 내부 로딩은 미검증이다.
+  Zotero 상대 참조·설치 스크립트 구문을 확인했다. 당시 실제 앱 내부 로딩은 미검증이었고,
+  후속 결과는 [앱 로딩 검증 기록](2026-10-05-agent-app-validation.md)을 따른다.
 - 외부 스킬 설치 기록·본문·UA 원본·MCP 설정은 이번 분리에서 변경하지 않았다.
 
 볼트 스킬 변경은 `30da3e0`, 월별 세션 로그·hot 요약은 `d845840`으로 선별 커밋했다.
-볼트 작업 세션 토큰은 `07d04fdd1940`이다. dotfiles의 원본·관련 문서도 후속 요청으로
-선별 커밋한다. 아래 MCP 테스트는 이전 구현 단계의 결과다.
+볼트 작업 세션 토큰은 `07d04fdd1940`이다. dotfiles의 원본·관련 문서는 `7d0fff7`로
+선별 커밋했다. 아래 MCP 테스트는 이전 구현 단계의 결과다.
 
 ### MCP 구현 검증
 
@@ -150,11 +151,28 @@ Aerospace·스킬 잠금 기록·Claude 설정·셸 설정과 기존 미추적 �
 RunPod Dockerfile은 이번 MCP 구현 변경으로 취급하지 않는다. 이후 커밋 요청 시
 선택적으로 검토하며, Codex 설정의 기존 변경과 이전 MCP 추가도 구분한다.
 
+## 앱 검증·커밋·푸시 후속 기록
+
+사용자의 앱 검증 요청에 따라 다음을 확인하고 `24b4363`으로 문서 3개를 커밋했다.
+
+- Codex 새 CLI app-server: 공통 스킬 55개 발견, 오류 없음. MCP 도구 수 29·17·35개.
+- Claude Code: 세 MCP Connected, `Skill` 도구로 글로벌 Zotero 스킬 로드 성공.
+- Antigravity: 글로벌 Zotero 스킬 발견. Refresh 후 DEVONthink·Raindrop 연결 성공.
+  Zotero는 첫 요청 `server/discover`를 거부하며 종료한다. 같은 바이너리에 표준
+  `initialize`는 성공하고 `server/discover`는 종료 코드 1인 최소 재현으로 확인했다.
+- Codex 데스크톱 기존 세션은 proxy 응답 시간 초과 및 GUI 자동화 접근 제한으로 미확인.
+- 계정 데이터 조회·수정, 바이너리 업데이트, MCP 설정 변경은 실행하지 않았다.
+
+후속 요청은 작업 기록 갱신·커밋 후 dotfiles 원격 푸시다. 푸시 전 원격
+`origin/main`은 `18017bc4225e9d5fc49012d06e622511d540831f`로 확인했다.
+이번 기록 갱신 커밋과 기존 dotfiles 작업 커밋 3개를 정상 fast-forward로 푸시한다.
+기존 설정·압축·Dockerfile의 미커밋 변경은 포함하지 않는다. 볼트 푸시는 이번 범위가 아니다.
+
 ## 남은 작업과 다음 세션 시작
 
-- [ ] 세 에이전트 앱에서 실제 MCP 발견·재로딩을 확인한다.
+- [ ] Antigravity Zotero 초기 연결 호환성과 Codex 데스크톱 기존 세션 재로딩을 확인한다.
 - [x] 볼트 스킬 8개 검토, Zotero 글로벌 연결과 DEVONthink 로컬 분리를 적용한다.
-- [ ] 각 앱의 실제 스킬 로딩과 스킬 배포 자동화를 확인한다.
+- [ ] Codex 데스크톱 기존 세션의 스킬 로딩과 스킬 배포 자동화를 확인한다.
 - [ ] 외부 UA 원본 준비의 재현·자동화 범위를 검토한다.
 - [ ] `sejong-wiki`의 끊어진 Claude 프로젝트 스킬 링크 5개와 MCP 중복 등록을 검토한다.
 - [ ] Hermes `edith`의 생성·상속 범위를 확인하고 해당 프로필만 구성한다.
