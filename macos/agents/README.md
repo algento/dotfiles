@@ -3,6 +3,16 @@
 여러 AI 에이전트(Claude Code / Codex / Gemini·Antigravity)의 **재현 가능한 설정만** dotfiles로
 버전 관리하고, 인증 토큰·세션 히스토리·캐시 등 민감/런타임 데이터는 **원천 제외**한다.
 
+## 진행 계획
+
+- [현재 작업 인수인계](../../docs/handoffs/2026-10-05-agent-sync.md): 결정 맥락,
+  적용 상태, 검증 한계와 다음 세션의 작업 순서.
+- [공유 스킬 관리](../../docs/agents/shared-skills.md): 제작 출처, 설치·제외 목록,
+  Matt 스킬 업데이트 및 이름 변경, 프로젝트별 재설치와 복구 기준.
+- [macOS 에이전트 설정 동기화 계획](../../docs/plans/2026-10-05-macos-agent-sync.md):
+  Codex·Claude Code·Antigravity·Hermes `edith`의 공통 스킬·MCP·이벤트 관리.
+  현황과 합의 범위, 단계별 완료 기준, 다음 세션 인수인계를 기록한다.
+
 ## 적용
 
 ```bash
@@ -21,7 +31,7 @@ cd ~/Github/docs/dotfiles/macos && stow -t ~ agents
 | `.codex/config.toml` | Codex CLI 설정 |
 | `.gemini/settings.json` | Gemini/Antigravity 설정 |
 | `.gemini/trusted_hooks.json` | Gemini 신뢰 훅 목록 |
-| `.agents/skills/` | 에이전트 공유 커스텀 스킬 (`~/.claude/skills`가 이리로 링크) |
+| `.agents/skills/` | 공유 스킬 원본. Codex·Antigravity는 전체 경로 참조, Claude는 개별 스킬 링크 |
 | `.agents/.skill-lock.json` | 스킬 잠금 메타 |
 
 ## 제외 (절대 커밋 금지 — `.gitignore` 안전망 등록)
